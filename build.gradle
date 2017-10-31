@@ -1,6 +1,5 @@
 buildscript {
     
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -8,9 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
-        
-
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 }
 
@@ -24,8 +21,8 @@ allprojects {
         gdxVersion = '1.9.7'
         roboVMVersion = '2.3.1'
         box2DLightsVersion = '1.4'
-        ashleyVersion = '1.7.0'
-        aiVersion = '1.8.0'
+        ashleyVersion = '1.7.3'
+        aiVersion = '1.8.1'
     }
 
     repositories {
@@ -39,7 +36,6 @@ allprojects {
 project(":desktop") {
     apply plugin: "java"
 
-
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
@@ -47,7 +43,6 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
     }
 }
 
@@ -79,13 +74,11 @@ project(":android") {
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        
     }
 }
 
-project(":core") {
+project(":hvit-utils") {
     apply plugin: "java"
-
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -94,7 +87,14 @@ project(":core") {
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        
+    }
+}
+
+project(":core") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":hvit-utils")
     }
 }
 

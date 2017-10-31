@@ -1,1 +1,1 @@
-include 'desktop', 'android', 'core'
+include 'desktop', 'android', 'hvit-utils', 'core'
