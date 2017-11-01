@@ -3,8 +3,8 @@ package com.romantupikov.utils.entity;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 
-public class EntityCircleBase extends EntityBase {
-    private Circle bounds;
+public abstract class EntityCircleBase extends EntityBase {
+    protected Circle bounds;
 
     public EntityCircleBase(float radius) {
         super();

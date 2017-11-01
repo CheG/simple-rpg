@@ -8,8 +8,8 @@ import com.romantupikov.utils.MaterialColor;
 public abstract class EntityBase {
     protected Vector2 position;
     protected Vector2 velocity;
-    protected float width;
-    protected float height;
+    protected float width = 1f;
+    protected float height = 1f;
 
     protected Color debugColor;
 

@@ -3,10 +3,10 @@ package com.romantupikov.utils.entity;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
-public class EntityRectBase extends EntityBase {
-    private Rectangle bounds;
+public abstract class EntityRectBase extends EntityBase {
+    protected Rectangle bounds;
 
-    public EntityRectBase(float width, float height) {
+    public EntityRectBase() {
         super();
         bounds = new Rectangle(position.x, position.y, width, height);
         setSize(width, height);

@@ -24,5 +24,10 @@ public class AssetsPacker {
                 RAW_ASSETS_PATH + "/gameplay",
                 OUTPUT_ATLAS_PATH + "/gameplay",
                 "gameplay");
+
+        TexturePacker.process(settings,
+                RAW_ASSETS_PATH + "/ui",
+                OUTPUT_ATLAS_PATH + "/ui",
+                "ui");
     }
 }

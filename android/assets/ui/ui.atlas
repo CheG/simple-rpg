@@ -1,0 +1,31 @@
+
+ui.png
+size: 128,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bar-horiz-mid-red
+  rotate: false
+  xy: 96, 33
+  size: 18, 18
+  split: 0, 0, 2, 10
+  pad: 0, 0, 0, 0
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+btn-square-beige
+  rotate: false
+  xy: 2, 2
+  size: 45, 49
+  split: 7, 7, 16, 19
+  orig: 45, 49
+  offset: 0, 0
+  index: -1
+btn-square-biege-down
+  rotate: false
+  xy: 49, 6
+  size: 45, 45
+  split: 7, 7, 16, 15
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
