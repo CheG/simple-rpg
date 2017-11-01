@@ -10,6 +10,7 @@ public abstract class EntityBase {
     protected Vector2 velocity;
     protected float width = 1f;
     protected float height = 1f;
+    protected float rotation = 0f;
 
     protected Color debugColor;
 
@@ -59,6 +60,11 @@ public abstract class EntityBase {
         updateBounds();
     }
 
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+        updateBounds();
+    }
+
     public void setDebugColor(Color debugColor) {
         this.debugColor = debugColor;
     }
@@ -93,5 +99,9 @@ public abstract class EntityBase {
 
     public float getHeight() {
         return height;
+    }
+
+    public float getRotation() {
+        return rotation;
     }
 }

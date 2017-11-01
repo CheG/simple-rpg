@@ -3,6 +3,8 @@ package com.romantupikov.game.simplerpg.entity;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.romantupikov.utils.MaterialColor;
 import com.romantupikov.utils.entity.EntityRectBase;
 
 /**
@@ -10,21 +12,24 @@ import com.romantupikov.utils.entity.EntityRectBase;
  */
 
 public class UnitBase extends EntityRectBase {
-    protected TextureRegion region;
-    protected String name;
-    protected int hp;
-    protected int maxHp;
+    private static final float BASE_HIT_CHANCE = 60f;
 
-    protected int level;
+    protected TextureRegion region;
+
+    protected String name;
+    protected float hp;
+    protected float maxHp;
+    protected float level;
+    protected boolean dead;
 
     // Primary Stats
-    protected int strength;
-    protected int dexterity;
-    protected int endurance;
-    protected int spellpower;
+    protected float strength;
+    protected float dexterity;
+    protected float endurance;
+    protected float spellpower;
 
     // Secondary Stats
-    protected int defence;
+    protected float defence;
 
     protected float attackAction;
     protected float takeDamageAction;
@@ -34,31 +39,32 @@ public class UnitBase extends EntityRectBase {
         this.region = region;
         this.name = name;
         this.level = level;
+        dead = false;
     }
 
-    public void takeDamage(int dmg) {
+    public void takeDamage(float dmg) {
         this.takeDamageAction = 1.0f;
         hp -= dmg;
+        if (hp <= 0f)
+            death();
+
     }
 
     public void render(final SpriteBatch batch) {
         if (takeDamageAction > 0) {
             batch.setColor(1f, 1f - takeDamageAction, 1f - takeDamageAction, 1f);
         }
-//
-//        container = new NinePatch(containerRegion, 5, 5, 2, 2);
-//        //Offset it by the dynamic bar, let's say the gradient is 4 high.
-//        container.draw(batch, 5, 8, totalBarWidth + 10, 8);
-//        health.draw(batch, 10, 10, width, 4);
+        if (dead)
+            batch.setColor(MaterialColor.BLUE_GREY);
 
         float dx = (0.2f * (float) Math.sin((1f - attackAction) * 3.14f));
         if (region.isFlipX()) dx *= -1;
         batch.draw(region,
                 position.x + dx, position.y,
-                0, 0,
+                0f, 0f,
                 width, height,
-                1, 1,
-                0);
+                1f, 1f,
+                rotation);
         batch.setColor(1f, 1f, 1f, 1f);
     }
 
@@ -72,36 +78,52 @@ public class UnitBase extends EntityRectBase {
     }
 
     public void meleeAttack(UnitBase enemy) {
-        int dmg = this.strength - enemy.defence;
+        float dmg = this.strength - enemy.defence;
         if (dmg < 0) {
             dmg = 0;
         }
-        this.attackAction = 1.0f;
-        enemy.takeDamage(dmg);
+        this.attackAction = 0.7f;
+        if (MathUtils.random(100) <= BASE_HIT_CHANCE + dexterity * 1.5f) {
+            enemy.takeDamage(dmg);
+        }
     }
 
-    public int getHp() {
+    private void death() {
+        dead = true;
+        rotation = -90f;
+        setPosition(position.x, position.y + height - 0.1f);
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public float getHp() {
         return hp;
     }
 
-    public int getStrength() {
+    public float getStrength() {
         return strength;
     }
 
-    public int getDexterity() {
+    public float getDexterity() {
         return dexterity;
     }
 
-    public int getEndurance() {
+    public float getEndurance() {
         return endurance;
     }
 
-    public int getSpellpower() {
+    public float getSpellpower() {
         return spellpower;
     }
 
-    public int getDefence() {
+    public float getDefence() {
         return defence;
+    }
+
+    public float getMaxHp() {
+        return maxHp;
     }
 
     public TextureRegion getRegion() {

@@ -16,7 +16,10 @@ public abstract class EntityRectBase extends EntityBase {
     public void drawDebug(ShapeRenderer renderer) {
         renderer.setColor(debugColor);
         renderer.rect(bounds.x, bounds.y,
-                bounds.width, bounds.height);
+                0f, 0f,
+                bounds.width, bounds.height,
+                1f, 1f,
+                rotation);
         renderer.x(bounds.x, bounds.y, 0.1f);
     }
 

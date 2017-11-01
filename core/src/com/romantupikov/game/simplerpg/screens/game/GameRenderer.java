@@ -25,7 +25,7 @@ import com.romantupikov.utils.MaterialColor;
  * Created by hvitserk on 01-Nov-17.
  */
 
-public class GameRenderer implements Disposable {
+public class GameRenderer implements Disposable, Observer {
     private final GlyphLayout glyphLayout = new GlyphLayout();
     private final GameController controller;
     private final AssetManager assetManager;
@@ -37,17 +37,19 @@ public class GameRenderer implements Disposable {
     private Viewport hudViewport;
 
     private Stage stage;
-    private ProgressBar healthBar;
+    private ProgressBar heroHealthBar;
+    private ProgressBar selUnitHealthBar;
     private BitmapFont font;
 
     private ShapeRenderer renderer;
-//    private DebugCameraController debugCameraController;
 
     private UnitBase hero;
+    private UnitBase selUnit;
     private Array<UnitBase> units;
 
     public GameRenderer(SpriteBatch batch, AssetManager assetManager, GameController gameController, Viewport viewport) {
         this.controller = gameController;
+        this.controller.registerObserver(this);
         this.assetManager = assetManager;
         this.batch = batch;
         this.viewport = viewport;
@@ -65,16 +67,26 @@ public class GameRenderer implements Disposable {
         stage = new Stage(hudViewport, batch);
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);
 
-        healthBar = new ProgressBar(0f, hero.getHp(), 1f, false, uiSkin);
-        healthBar.setPosition(50, GameConfig.HUD_HEIGHT - 70f);
-        healthBar.setSize(200f, 30f);
-        healthBar.setAnimateDuration(0.55f);
-        healthBar.setAnimateInterpolation(Interpolation.elasticOut);
+        heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
+        heroHealthBar.setValue(hero.getHp() * (100f/hero.getMaxHp()));
+        heroHealthBar.setPosition(50, GameConfig.HUD_HEIGHT - 70f);
+        heroHealthBar.setSize(300f, 50f);
+        heroHealthBar.setAnimateDuration(0.55f);
+        heroHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
+
+        selUnitHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
+        selUnitHealthBar.setValue(100f);
+        selUnitHealthBar.setPosition(GameConfig.HUD_WIDTH - 350f, GameConfig.HUD_HEIGHT - 70f);
+        selUnitHealthBar.setSize(300f, 50f);
+        selUnitHealthBar.setAnimateDuration(0.55f);
+        selUnitHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
+        selUnitHealthBar.setVisible(false);
 
         font = assetManager.get(AssetsDescriptors.FONT_32);
         glyphLayout.setText(font, "HP");
 
-        stage.addActor(healthBar);
+        stage.addActor(heroHealthBar);
+        stage.addActor(selUnitHealthBar);
     }
 
     public void render(float delta) {
@@ -104,7 +116,6 @@ public class GameRenderer implements Disposable {
 
     private void renderUI(float delta) {
         hudViewport.apply();
-        healthBar.setValue(hero.getHp());
         stage.act();
         stage.draw();
     }
@@ -122,6 +133,11 @@ public class GameRenderer implements Disposable {
     private void drawDebug() {
         hero.drawDebug(renderer);
         for (int i = 0; i < units.size; i++) {
+            if (selUnit != null)
+                if (selUnit == units.get(i))
+                    units.get(i).setDebugColor(MaterialColor.AMBER);
+                else
+                    units.get(i).setDebugColor(MaterialColor.RED);
             units.get(i).drawDebug(renderer);
         }
     }
@@ -129,6 +145,17 @@ public class GameRenderer implements Disposable {
     public void resize(int width, int height) {
         viewport.update(width, height, true);
         hudViewport.update(width, height, true);
+    }
+
+    @Override
+    public void update() {
+        heroHealthBar.setValue(hero.getHp() * (100f/hero.getMaxHp()));
+
+        selUnit = controller.getSelectedUnit();
+        if (selUnit != null) {
+            selUnitHealthBar.setVisible(true);
+            selUnitHealthBar.setValue(selUnit.getHp() * (100f / selUnit.getMaxHp()));
+        }
     }
 
     @Override

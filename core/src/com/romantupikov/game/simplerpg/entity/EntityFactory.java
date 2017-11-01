@@ -10,7 +10,7 @@ import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
  */
 
 public class EntityFactory {
-    private static final int BASE_MAX_HP = 5;
+    private static final float BASE_MAX_HP = 5;
 
     private final AssetManager assetManager;
     private TextureAtlas gameplay;
@@ -31,7 +31,7 @@ public class EntityFactory {
         hero.endurance = endurance;
         hero.spellpower = spellpower;
         hero.defence = defence;
-        hero.maxHp = BASE_MAX_HP + endurance + level;
+        hero.maxHp = BASE_MAX_HP + endurance + level + 50;
         hero.hp = hero.maxHp;
         hero.getRegion().flip(flipX, false);
 
@@ -41,11 +41,11 @@ public class EntityFactory {
     public UnitBase createGoblin(String textureRegionName, boolean flipX, String name, int level) {
         TextureRegion region = gameplay.findRegion(textureRegionName);
         UnitBase goblin = new UnitBase(region, name, level);
-        goblin.strength = 1 + level;
-        goblin.dexterity = 3 + level;
-        goblin.endurance = 1 + level;
-        goblin.spellpower = 0 + level;
-        goblin.defence = 1 + level;
+        goblin.strength = 1f + level;
+        goblin.dexterity = 3f + level;
+        goblin.endurance = 1f + level;
+        goblin.spellpower = 0f + level;
+        goblin.defence = 1f + level;
         goblin.maxHp = BASE_MAX_HP + goblin.endurance + goblin.level;
         goblin.hp = goblin.maxHp;
         goblin.getRegion().flip(flipX, false);
