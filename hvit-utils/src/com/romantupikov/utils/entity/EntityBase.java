@@ -11,6 +11,7 @@ public abstract class EntityBase {
     protected float width = 1f;
     protected float height = 1f;
     protected float rotation = 0f;
+    protected float origX, origY;
 
     protected Color debugColor;
 

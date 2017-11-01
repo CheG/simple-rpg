@@ -1,8 +1,10 @@
 package com.romantupikov.game.simplerpg.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.romantupikov.utils.MaterialColor;
 import com.romantupikov.utils.entity.EntityRectBase;
@@ -34,6 +36,8 @@ public class UnitBase extends EntityRectBase {
     protected float attackAction;
     protected float takeDamageAction;
 
+    float delta;
+
     public UnitBase(TextureRegion region, String name, int level) {
         super();
         this.region = region;
@@ -47,28 +51,43 @@ public class UnitBase extends EntityRectBase {
         hp -= dmg;
         if (hp <= 0f)
             death();
-
     }
 
     public void render(final SpriteBatch batch) {
         if (takeDamageAction > 0) {
             batch.setColor(1f, 1f - takeDamageAction, 1f - takeDamageAction, 1f);
         }
-        if (dead)
+        if (dead) {
             batch.setColor(MaterialColor.BLUE_GREY);
+            deathAnim();
+        }
 
         float dx = (0.2f * (float) Math.sin((1f - attackAction) * 3.14f));
         if (region.isFlipX()) dx *= -1;
         batch.draw(region,
                 position.x + dx, position.y,
-                0f, 0f,
+                origX, origY,
                 width, height,
                 1f, 1f,
                 rotation);
         batch.setColor(1f, 1f, 1f, 1f);
     }
 
+    private void deathAnim() {
+        origX = width / 2f;
+        origY = height / 2f;
+        if (region.isFlipX()) {
+            if (rotation >= -60f) {
+                rotation -= delta * 350f;
+            }
+        } else
+            if (rotation <= 60f) {
+                rotation += delta * 350f;
+            }
+    }
+
     public void update(float dt) {
+        delta = dt;
         if (takeDamageAction > 0) {
             takeDamageAction -= dt;
         }
@@ -90,8 +109,7 @@ public class UnitBase extends EntityRectBase {
 
     private void death() {
         dead = true;
-        rotation = -90f;
-        setPosition(position.x, position.y + height - 0.1f);
+//        setPosition(position.x, position.y + height - 0.1f);
     }
 
     public boolean isDead() {
@@ -128,5 +146,13 @@ public class UnitBase extends EntityRectBase {
 
     public TextureRegion getRegion() {
         return region;
+    }
+
+    @Override
+    public String toString() {
+        return "=== " + name + " ===" +
+                "\nlevel: " + level +
+                "\nhealth: " + hp + "/" + maxHp +
+                "\nhit chance: " + (BASE_HIT_CHANCE + dexterity * 1.5f);
     }
 }

@@ -31,7 +31,7 @@ public class EntityFactory {
         hero.endurance = endurance;
         hero.spellpower = spellpower;
         hero.defence = defence;
-        hero.maxHp = BASE_MAX_HP + endurance + level + 50;
+        hero.maxHp = BASE_MAX_HP + endurance + level;
         hero.hp = hero.maxHp;
         hero.getRegion().flip(flipX, false);
 

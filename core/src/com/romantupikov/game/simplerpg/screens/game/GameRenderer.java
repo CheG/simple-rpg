@@ -62,7 +62,7 @@ public class GameRenderer implements Disposable, Observer {
         hudCamera = new OrthographicCamera();
         hudViewport = new FitViewport(GameConfig.WIDTH, GameConfig.HEIGHT);
         hero = controller.getHero();
-        units = controller.getUnits();
+        units = controller.getEnemyParty();
 
         stage = new Stage(hudViewport, batch);
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);

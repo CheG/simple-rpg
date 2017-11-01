@@ -32,7 +32,8 @@ public class GameController extends InputAdapter implements Observable {
 
     private UnitBase hero;
     private UnitBase selectedUnit;
-    private Array<UnitBase> units = new Array<UnitBase>();
+    private Array<UnitBase> enemyParty = new Array<UnitBase>();
+    private Array<UnitBase> playerParty = new Array<UnitBase>();
 
     private boolean playerTurn;
     private float turnDelayTimer;
@@ -51,22 +52,25 @@ public class GameController extends InputAdapter implements Observable {
 
         factory = new EntityFactory(assetManager);
 
-        hero = factory.createHero(RegionsNames.DWARF_BASE, false, "Vasya", 1,
-                9, 3, 3, 3, 1);
+        // == init player party ==
+        hero = factory.createHero(RegionsNames.DWARF_MACE, false, "Vasya", 1,
+                5, 3, 2, 3, 1);
         hero.setPosition(5f, GameConfig.WORLD_HEIGHT / 2f - 1f);
 
-        UnitBase goblin = factory.createGoblin(RegionsNames.GOBLIN_BASE, true, "Kek", 1);
+
+        // == init enemy party ==
+        UnitBase goblin = factory.createGoblin(RegionsNames.GOBLIN_ELITE_AXE, true, "Kek", 1);
         goblin.setPosition(GameConfig.WORLD_WIDTH - 6f, GameConfig.WORLD_HEIGHT / 2f - 1f);
 
-        UnitBase goblin1 = factory.createGoblin(RegionsNames.GOBLIN_BASE, false, "Cheburek", 1);
+        UnitBase goblin1 = factory.createGoblin(RegionsNames.GOBLIN_ARCHER, true, "Cheburek", 1);
         goblin1.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f - 3f);
 
-        UnitBase goblin2 = factory.createGoblin(RegionsNames.GOBLIN_BASE, false, "Lol", 1);
+        UnitBase goblin2 = factory.createGoblin(RegionsNames.GOBLIN_NINJA, true, "Lol", 1);
         goblin2.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f + 1f);
 
-        units.add(goblin);
-        units.add(goblin1);
-        units.add(goblin2);
+        enemyParty.add(goblin);
+        enemyParty.add(goblin1);
+        enemyParty.add(goblin2);
 
         playerTurn = true;
     }
@@ -79,24 +83,23 @@ public class GameController extends InputAdapter implements Observable {
         updateUnits(delta);
     }
 
-    // TODO: 01-Nov-17 Сделать переход хода
     private void updateUnits(float delta) {
         hero.update(delta);
 
-        for (int i = 0; i < units.size; i++) {
-            units.get(i).update(delta);
+        for (int i = 0; i < enemyParty.size; i++) {
+            enemyParty.get(i).update(delta);
         }
 
         if (!playerTurn) {
             turnDelayTimer += delta;
             if (turnDelayTimer >= TURN_DELAY) {
-                if (!units.get(unitIndex).isDead()) {
-                    units.get(unitIndex).meleeAttack(hero);
+                if (!enemyParty.get(unitIndex).isDead()) {
+                    enemyParty.get(unitIndex).meleeAttack(hero);
                     turnDelayTimer = 0;
                 }
                 notifyObservers();
                 unitIndex++;
-                if (unitIndex >= units.size) {
+                if (unitIndex >= enemyParty.size) {
                     unitIndex = 0;
                     playerTurn = true;
                 }
@@ -110,12 +113,6 @@ public class GameController extends InputAdapter implements Observable {
         return false;
     }
 
-    public void meleeAttack() {
-        hero.meleeAttack(selectedUnit);
-        notifyObservers();
-        playerTurn = false;
-    }
-
     public UnitBase getHero() {
         return hero;
     }
@@ -124,26 +121,29 @@ public class GameController extends InputAdapter implements Observable {
         return selectedUnit;
     }
 
-    public Array<UnitBase> getUnits() {
-        return units;
+    public Array<UnitBase> getEnemyParty() {
+        return enemyParty;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
         if (playerTurn) {
-            for (int i = 0; i < units.size; i++) {
-                if (units.get(i).getBounds().contains(worldTouch)) {
-                    if (units.get(i) == selectedUnit) {
-                        if (!units.get(i).isDead()) {
-                            hero.meleeAttack(units.get(i));
+            for (int i = 0; i < enemyParty.size; i++) {
+                UnitBase enemy = enemyParty.get(i);
+                if (enemy.getBounds().contains(worldTouch)) {
+                    if (enemy == selectedUnit) {
+                        if (!enemy.isDead()) {
+                            hero.meleeAttack(enemyParty.get(i));
+                            Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n\t" + hero.toString());
+                            Gdx.app.debug("", "Target\n\t" + enemy.toString() + "\n========");
                             playerTurn = false;
                         }
                     } else {
-                        selectedUnit = units.get(i);
+                        Gdx.app.debug("", "Target\n" + enemy.toString());
+                        selectedUnit = enemy;
                     }
                     notifyObservers();
-                    Gdx.app.debug("", "hero hp: " + hero.getHp());
                     break;
                 }
             }
