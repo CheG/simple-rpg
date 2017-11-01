@@ -38,7 +38,7 @@ public class UnitBase extends EntityRectBase {
 
     float delta;
 
-    public UnitBase(TextureRegion region, String name, int level) {
+    public UnitBase(TextureRegion region, String name, float level) {
         super();
         this.region = region;
         this.name = name;

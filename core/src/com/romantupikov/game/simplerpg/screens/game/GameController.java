@@ -30,8 +30,8 @@ public class GameController extends InputAdapter implements Observable {
 
     private EntityFactory factory;
 
-    private UnitBase hero;
-    private UnitBase selectedUnit;
+    private UnitBase selectedHero;
+    private UnitBase selectedEnemy;
     private Array<UnitBase> enemyParty = new Array<UnitBase>();
     private Array<UnitBase> playerParty = new Array<UnitBase>();
 
@@ -53,24 +53,36 @@ public class GameController extends InputAdapter implements Observable {
         factory = new EntityFactory(assetManager);
 
         // == init player party ==
-        hero = factory.createHero(RegionsNames.DWARF_MACE, false, "Vasya", 1,
-                5, 3, 2, 3, 1);
-        hero.setPosition(5f, GameConfig.WORLD_HEIGHT / 2f - 1f);
+        UnitBase dwarf = factory.createHero(RegionsNames.DWARF_HUNTER, false, "Archer", 1f,
+                3f, 8f, 1f, 1f, 1f);
+        dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f - 3f);
+        playerParty.add(dwarf);
+        selectedHero = dwarf;
+
+        dwarf = factory.createHero(RegionsNames.DWARF_MACE, false, "Vasya", 1f,
+                6f, 4f, 4f, 0f, 4f);
+        dwarf.setPosition(5f, GameConfig.WORLD_HEIGHT / 2f - 1f);
+        playerParty.add(dwarf);
+
+        dwarf = factory.createHero(RegionsNames.DWARF_RUNEMASTER, false, "Hvitserk", 1f,
+                2f, 3f, 1f, 9f, 1f);
+        dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f + 1f);
+        playerParty.add(dwarf);
 
 
         // == init enemy party ==
         UnitBase goblin = factory.createGoblin(RegionsNames.GOBLIN_ELITE_AXE, true, "Kek", 1);
         goblin.setPosition(GameConfig.WORLD_WIDTH - 6f, GameConfig.WORLD_HEIGHT / 2f - 1f);
-
-        UnitBase goblin1 = factory.createGoblin(RegionsNames.GOBLIN_ARCHER, true, "Cheburek", 1);
-        goblin1.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f - 3f);
-
-        UnitBase goblin2 = factory.createGoblin(RegionsNames.GOBLIN_NINJA, true, "Lol", 1);
-        goblin2.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f + 1f);
-
         enemyParty.add(goblin);
-        enemyParty.add(goblin1);
-        enemyParty.add(goblin2);
+
+        goblin = factory.createGoblin(RegionsNames.GOBLIN_ARCHER, true, "Cheburek", 1);
+        goblin.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f - 3f);
+        enemyParty.add(goblin);
+
+        goblin = factory.createGoblin(RegionsNames.GOBLIN_NINJA, true, "Lol", 1);
+        goblin.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f + 1f);
+        enemyParty.add(goblin);
+
 
         playerTurn = true;
     }
@@ -84,7 +96,9 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     private void updateUnits(float delta) {
-        hero.update(delta);
+        for (int i = 0; i < playerParty.size; i++) {
+            playerParty.get(i).update(delta);
+        }
 
         for (int i = 0; i < enemyParty.size; i++) {
             enemyParty.get(i).update(delta);
@@ -94,7 +108,8 @@ public class GameController extends InputAdapter implements Observable {
             turnDelayTimer += delta;
             if (turnDelayTimer >= TURN_DELAY) {
                 if (!enemyParty.get(unitIndex).isDead()) {
-                    enemyParty.get(unitIndex).meleeAttack(hero);
+                    // TODO: 01-Nov-17 добавить выбор по уровню угрозы
+                    enemyParty.get(unitIndex).meleeAttack(selectedHero);
                     turnDelayTimer = 0;
                 }
                 notifyObservers();
@@ -109,20 +124,24 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     public boolean isGameOver() {
-//        return hero.getHp() <= 0;
+//        return selectedHero.getHp() <= 0;
         return false;
     }
 
-    public UnitBase getHero() {
-        return hero;
+    public UnitBase getSelectedHero() {
+        return selectedHero;
     }
 
-    public UnitBase getSelectedUnit() {
-        return selectedUnit;
+    public UnitBase getSelectedEnemy() {
+        return selectedEnemy;
     }
 
     public Array<UnitBase> getEnemyParty() {
         return enemyParty;
+    }
+
+    public Array<UnitBase> getPlayerParty() {
+        return playerParty;
     }
 
     @Override
@@ -132,16 +151,27 @@ public class GameController extends InputAdapter implements Observable {
             for (int i = 0; i < enemyParty.size; i++) {
                 UnitBase enemy = enemyParty.get(i);
                 if (enemy.getBounds().contains(worldTouch)) {
-                    if (enemy == selectedUnit) {
+                    if (enemy == selectedEnemy) {
                         if (!enemy.isDead()) {
-                            hero.meleeAttack(enemyParty.get(i));
-                            Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n\t" + hero.toString());
+                            selectedHero.meleeAttack(enemy);
+                            Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n\t" + selectedHero.toString());
                             Gdx.app.debug("", "Target\n\t" + enemy.toString() + "\n========");
                             playerTurn = false;
                         }
                     } else {
                         Gdx.app.debug("", "Target\n" + enemy.toString());
-                        selectedUnit = enemy;
+                        selectedEnemy = enemy;
+                    }
+                    notifyObservers();
+                    break;
+                }
+            }
+            for (int i = 0; i < playerParty.size; i++) {
+                UnitBase hero = playerParty.get(i);
+                if (hero.getBounds().contains(worldTouch)) {
+                    if (hero != selectedHero) {
+                        Gdx.app.debug("", "Selected Hero\n" + hero.toString());
+                        selectedHero = hero;
                     }
                     notifyObservers();
                     break;

@@ -20,9 +20,9 @@ public class EntityFactory {
         gameplay = assetManager.get(AssetsDescriptors.GAMEPLAY);
     }
 
-    public UnitBase createHero(String textureRegionName, boolean flipX, String name, int level,
-                               int strength, int dexterity, int endurance, int spellpower,
-                               int defence) {
+    public UnitBase createHero(String textureRegionName, boolean flipX, String name, float level,
+                               float strength, float dexterity, float endurance, float spellpower,
+                               float defence) {
 
         TextureRegion region = gameplay.findRegion(textureRegionName);
         UnitBase hero = new UnitBase(region, name, level);
@@ -38,7 +38,7 @@ public class EntityFactory {
         return hero;
     }
 
-    public UnitBase createGoblin(String textureRegionName, boolean flipX, String name, int level) {
+    public UnitBase createGoblin(String textureRegionName, boolean flipX, String name, float level) {
         TextureRegion region = gameplay.findRegion(textureRegionName);
         UnitBase goblin = new UnitBase(region, name, level);
         goblin.strength = 1f + level;

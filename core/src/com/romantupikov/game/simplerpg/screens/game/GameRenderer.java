@@ -43,9 +43,10 @@ public class GameRenderer implements Disposable, Observer {
 
     private ShapeRenderer renderer;
 
-    private UnitBase hero;
-    private UnitBase selUnit;
-    private Array<UnitBase> units;
+    private UnitBase selectedHero;
+    private UnitBase selectedEnemy;
+    private Array<UnitBase> enemyParty;
+    private Array<UnitBase> playerParty;
 
     public GameRenderer(SpriteBatch batch, AssetManager assetManager, GameController gameController, Viewport viewport) {
         this.controller = gameController;
@@ -61,14 +62,16 @@ public class GameRenderer implements Disposable, Observer {
         renderer = new ShapeRenderer();
         hudCamera = new OrthographicCamera();
         hudViewport = new FitViewport(GameConfig.WIDTH, GameConfig.HEIGHT);
-        hero = controller.getHero();
-        units = controller.getEnemyParty();
+
+        selectedHero = controller.getSelectedHero();
+        enemyParty = controller.getEnemyParty();
+        playerParty = controller.getPlayerParty();
 
         stage = new Stage(hudViewport, batch);
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);
 
         heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
-        heroHealthBar.setValue(hero.getHp() * (100f/hero.getMaxHp()));
+        heroHealthBar.setValue(selectedHero.getHp() * (100f/ selectedHero.getMaxHp()));
         heroHealthBar.setPosition(50, GameConfig.HUD_HEIGHT - 70f);
         heroHealthBar.setSize(300f, 50f);
         heroHealthBar.setAnimateDuration(0.55f);
@@ -108,9 +111,11 @@ public class GameRenderer implements Disposable, Observer {
     }
 
     private void draw() {
-        hero.render(batch);
-        for (int i = 0; i < units.size; i++) {
-            units.get(i).render(batch);
+        for (int i = 0; i < enemyParty.size; i++) {
+            enemyParty.get(i).render(batch);
+        }
+        for (int i = 0; i < playerParty.size; i++) {
+            playerParty.get(i).render(batch);
         }
     }
 
@@ -131,14 +136,23 @@ public class GameRenderer implements Disposable, Observer {
     }
 
     private void drawDebug() {
-        hero.drawDebug(renderer);
-        for (int i = 0; i < units.size; i++) {
-            if (selUnit != null)
-                if (selUnit == units.get(i))
-                    units.get(i).setDebugColor(MaterialColor.AMBER);
+        for (int i = 0; i < enemyParty.size; i++) {
+            UnitBase enemy = enemyParty.get(i);
+            if (selectedEnemy != null)
+                if (selectedEnemy == enemy)
+                    enemy.setDebugColor(MaterialColor.AMBER);
                 else
-                    units.get(i).setDebugColor(MaterialColor.RED);
-            units.get(i).drawDebug(renderer);
+                    enemy.setDebugColor(MaterialColor.RED);
+            enemy.drawDebug(renderer);
+        }
+        for (int i = 0; i < playerParty.size; i++) {
+            UnitBase hero = playerParty.get(i);
+            if (selectedHero != null)
+                if (selectedHero == hero)
+                    hero.setDebugColor(MaterialColor.LIGHT_GREEN);
+                else
+                    hero.setDebugColor(MaterialColor.PINK);
+            hero.drawDebug(renderer);
         }
     }
 
@@ -149,12 +163,13 @@ public class GameRenderer implements Disposable, Observer {
 
     @Override
     public void update() {
-        heroHealthBar.setValue(hero.getHp() * (100f/hero.getMaxHp()));
+        selectedHero = controller.getSelectedHero();
+        heroHealthBar.setValue(selectedHero.getHp() * (100f/ selectedHero.getMaxHp()));
 
-        selUnit = controller.getSelectedUnit();
-        if (selUnit != null) {
+        selectedEnemy = controller.getSelectedEnemy();
+        if (selectedEnemy != null) {
             selUnitHealthBar.setVisible(true);
-            selUnitHealthBar.setValue(selUnit.getHp() * (100f / selUnit.getMaxHp()));
+            selUnitHealthBar.setValue(selectedEnemy.getHp() * (100f / selectedEnemy.getMaxHp()));
         }
     }
 
