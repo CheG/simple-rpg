@@ -36,6 +36,9 @@ public class UnitBase extends EntityRectBase {
     protected float attackAction;
     protected float takeDamageAction;
 
+    // == controller fields ==
+    protected boolean moved;
+
     float delta;
 
     public UnitBase(TextureRegion region, String name, float level) {
@@ -44,14 +47,10 @@ public class UnitBase extends EntityRectBase {
         this.name = name;
         this.level = level;
         dead = false;
+        moved = false;
     }
 
-    public void takeDamage(float dmg) {
-        this.takeDamageAction = 1.0f;
-        hp -= dmg;
-        if (hp <= 0f)
-            death();
-    }
+    // == public methods ==
 
     public void render(final SpriteBatch batch) {
         if (takeDamageAction > 0) {
@@ -73,19 +72,6 @@ public class UnitBase extends EntityRectBase {
         batch.setColor(1f, 1f, 1f, 1f);
     }
 
-    private void deathAnim() {
-        origX = width / 2f;
-        origY = height / 2f;
-        if (region.isFlipX()) {
-            if (rotation >= -60f) {
-                rotation -= delta * 350f;
-            }
-        } else
-            if (rotation <= 60f) {
-                rotation += delta * 350f;
-            }
-    }
-
     public void update(float dt) {
         delta = dt;
         if (takeDamageAction > 0) {
@@ -105,11 +91,39 @@ public class UnitBase extends EntityRectBase {
         if (MathUtils.random(100) <= BASE_HIT_CHANCE + dexterity * 1.5f) {
             enemy.takeDamage(dmg);
         }
+        moved = true;
+    }
+
+    // == private methods
+
+    private void takeDamage(float dmg) {
+        this.takeDamageAction = 1.0f;
+        hp -= dmg;
+        if (hp <= 0f)
+            death();
+    }
+
+    private void deathAnim() {
+        origX = width / 2f;
+        origY = height / 2f;
+        if (region.isFlipX()) {
+            if (rotation >= -60f) {
+                rotation -= delta * 350f;
+            }
+        } else
+        if (rotation <= 60f) {
+            rotation += delta * 350f;
+        }
     }
 
     private void death() {
         dead = true;
-//        setPosition(position.x, position.y + height - 0.1f);
+    }
+
+    // == getters/setters ==
+
+    public void setMoved(boolean moved) {
+        this.moved = moved;
     }
 
     public boolean isDead() {
@@ -142,6 +156,10 @@ public class UnitBase extends EntityRectBase {
 
     public float getMaxHp() {
         return maxHp;
+    }
+
+    public boolean isMoved() {
+        return moved;
     }
 
     public TextureRegion getRegion() {

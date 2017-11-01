@@ -48,8 +48,6 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     private void init() {
-        Gdx.input.setInputProcessor(this);
-
         factory = new EntityFactory(assetManager);
 
         // == init player party ==
@@ -144,6 +142,17 @@ public class GameController extends InputAdapter implements Observable {
         return playerParty;
     }
 
+    // TODO: 01-Nov-17 придумать получше название метода))
+    public void endPlayerTurn(boolean end) {
+        this.playerTurn = !end;
+        for (int i = 0; i < enemyParty.size; i++) {
+            enemyParty.get(i).setMoved(false);
+        }
+        for (int i = 0; i < playerParty.size; i++) {
+            playerParty.get(i).setMoved(false);
+        }
+    }
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
@@ -151,12 +160,11 @@ public class GameController extends InputAdapter implements Observable {
             for (int i = 0; i < enemyParty.size; i++) {
                 UnitBase enemy = enemyParty.get(i);
                 if (enemy.getBounds().contains(worldTouch)) {
-                    if (enemy == selectedEnemy) {
+                    if (enemy == selectedEnemy && !selectedHero.isMoved()) {
                         if (!enemy.isDead()) {
                             selectedHero.meleeAttack(enemy);
                             Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n\t" + selectedHero.toString());
                             Gdx.app.debug("", "Target\n\t" + enemy.toString() + "\n========");
-                            playerTurn = false;
                         }
                     } else {
                         Gdx.app.debug("", "Target\n" + enemy.toString());

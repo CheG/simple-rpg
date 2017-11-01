@@ -1,5 +1,7 @@
 package com.romantupikov.game.simplerpg.screens.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -8,9 +10,17 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -40,6 +50,7 @@ public class GameRenderer implements Disposable, Observer {
     private ProgressBar heroHealthBar;
     private ProgressBar selUnitHealthBar;
     private BitmapFont font;
+    private Button btnNextTurn;
 
     private ShapeRenderer renderer;
 
@@ -68,6 +79,13 @@ public class GameRenderer implements Disposable, Observer {
         playerParty = controller.getPlayerParty();
 
         stage = new Stage(hudViewport, batch);
+
+        // TODO: 01-Nov-17 это не должно быть в рендер классе
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(controller);
+        inputMultiplexer.addProcessor(stage);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);
 
         heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
@@ -88,8 +106,17 @@ public class GameRenderer implements Disposable, Observer {
         font = assetManager.get(AssetsDescriptors.FONT_32);
         glyphLayout.setText(font, "HP");
 
+        btnNextTurn = new TextButton("TURN", uiSkin);
+        btnNextTurn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.endPlayerTurn(true);
+            }
+        });
+
         stage.addActor(heroHealthBar);
         stage.addActor(selUnitHealthBar);
+        stage.addActor(btnNextTurn);
     }
 
     public void render(float delta) {

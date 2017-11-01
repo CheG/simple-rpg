@@ -16,6 +16,15 @@
       "b": 0,
       "g": 0,
       "r": 0
+    },
+    "brown": {
+      "hex": "#795548"
+    },
+    "brown-700": {
+      "hex": "#5D4037"
+    },
+    "brown-900": {
+      "hex": "#3E2723"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
@@ -29,9 +38,9 @@
       "down": "btn-square-beige-down",
       "up": "btn-square-beige",
       "font": "default-font",
-      "fontColor": "white",
-      "downFontColor": "black"
-      "overFontColor": "black"
+      "fontColor": "brown",
+      "downFontColor": "brown-900"
+      "overFontColor": "brown-700"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
