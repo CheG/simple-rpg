@@ -32,6 +32,7 @@ public class EntityFactory {
         hero.spellpower = spellpower;
         hero.defence = defence;
         hero.maxHp = BASE_MAX_HP + endurance + level;
+        hero.hp = hero.maxHp;
         hero.getRegion().flip(flipX, false);
 
         return hero;
@@ -46,6 +47,7 @@ public class EntityFactory {
         goblin.spellpower = 0 + level;
         goblin.defence = 1 + level;
         goblin.maxHp = BASE_MAX_HP + goblin.endurance + goblin.level;
+        goblin.hp = goblin.maxHp;
         goblin.getRegion().flip(flipX, false);
 
         return goblin;

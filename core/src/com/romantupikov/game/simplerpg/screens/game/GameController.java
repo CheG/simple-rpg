@@ -92,6 +92,7 @@ public class GameController extends InputAdapter {
                 if (units.get(i).getBounds().contains(worldTouch)) {
                     hero.meleeAttack(units.get(i));
                     playerTurn = false;
+                    Gdx.app.debug("", "hero hp: " + hero.getHp());
                     break;
                 }
             }

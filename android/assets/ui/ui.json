@@ -20,14 +20,14 @@
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
     "default": {
-      "down": "btn-square-biege-down",
+      "down": "btn-square-beige-down",
       "up": "btn-square-beige"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
     "default": {
-      "down": "btn-square-biege-down",
-      "up": "btn-square-biege",
+      "down": "btn-square-beige-down",
+      "up": "btn-square-beige",
       "font": "default-font",
       "fontColor": "white",
       "downFontColor": "black"
@@ -38,6 +38,11 @@
     "default": {
       "font": "default-font",
       "fontColor": "white"
+    }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle": {
+    "default-horizontal": {
+      "knobBefore": "bar-horiz-mid-red"
     }
   }
 }

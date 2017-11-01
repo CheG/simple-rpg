@@ -9,4 +9,10 @@ public class AssetsPaths {
 
     // == atlases ==
     public static final String GAMEPLAY = "gameplay/gameplay.atlas";
+
+    // == fonts ==
+    public static final String FONT_32 = "font/kurale-32.fnt";
+
+    // == skins ==
+    public static final String UI_SKIN = "ui/ui.json";
 }

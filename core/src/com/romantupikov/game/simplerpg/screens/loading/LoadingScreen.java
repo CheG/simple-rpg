@@ -46,6 +46,8 @@ public class LoadingScreen extends ScreenAdapter {
         renderer.setColor(MaterialColor.LIGHT_BLUE);
 
         assetManager.load(AssetsDescriptors.GAMEPLAY);
+        assetManager.load(AssetsDescriptors.FONT_32);
+        assetManager.load(AssetsDescriptors.UI_SKIN);
     }
 
     @Override
