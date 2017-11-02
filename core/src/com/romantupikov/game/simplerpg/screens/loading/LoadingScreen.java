@@ -11,6 +11,7 @@ import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.screens.game.GameScreen;
+import com.romantupikov.game.simplerpg.screens.menu.MenuScreen;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
 
@@ -65,7 +66,7 @@ public class LoadingScreen extends ScreenAdapter {
         renderer.end();
 
         if (changeScreen) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new MenuScreen(game));
         }
     }
 

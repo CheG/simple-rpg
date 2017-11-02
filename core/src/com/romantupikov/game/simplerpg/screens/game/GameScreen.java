@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.configs.GameConfig;
+import com.romantupikov.game.simplerpg.screens.menu.MenuScreen;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
 
@@ -28,6 +29,10 @@ public class GameScreen extends ScreenAdapter {
     private Viewport hudViewport;
     private Camera camera;
     private Camera hudCamera;
+
+    // TODO: 02-Nov-17 удалить задержку перехода экрана
+    private float DELAY = 2f;
+    private float delayTimer;
 
     public GameScreen(SimpleRpgGame game) {
         this.game = game;
@@ -52,8 +57,10 @@ public class GameScreen extends ScreenAdapter {
         gameHUD.render(delta);
 
         if(gameController.isGameOver()) {
-//            game.setScreen(new MenuScreen(game));
-
+            delayTimer += delta;
+            if (delayTimer >= DELAY) {
+                game.setScreen(new MenuScreen(game));
+            }
         }
     }
 

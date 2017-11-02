@@ -1,31 +1,67 @@
 
 ui.png
-size: 128,64
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bar-horiz-mid-red
+bar_horiz_mid_red
   rotate: false
-  xy: 96, 33
+  xy: 313, 42
   size: 18, 18
   split: 0, 0, 2, 10
   pad: 0, 0, 0, 0
   orig: 18, 18
   offset: 0, 0
   index: -1
-btn-square-beige
+btn_long_beige
   rotate: false
-  xy: 2, 2
+  xy: 2, 19
+  size: 64, 41
+  split: 8, 52, 17, 20
+  pad: 0, 0, 0, 0
+  orig: 64, 41
+  offset: 0, 0
+  index: -1
+btn_long_beige_down
+  rotate: false
+  xy: 68, 23
+  size: 64, 37
+  split: 8, 52, 17, 16
+  pad: 0, 0, 0, 0
+  orig: 64, 37
+  offset: 0, 0
+  index: -1
+btn_square_beige
+  rotate: false
+  xy: 134, 11
   size: 45, 49
   split: 7, 7, 16, 19
   orig: 45, 49
   offset: 0, 0
   index: -1
-btn-square-beige-down
+btn_square_beige_down
   rotate: false
-  xy: 49, 6
+  xy: 227, 15
   size: 45, 45
   split: 7, 7, 16, 15
   orig: 45, 45
+  offset: 0, 0
+  index: -1
+panel_brown
+  rotate: false
+  xy: 181, 2
+  size: 44, 58
+  split: 8, 32, 8, 46
+  pad: 0, 0, 0, 0
+  orig: 44, 58
+  offset: 0, 0
+  index: -1
+panel_inset_brown
+  rotate: false
+  xy: 274, 8
+  size: 37, 52
+  split: 5, 28, 6, 42
+  pad: 0, 0, 0, 0
+  orig: 37, 52
   offset: 0, 0
   index: -1

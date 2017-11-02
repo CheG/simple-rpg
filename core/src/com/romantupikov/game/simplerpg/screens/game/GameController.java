@@ -41,6 +41,8 @@ public class GameController extends InputAdapter implements Observable {
     private float turnDelayTimer;
     private int unitIndex;
 
+    private boolean gameOver = false;
+
     public GameController(SimpleRpgGame game, Viewport viewport) {
         this.game = game;
         this.viewport = viewport;
@@ -90,7 +92,7 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     public void update(float delta) {
-        if (isGameOver()) {
+        if (gameOver) {
             return;
         }
 
@@ -121,6 +123,7 @@ public class GameController extends InputAdapter implements Observable {
                     playerTurn = true;
                 }
             }
+            isGameOver();
         }
     }
 
@@ -152,7 +155,9 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     public boolean isGameOver() {
-        return isPartyDead(playerParty);
+        if (isPartyDead(playerParty))
+            gameOver = true;
+        return gameOver;
     }
 
     public UnitBase getSelectedHero() {
