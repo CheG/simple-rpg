@@ -5,19 +5,25 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
+import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.common.GameManager;
 import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.entity.UnitBase;
@@ -39,7 +45,7 @@ public class GameHUD implements Disposable, Observer {
 
     private Stage stage;
     private ProgressBar heroHealthBar;
-    private ProgressBar selUnitHealthBar;
+    private ProgressBar enemyHealthBar;
     private BitmapFont font;
     private Button btnNextTurn;
 
@@ -68,24 +74,33 @@ public class GameHUD implements Disposable, Observer {
         playerParty = controller.getPlayerParty();
 
         stage = new Stage(hudViewport, batch);
+        GameManager.getInstance().addInputProcessor(stage);
+
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);
 
-        GameManager.getInstance().addInputProcessor(stage);
+        Table rootTable = new Table();
+        Table topTable = new Table(uiSkin);
+        Table botTable = new Table(uiSkin);
+
+        rootTable.setFillParent(true);
+
+        topTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
+        botTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
+
+//        rootTable.setDebug(true);
+        topTable.setDebug(true);
+//        botTable.setDebug(true);
 
         heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
         heroHealthBar.setValue(selectedHero.getHp() * (100f / selectedHero.getMaxHp()));
-        heroHealthBar.setPosition(50, GameConfig.HUD_HEIGHT - 70f);
-        heroHealthBar.setSize(300f, 50f);
-        heroHealthBar.setAnimateDuration(0.55f);
+        heroHealthBar.setAnimateDuration(0.5f);
         heroHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
 
-        selUnitHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
-        selUnitHealthBar.setValue(100f);
-        selUnitHealthBar.setPosition(GameConfig.HUD_WIDTH - 350f, GameConfig.HUD_HEIGHT - 70f);
-        selUnitHealthBar.setSize(300f, 50f);
-        selUnitHealthBar.setAnimateDuration(0.55f);
-        selUnitHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
-        selUnitHealthBar.setVisible(false);
+        enemyHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
+        enemyHealthBar.setValue(100f);
+        enemyHealthBar.setAnimateDuration(0.5f);
+        enemyHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
+        enemyHealthBar.setVisible(false);
 
         font = assetManager.get(AssetsDescriptors.FONT_32);
         glyphLayout.setText(font, "HP");
@@ -98,9 +113,26 @@ public class GameHUD implements Disposable, Observer {
             }
         });
 
-        stage.addActor(heroHealthBar);
-        stage.addActor(selUnitHealthBar);
-        stage.addActor(btnNextTurn);
+        topTable.defaults().fillX().expandX();
+
+        topTable.add(heroHealthBar)
+                .padRight(Value.percentWidth(0.5f))
+                .padLeft(Value.percentWidth(0.5f))
+                .minHeight(Value.percentHeight(0.1f))
+                .align(Align.left);
+
+        topTable.add(enemyHealthBar)
+                .padRight(Value.percentWidth(0.5f))
+                .padLeft(Value.percentWidth(0.5f))
+                .minHeight(Value.percentHeight(0.1f))
+                .align(Align.right);
+
+        botTable.add(btnNextTurn).align(Align.bottom);
+
+        rootTable.add(topTable).top().expandX().fillX().padTop(5f).padRight(5f).padLeft(5f);
+        rootTable.row();
+        rootTable.add(botTable).bottom().expand().fillX();
+        stage.addActor(rootTable);
     }
 
     public void render(float delta) {
@@ -126,8 +158,8 @@ public class GameHUD implements Disposable, Observer {
 
         heroHealthBar.setValue(selectedHero.getHp() * (100f / selectedHero.getMaxHp()));
         if (selectedEnemy != null) {
-            selUnitHealthBar.setVisible(true);
-            selUnitHealthBar.setValue(selectedEnemy.getHp() * (100f / selectedEnemy.getMaxHp()));
+            enemyHealthBar.setVisible(true);
+            enemyHealthBar.setValue(selectedEnemy.getHp() * (100f / selectedEnemy.getMaxHp()));
         }
     }
 
