@@ -3,6 +3,7 @@ package com.romantupikov.game.simplerpg.screens.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -55,18 +56,18 @@ public class GameController extends InputAdapter implements Observable {
 
         // == init player party ==
         UnitBase dwarf = factory.createHero(RegionsNames.DWARF_HUNTER, false, "Archer", 1f,
-                3f, 8f, 1f, 1f, 1f);
+                3f, 8f, 1f, 1f, 0f);
         dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f - 3f);
         playerParty.add(dwarf);
         selectedHero = dwarf;
 
         dwarf = factory.createHero(RegionsNames.DWARF_MACE, false, "Vasya", 1f,
-                6f, 4f, 4f, 0f, 4f);
+                6f, 4f, 4f, 0f, 0f);
         dwarf.setPosition(5f, GameConfig.WORLD_HEIGHT / 2f - 1f);
         playerParty.add(dwarf);
 
         dwarf = factory.createHero(RegionsNames.DWARF_RUNEMASTER, false, "Hvitserk", 1f,
-                2f, 3f, 1f, 9f, 1f);
+                2f, 3f, 1f, 9f, 0f);
         dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f + 1f);
         playerParty.add(dwarf);
 
@@ -110,7 +111,7 @@ public class GameController extends InputAdapter implements Observable {
             if (turnDelayTimer >= TURN_DELAY) {
                 if (!enemyParty.get(unitIndex).isDead()) {
                     // TODO: 01-Nov-17 добавить выбор по уровню угрозы
-                    enemyParty.get(unitIndex).meleeAttack(selectedHero);
+                    aiAttackRandomHero(enemyParty.get(unitIndex));
                     turnDelayTimer = 0;
                 }
                 notifyObservers();
@@ -121,12 +122,37 @@ public class GameController extends InputAdapter implements Observable {
                 }
             }
         }
+    }
 
+    private void aiAttackRandomHero(UnitBase attacker) {
+        boolean found = false;
+        int targetIndex = 0;
+        UnitBase target = null;
+        // TODO: 02-Nov-17 добавить логику завершения битвы
+        if (isPartyDead(playerParty))
+            return;
+        while (!found) {
+            targetIndex = MathUtils.random(playerParty.size - 1);
+            if (!playerParty.get(targetIndex).isDead()) {
+                target = playerParty.get(targetIndex);
+                found = true;
+            }
+        }
+
+        attacker.meleeAttack(target);
+    }
+
+    private boolean isPartyDead(Array<UnitBase> party) {
+        for (int i = 0; i < party.size; i++) {
+            if (!party.get(i).isDead())
+                return false;
+        }
+
+        return true;
     }
 
     public boolean isGameOver() {
-//        return selectedHero.getHp() <= 0;
-        return false;
+        return isPartyDead(playerParty);
     }
 
     public UnitBase getSelectedHero() {
@@ -163,7 +189,7 @@ public class GameController extends InputAdapter implements Observable {
             for (int i = 0; i < enemyParty.size; i++) {
                 UnitBase enemy = enemyParty.get(i);
                 if (enemy.getBounds().contains(worldTouch)) {
-                    if (enemy == selectedEnemy && !selectedHero.isMoved()) {
+                    if (enemy == selectedEnemy && !selectedHero.isMoved() && !selectedHero.isDead()) {
                         if (!enemy.isDead()) {
                             selectedHero.meleeAttack(enemy);
                             Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n\t" + selectedHero.toString());
