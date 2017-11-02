@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
+import com.romantupikov.game.simplerpg.common.GameManager;
 import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.entity.EntityFactory;
 import com.romantupikov.game.simplerpg.entity.UnitBase;
@@ -48,6 +49,8 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     private void init() {
+        GameManager.getInstance().addInputProcessor(this);
+
         factory = new EntityFactory(assetManager);
 
         // == init player party ==
