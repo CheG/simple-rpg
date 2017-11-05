@@ -105,4 +105,20 @@ public abstract class EntityBase {
     public float getRotation() {
         return rotation;
     }
+
+    public float getOrigX() {
+        return origX;
+    }
+
+    public void setOrigX(float origX) {
+        this.origX = origX;
+    }
+
+    public float getOrigY() {
+        return origY;
+    }
+
+    public void setOrigY(float origY) {
+        this.origY = origY;
+    }
 }

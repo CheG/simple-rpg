@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
-import com.romantupikov.game.simplerpg.common.GameManager;
 import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.entity.EntityFactory;
 import com.romantupikov.game.simplerpg.entity.UnitBase;
@@ -52,7 +51,7 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     private void init() {
-        GameManager.getInstance().addInputProcessor(this);
+        game.addInputProcessor(this);
 
         factory = new EntityFactory(assetManager);
 
@@ -149,6 +148,8 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     private void aiAttackWithMostThreat(UnitBase attacker) {
+        if (isPartyDead(playerParty))
+            return;
         attacker.meleeAttack(playerParty.first());
     }
 
@@ -161,11 +162,24 @@ public class GameController extends InputAdapter implements Observable {
         return true;
     }
 
+    public void endPlayerTurn(boolean end) {
+        this.playerTurn = !end;
+        playerParty.sort();
+        for (int i = 0; i < enemyParty.size; i++) {
+            enemyParty.get(i).setMoved(false);
+        }
+        for (int i = 0; i < playerParty.size; i++) {
+            playerParty.get(i).setMoved(false);
+        }
+    }
+
     public boolean isGameOver() {
         if (isPartyDead(playerParty))
             gameOver = true;
         return gameOver;
     }
+
+    // == getters/setters ==
 
     public UnitBase getSelectedHero() {
         return selectedHero;
@@ -183,17 +197,7 @@ public class GameController extends InputAdapter implements Observable {
         return playerParty;
     }
 
-    // TODO: 01-Nov-17 придумать получше название метода))
-    public void endPlayerTurn(boolean end) {
-        this.playerTurn = !end;
-        playerParty.sort();
-        for (int i = 0; i < enemyParty.size; i++) {
-            enemyParty.get(i).setMoved(false);
-        }
-        for (int i = 0; i < playerParty.size; i++) {
-            playerParty.get(i).setMoved(false);
-        }
-    }
+    // == override methods ==
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -205,8 +209,8 @@ public class GameController extends InputAdapter implements Observable {
                     if (enemy == selectedEnemy && !selectedHero.isMoved() && !selectedHero.isDead()) {
                         if (!enemy.isDead()) {
                             selectedHero.meleeAttack(enemy);
-                            Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n\t" + selectedHero.toString());
-                            Gdx.app.debug("", "Target\n\t" + enemy.toString() + "\n========");
+                            Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n" + selectedHero.toString());
+                            Gdx.app.debug("", "Target\n" + enemy.toString() + "\n========");
                         }
                     } else {
                         Gdx.app.debug("", "Target\n" + enemy.toString());

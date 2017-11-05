@@ -92,8 +92,8 @@ public class UnitBase extends EntityRectBase implements Comparable<UnitBase> {
         this.attackAction = 0.7f;
         if (MathUtils.random(100) <= BASE_HIT_CHANCE + dexterity * 1.5f) {
             enemy.takeDamage(dmg);
+            addThreat(2f);
         }
-        addThreat(2f);
         moved = true;
     }
 
@@ -120,6 +120,7 @@ public class UnitBase extends EntityRectBase implements Comparable<UnitBase> {
     }
 
     private void death() {
+        threat = -1f;
         dead = true;
     }
 
@@ -179,6 +180,8 @@ public class UnitBase extends EntityRectBase implements Comparable<UnitBase> {
         return region;
     }
 
+    // == override methods ==
+
     @Override
     public int compareTo(UnitBase unitBase) {
         if (this.threat > unitBase.threat)
@@ -191,9 +194,9 @@ public class UnitBase extends EntityRectBase implements Comparable<UnitBase> {
     @Override
     public String toString() {
         return "=== " + name + " ===" +
-                "\nlevel: " + level +
-                "\nthreat: " + threat +
-                "\nhealth: " + hp + "/" + maxHp +
-                "\nhit chance: " + (BASE_HIT_CHANCE + dexterity * 1.5f);
+                "\n\tlevel: " + level +
+                "\n\tthreat: " + threat +
+                "\n\thealth: " + hp + "/" + maxHp +
+                "\n\thit chance: " + (BASE_HIT_CHANCE + dexterity * 1.5f);
     }
 }

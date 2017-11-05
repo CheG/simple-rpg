@@ -1,34 +1,14 @@
 package com.romantupikov.game.simplerpg.screens.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
-import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
-import com.romantupikov.game.simplerpg.common.GameManager;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.entity.UnitBase;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
@@ -62,12 +42,12 @@ public class GameRenderer implements Disposable, Observer {
         this.viewport = viewport;
         this.camera = viewport.getCamera();
 
-        this.controller.registerObserver(this);
-
         init();
     }
 
     private void init() {
+        controller.registerObserver(this);
+
         selectedEnemy = controller.getSelectedEnemy();
         selectedHero = controller.getSelectedHero();
         enemyParty = controller.getEnemyParty();

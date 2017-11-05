@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -24,8 +22,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
-import com.romantupikov.game.simplerpg.common.GameManager;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.entity.UnitBase;
 
 /**
@@ -62,19 +58,19 @@ public class GameHUD implements Disposable, Observer {
         this.hudViewport = hudViewport;
         this.hudCamera = hudViewport.getCamera();
 
-        this.controller.registerObserver(this);
-
         init();
     }
 
     private void init() {
+        controller.registerObserver(this);
+
         selectedEnemy = controller.getSelectedEnemy();
         selectedHero = controller.getSelectedHero();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
 
         stage = new Stage(hudViewport, batch);
-        GameManager.getInstance().addInputProcessor(stage);
+        game.addInputProcessor(stage);
 
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);
 
@@ -85,10 +81,10 @@ public class GameHUD implements Disposable, Observer {
         rootTable.setFillParent(true);
 
         topTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
-        botTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
+//        botTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
 
 //        rootTable.setDebug(true);
-        topTable.setDebug(true);
+//        topTable.setDebug(true);
 //        botTable.setDebug(true);
 
         heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
@@ -113,6 +109,7 @@ public class GameHUD implements Disposable, Observer {
             }
         });
 
+        // top table
         topTable.defaults().fillX().expandX();
 
         topTable.add(heroHealthBar)
@@ -127,11 +124,17 @@ public class GameHUD implements Disposable, Observer {
                 .minHeight(Value.percentHeight(0.1f))
                 .align(Align.right);
 
-        botTable.add(btnNextTurn).align(Align.bottom);
+        // bottom table
+        botTable.defaults().expandX();
 
-        rootTable.add(topTable).top().expandX().fillX().padTop(5f).padRight(5f).padLeft(5f);
+        botTable.add(btnNextTurn)
+                .pad(Value.percentHeight(0.1f))
+                .align(Align.right);
+
+        rootTable.add(topTable).top().expandX().fillX();
         rootTable.row();
         rootTable.add(botTable).bottom().expand().fillX();
+        rootTable.pack();
         stage.addActor(rootTable);
     }
 
