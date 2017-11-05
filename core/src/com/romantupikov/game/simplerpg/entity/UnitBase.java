@@ -13,7 +13,8 @@ import com.romantupikov.utils.entity.EntityRectBase;
  * Created by hvitserk on 01-Nov-17.
  */
 
-public class UnitBase extends EntityRectBase {
+// TODO: 05-Nov-17 слишком сильно разресся энтот класс!
+public class UnitBase extends EntityRectBase implements Comparable<UnitBase> {
     private static final float BASE_HIT_CHANCE = 60f;
 
     protected TextureRegion region;
@@ -32,6 +33,7 @@ public class UnitBase extends EntityRectBase {
 
     // Secondary Stats
     protected float defence;
+    protected float threat;
 
     protected float attackAction;
     protected float takeDamageAction;
@@ -91,6 +93,7 @@ public class UnitBase extends EntityRectBase {
         if (MathUtils.random(100) <= BASE_HIT_CHANCE + dexterity * 1.5f) {
             enemy.takeDamage(dmg);
         }
+        addThreat(2f);
         moved = true;
     }
 
@@ -130,6 +133,12 @@ public class UnitBase extends EntityRectBase {
         return dead;
     }
 
+    public void addThreat(float threat) {
+        this.threat += threat;
+        if (this.threat < 0f)
+            this.threat = 0f;
+    }
+
     public float getHp() {
         return hp;
     }
@@ -154,6 +163,10 @@ public class UnitBase extends EntityRectBase {
         return defence;
     }
 
+    public float getThreat() {
+        return threat;
+    }
+
     public float getMaxHp() {
         return maxHp;
     }
@@ -167,9 +180,19 @@ public class UnitBase extends EntityRectBase {
     }
 
     @Override
+    public int compareTo(UnitBase unitBase) {
+        if (this.threat > unitBase.threat)
+            return -1;
+        if (this.threat < unitBase.threat)
+            return 1;
+        else return 0;
+    }
+
+    @Override
     public String toString() {
         return "=== " + name + " ===" +
                 "\nlevel: " + level +
+                "\nthreat: " + threat +
                 "\nhealth: " + hp + "/" + maxHp +
                 "\nhit chance: " + (BASE_HIT_CHANCE + dexterity * 1.5f);
     }

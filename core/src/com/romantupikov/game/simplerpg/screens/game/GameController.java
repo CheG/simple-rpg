@@ -60,17 +60,20 @@ public class GameController extends InputAdapter implements Observable {
         UnitBase dwarf = factory.createHero(RegionsNames.DWARF_HUNTER, false, "Archer", 1f,
                 3f, 8f, 1f, 1f, 0f);
         dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f - 3f);
+        dwarf.addThreat(2f);
         playerParty.add(dwarf);
         selectedHero = dwarf;
 
         dwarf = factory.createHero(RegionsNames.DWARF_MACE, false, "Vasya", 1f,
                 6f, 4f, 4f, 0f, 0f);
+        dwarf.addThreat(4f);
         dwarf.setPosition(5f, GameConfig.WORLD_HEIGHT / 2f - 1f);
         playerParty.add(dwarf);
 
         dwarf = factory.createHero(RegionsNames.DWARF_RUNEMASTER, false, "Hvitserk", 1f,
                 2f, 3f, 1f, 9f, 0f);
         dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f + 1f);
+        dwarf.addThreat(1f);
         playerParty.add(dwarf);
 
 
@@ -87,6 +90,7 @@ public class GameController extends InputAdapter implements Observable {
         goblin.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f + 1f);
         enemyParty.add(goblin);
 
+        playerParty.sort();
 
         playerTurn = true;
     }
@@ -112,8 +116,8 @@ public class GameController extends InputAdapter implements Observable {
             turnDelayTimer += delta;
             if (turnDelayTimer >= TURN_DELAY) {
                 if (!enemyParty.get(unitIndex).isDead()) {
-                    // TODO: 01-Nov-17 добавить выбор по уровню угрозы
-                    aiAttackRandomHero(enemyParty.get(unitIndex));
+//                    aiAttackRandomHero(enemyParty.get(unitIndex));
+                    aiAttackWithMostThreat(enemyParty.get(unitIndex));
                     turnDelayTimer = 0;
                 }
                 notifyObservers();
@@ -131,7 +135,6 @@ public class GameController extends InputAdapter implements Observable {
         boolean found = false;
         int targetIndex = 0;
         UnitBase target = null;
-        // TODO: 02-Nov-17 добавить логику завершения битвы
         if (isPartyDead(playerParty))
             return;
         while (!found) {
@@ -143,6 +146,10 @@ public class GameController extends InputAdapter implements Observable {
         }
 
         attacker.meleeAttack(target);
+    }
+
+    private void aiAttackWithMostThreat(UnitBase attacker) {
+        attacker.meleeAttack(playerParty.first());
     }
 
     private boolean isPartyDead(Array<UnitBase> party) {
@@ -179,6 +186,7 @@ public class GameController extends InputAdapter implements Observable {
     // TODO: 01-Nov-17 придумать получше название метода))
     public void endPlayerTurn(boolean end) {
         this.playerTurn = !end;
+        playerParty.sort();
         for (int i = 0; i < enemyParty.size; i++) {
             enemyParty.get(i).setMoved(false);
         }
