@@ -120,8 +120,13 @@ public class GameController extends InputAdapter implements Observable {
         if (aiTimer >= AI_UPDATE) {
             aiTimer = 0f;
             for (int i = 0; i < enemyParty.size; i++) {
-                Unit enemy = enemyParty.get(i);
-                enemy.setCommand(new AttackCommand(enemy, playerParty.first()));
+                Unit unit = enemyParty.get(i);
+                Unit target = playerParty.first();
+                Command command = unit.getCommand();
+                if (command instanceof AttackCommand)
+                    if (((AttackCommand) command).getTarget() == target)
+                        continue;
+                unit.setCommand(new AttackCommand(unit, target));
             }
         }
     }
