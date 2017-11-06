@@ -7,17 +7,17 @@ import com.romantupikov.utils.MaterialColor;
 
 public abstract class EntityBase {
     protected Vector2 position;
-    protected Vector2 velocity;
     protected float width = 1f;
     protected float height = 1f;
-    protected float rotation = 0f;
+    protected float rotation;
     protected float origX, origY;
 
     protected Color debugColor;
 
     protected EntityBase() {
         position = new Vector2();
-        velocity = new Vector2();
+        origX = width / 2f;
+        origY = height / 2f;
         debugColor = MaterialColor.PINK;
     }
 
@@ -46,18 +46,11 @@ public abstract class EntityBase {
         updateBounds();
     }
 
-    public void setVelocity(float x, float y) {
-        velocity.x = x;
-        velocity.y = y;
-    }
-
-    public void setVelocity(Vector2 newVelocity) {
-        velocity = newVelocity;
-    }
-
     public void setSize(float width, float height) {
         this.width = width;
         this.height = height;
+        this.origX = width / 2f;
+        this.origY = height / 2f;
         updateBounds();
     }
 
@@ -71,7 +64,7 @@ public abstract class EntityBase {
     }
 
     public Vector2 getPosition() {
-        return position.cpy();
+        return position;
     }
 
     public float getX() {
@@ -80,18 +73,6 @@ public abstract class EntityBase {
 
     public float getY() {
         return position.y;
-    }
-
-    public Vector2 getVelocity() {
-        return velocity.cpy();
-    }
-
-    public float getVelocityX() {
-        return velocity.x;
-    }
-
-    public float getVelocityY() {
-        return velocity.y;
     }
 
     public float getWidth() {

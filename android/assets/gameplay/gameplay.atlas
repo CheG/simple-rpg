@@ -6,2773 +6,2780 @@ filter: Nearest,Nearest
 repeat: none
 chars/dwarves/dwarf0
   rotate: false
-  xy: 2, 210
+  xy: 2, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf1
   rotate: false
-  xy: 2, 184
+  xy: 2, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf10
   rotate: false
-  xy: 2, 106
+  xy: 2, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf100
   rotate: false
-  xy: 210, 28
+  xy: 210, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf101
   rotate: false
-  xy: 236, 54
+  xy: 236, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf102
   rotate: false
-  xy: 262, 80
+  xy: 262, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf103
   rotate: false
-  xy: 288, 106
+  xy: 288, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf104
   rotate: false
-  xy: 314, 132
+  xy: 314, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf105
   rotate: false
-  xy: 340, 158
+  xy: 340, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf106
   rotate: false
-  xy: 366, 184
+  xy: 366, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf107
   rotate: false
-  xy: 392, 210
+  xy: 392, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf108
   rotate: false
-  xy: 210, 2
+  xy: 210, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf109
   rotate: false
-  xy: 236, 28
+  xy: 236, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf11
   rotate: false
-  xy: 28, 132
+  xy: 28, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf110
   rotate: false
-  xy: 262, 54
+  xy: 262, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf111
   rotate: false
-  xy: 288, 80
+  xy: 288, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf112
   rotate: false
-  xy: 314, 106
+  xy: 314, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf113
   rotate: false
-  xy: 340, 132
+  xy: 340, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf114
   rotate: false
-  xy: 366, 158
+  xy: 366, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf115
   rotate: false
-  xy: 392, 184
+  xy: 392, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf116
   rotate: false
-  xy: 418, 210
+  xy: 418, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf117
   rotate: false
-  xy: 236, 2
+  xy: 236, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf118
   rotate: false
-  xy: 262, 28
+  xy: 262, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf119
   rotate: false
-  xy: 288, 54
+  xy: 288, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf12
   rotate: false
-  xy: 54, 158
+  xy: 54, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf120
   rotate: false
-  xy: 314, 80
+  xy: 314, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf121
   rotate: false
-  xy: 340, 106
+  xy: 340, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf122
   rotate: false
-  xy: 366, 132
+  xy: 366, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf123
   rotate: false
-  xy: 392, 158
+  xy: 392, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf124
   rotate: false
-  xy: 418, 184
+  xy: 418, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf125
   rotate: false
-  xy: 444, 210
+  xy: 444, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf126
   rotate: false
-  xy: 262, 2
+  xy: 262, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf127
   rotate: false
-  xy: 288, 28
+  xy: 288, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf128
   rotate: false
-  xy: 314, 54
+  xy: 314, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf129
   rotate: false
-  xy: 340, 80
+  xy: 340, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf13
   rotate: false
-  xy: 80, 184
+  xy: 80, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf130
   rotate: false
-  xy: 366, 106
+  xy: 366, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf131
   rotate: false
-  xy: 392, 132
+  xy: 392, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf132
   rotate: false
-  xy: 418, 158
+  xy: 418, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf133
   rotate: false
-  xy: 444, 184
+  xy: 444, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf134
   rotate: false
-  xy: 470, 210
+  xy: 470, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf135
   rotate: false
-  xy: 288, 2
+  xy: 288, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf136
   rotate: false
-  xy: 314, 28
+  xy: 314, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf137
   rotate: false
-  xy: 340, 54
+  xy: 340, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf138
   rotate: false
-  xy: 366, 80
+  xy: 366, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf139
   rotate: false
-  xy: 392, 106
+  xy: 392, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf14
   rotate: false
-  xy: 106, 210
+  xy: 106, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf140
   rotate: false
-  xy: 418, 132
+  xy: 418, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf141
   rotate: false
-  xy: 444, 158
+  xy: 444, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf142
   rotate: false
-  xy: 470, 184
+  xy: 470, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf143
   rotate: false
-  xy: 496, 210
+  xy: 496, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf144
   rotate: false
-  xy: 314, 2
+  xy: 314, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf145
   rotate: false
-  xy: 340, 28
+  xy: 340, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf146
   rotate: false
-  xy: 366, 54
+  xy: 366, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf147
   rotate: false
-  xy: 392, 80
+  xy: 392, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf148
   rotate: false
-  xy: 418, 106
+  xy: 418, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf149
   rotate: false
-  xy: 444, 132
+  xy: 444, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf15
   rotate: false
-  xy: 2, 80
+  xy: 2, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf150
   rotate: false
-  xy: 470, 158
+  xy: 470, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf151
   rotate: false
-  xy: 496, 184
+  xy: 496, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf152
   rotate: false
-  xy: 522, 210
+  xy: 522, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf153
   rotate: false
-  xy: 340, 2
+  xy: 340, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf154
   rotate: false
-  xy: 366, 28
+  xy: 366, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf155
   rotate: false
-  xy: 392, 54
+  xy: 392, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf156
   rotate: false
-  xy: 418, 80
+  xy: 418, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf157
   rotate: false
-  xy: 444, 106
+  xy: 444, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf158
   rotate: false
-  xy: 470, 132
+  xy: 470, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf159
   rotate: false
-  xy: 496, 158
+  xy: 496, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf16
   rotate: false
-  xy: 28, 106
+  xy: 28, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf160
   rotate: false
-  xy: 522, 184
+  xy: 522, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf161
   rotate: false
-  xy: 548, 210
+  xy: 548, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf162
   rotate: false
-  xy: 366, 2
+  xy: 366, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf163
   rotate: false
-  xy: 392, 28
+  xy: 392, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf164
   rotate: false
-  xy: 418, 54
+  xy: 418, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf165
   rotate: false
-  xy: 444, 80
+  xy: 444, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf166
   rotate: false
-  xy: 470, 106
+  xy: 470, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf167
   rotate: false
-  xy: 496, 132
+  xy: 496, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf168
   rotate: false
-  xy: 522, 158
+  xy: 522, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf169
   rotate: false
-  xy: 548, 184
+  xy: 548, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf17
   rotate: false
-  xy: 54, 132
+  xy: 54, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf170
   rotate: false
-  xy: 574, 210
+  xy: 574, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf171
   rotate: false
-  xy: 392, 2
+  xy: 392, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf172
   rotate: false
-  xy: 418, 28
+  xy: 418, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf173
   rotate: false
-  xy: 444, 54
+  xy: 444, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf174
   rotate: false
-  xy: 470, 80
+  xy: 470, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf175
   rotate: false
-  xy: 496, 106
+  xy: 496, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf176
   rotate: false
-  xy: 522, 132
+  xy: 522, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf177
   rotate: false
-  xy: 548, 158
+  xy: 548, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf178
   rotate: false
-  xy: 574, 184
+  xy: 574, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf179
   rotate: false
-  xy: 600, 210
+  xy: 600, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf18
   rotate: false
-  xy: 80, 158
+  xy: 80, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf180
   rotate: false
-  xy: 418, 2
+  xy: 418, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf181
   rotate: false
-  xy: 444, 28
+  xy: 444, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf182
   rotate: false
-  xy: 470, 54
+  xy: 470, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf183
   rotate: false
-  xy: 496, 80
+  xy: 496, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf184
   rotate: false
-  xy: 522, 106
+  xy: 522, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf185
   rotate: false
-  xy: 548, 132
+  xy: 548, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf186
   rotate: false
-  xy: 574, 158
+  xy: 574, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf187
   rotate: false
-  xy: 600, 184
+  xy: 600, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf188
   rotate: false
-  xy: 626, 210
+  xy: 626, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf189
   rotate: false
-  xy: 444, 2
+  xy: 444, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf19
   rotate: false
-  xy: 106, 184
+  xy: 106, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf190
   rotate: false
-  xy: 470, 28
+  xy: 470, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf191
   rotate: false
-  xy: 496, 54
+  xy: 496, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf192
   rotate: false
-  xy: 522, 80
+  xy: 522, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf193
   rotate: false
-  xy: 548, 106
+  xy: 548, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf194
   rotate: false
-  xy: 574, 132
+  xy: 574, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf195
   rotate: false
-  xy: 600, 158
+  xy: 600, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf196
   rotate: false
-  xy: 626, 184
+  xy: 626, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf197
   rotate: false
-  xy: 652, 210
+  xy: 652, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf2
   rotate: false
-  xy: 28, 210
+  xy: 28, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf20
   rotate: false
-  xy: 132, 210
+  xy: 132, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf21
   rotate: false
-  xy: 2, 54
+  xy: 2, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf22
   rotate: false
-  xy: 28, 80
+  xy: 28, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf23
   rotate: false
-  xy: 54, 106
+  xy: 54, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf24
   rotate: false
-  xy: 80, 132
+  xy: 80, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf25
   rotate: false
-  xy: 106, 158
+  xy: 106, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf26
   rotate: false
-  xy: 132, 184
+  xy: 132, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf27
   rotate: false
-  xy: 158, 210
+  xy: 158, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf28
   rotate: false
-  xy: 2, 28
+  xy: 2, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf29
   rotate: false
-  xy: 28, 54
+  xy: 28, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf3
   rotate: false
-  xy: 2, 158
+  xy: 2, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf30
   rotate: false
-  xy: 54, 80
+  xy: 54, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf31
   rotate: false
-  xy: 80, 106
+  xy: 80, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf32
   rotate: false
-  xy: 106, 132
+  xy: 106, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf33
   rotate: false
-  xy: 132, 158
+  xy: 132, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf34
   rotate: false
-  xy: 158, 184
+  xy: 158, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf35
   rotate: false
-  xy: 184, 210
+  xy: 184, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf36
   rotate: false
-  xy: 2, 2
+  xy: 2, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf37
   rotate: false
-  xy: 28, 28
+  xy: 28, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf38
   rotate: false
-  xy: 54, 54
+  xy: 54, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf39
   rotate: false
-  xy: 80, 80
+  xy: 80, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf4
   rotate: false
-  xy: 28, 184
+  xy: 28, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf40
   rotate: false
-  xy: 106, 106
+  xy: 106, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf41
   rotate: false
-  xy: 132, 132
+  xy: 132, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf42
   rotate: false
-  xy: 158, 158
+  xy: 158, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf43
   rotate: false
-  xy: 184, 184
+  xy: 184, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf44
   rotate: false
-  xy: 210, 210
+  xy: 210, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf45
   rotate: false
-  xy: 28, 2
+  xy: 28, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf46
   rotate: false
-  xy: 54, 28
+  xy: 54, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf47
   rotate: false
-  xy: 80, 54
+  xy: 80, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf48
   rotate: false
-  xy: 106, 80
+  xy: 106, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf49
   rotate: false
-  xy: 132, 106
+  xy: 132, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf5
   rotate: false
-  xy: 54, 210
+  xy: 54, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf50
   rotate: false
-  xy: 158, 132
+  xy: 158, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf51
   rotate: false
-  xy: 184, 158
+  xy: 184, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf52
   rotate: false
-  xy: 210, 184
+  xy: 210, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf53
   rotate: false
-  xy: 236, 210
+  xy: 236, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf54
   rotate: false
-  xy: 54, 2
+  xy: 54, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf55
   rotate: false
-  xy: 80, 28
+  xy: 80, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf56
   rotate: false
-  xy: 106, 54
+  xy: 106, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf57
   rotate: false
-  xy: 132, 80
+  xy: 132, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf58
   rotate: false
-  xy: 158, 106
+  xy: 158, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf59
   rotate: false
-  xy: 184, 132
+  xy: 184, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf6
   rotate: false
-  xy: 2, 132
+  xy: 2, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf60
   rotate: false
-  xy: 210, 158
+  xy: 210, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf61
   rotate: false
-  xy: 236, 184
+  xy: 236, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf62
   rotate: false
-  xy: 262, 210
+  xy: 262, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf63
   rotate: false
-  xy: 80, 2
+  xy: 80, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf64
   rotate: false
-  xy: 106, 28
+  xy: 106, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf65
   rotate: false
-  xy: 132, 54
+  xy: 132, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf66
   rotate: false
-  xy: 158, 80
+  xy: 158, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf67
   rotate: false
-  xy: 184, 106
+  xy: 184, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf68
   rotate: false
-  xy: 210, 132
+  xy: 210, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf69
   rotate: false
-  xy: 236, 158
+  xy: 236, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf7
   rotate: false
-  xy: 28, 158
+  xy: 28, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf70
   rotate: false
-  xy: 262, 184
+  xy: 262, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf71
   rotate: false
-  xy: 288, 210
+  xy: 288, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf72
   rotate: false
-  xy: 106, 2
+  xy: 106, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf73
   rotate: false
-  xy: 132, 28
+  xy: 132, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf74
   rotate: false
-  xy: 158, 54
+  xy: 158, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf75
   rotate: false
-  xy: 184, 80
+  xy: 184, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf76
   rotate: false
-  xy: 210, 106
+  xy: 210, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf77
   rotate: false
-  xy: 236, 132
+  xy: 236, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf78
   rotate: false
-  xy: 262, 158
+  xy: 262, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf79
   rotate: false
-  xy: 288, 184
+  xy: 288, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf8
   rotate: false
-  xy: 54, 184
+  xy: 54, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf80
   rotate: false
-  xy: 314, 210
+  xy: 314, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf81
   rotate: false
-  xy: 132, 2
+  xy: 132, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf82
   rotate: false
-  xy: 158, 28
+  xy: 158, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf83
   rotate: false
-  xy: 184, 54
+  xy: 184, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf84
   rotate: false
-  xy: 210, 80
+  xy: 210, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf85
   rotate: false
-  xy: 236, 106
+  xy: 236, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf86
   rotate: false
-  xy: 262, 132
+  xy: 262, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf87
   rotate: false
-  xy: 288, 158
+  xy: 288, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf88
   rotate: false
-  xy: 314, 184
+  xy: 314, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf89
   rotate: false
-  xy: 340, 210
+  xy: 340, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf9
   rotate: false
-  xy: 80, 210
+  xy: 80, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf90
   rotate: false
-  xy: 158, 2
+  xy: 158, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf91
   rotate: false
-  xy: 184, 28
+  xy: 184, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf92
   rotate: false
-  xy: 210, 54
+  xy: 210, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf93
   rotate: false
-  xy: 236, 80
+  xy: 236, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf94
   rotate: false
-  xy: 262, 106
+  xy: 262, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf95
   rotate: false
-  xy: 288, 132
+  xy: 288, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf96
   rotate: false
-  xy: 314, 158
+  xy: 314, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf97
   rotate: false
-  xy: 340, 184
+  xy: 340, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf98
   rotate: false
-  xy: 366, 210
+  xy: 366, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/dwarves/dwarf99
   rotate: false
-  xy: 184, 2
+  xy: 184, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin0
   rotate: false
-  xy: 470, 2
+  xy: 470, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin1
   rotate: false
-  xy: 496, 28
+  xy: 496, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin10
   rotate: false
-  xy: 522, 28
+  xy: 522, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin100
   rotate: false
-  xy: 782, 28
+  xy: 782, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin101
   rotate: false
-  xy: 808, 54
+  xy: 808, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin102
   rotate: false
-  xy: 834, 80
+  xy: 834, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin103
   rotate: false
-  xy: 860, 106
+  xy: 860, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin104
   rotate: false
-  xy: 886, 132
+  xy: 886, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin105
   rotate: false
-  xy: 912, 158
+  xy: 912, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin106
   rotate: false
-  xy: 938, 184
+  xy: 938, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin107
   rotate: false
-  xy: 964, 210
+  xy: 964, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin108
   rotate: false
-  xy: 782, 2
+  xy: 782, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin109
   rotate: false
-  xy: 808, 28
+  xy: 808, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin11
   rotate: false
-  xy: 548, 54
+  xy: 548, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin110
   rotate: false
-  xy: 834, 54
+  xy: 834, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin111
   rotate: false
-  xy: 860, 80
+  xy: 860, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin112
   rotate: false
-  xy: 886, 106
+  xy: 886, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin113
   rotate: false
-  xy: 912, 132
+  xy: 912, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin114
   rotate: false
-  xy: 938, 158
+  xy: 938, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin115
   rotate: false
-  xy: 964, 184
+  xy: 964, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin116
   rotate: false
-  xy: 990, 210
+  xy: 990, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin117
   rotate: false
-  xy: 808, 2
+  xy: 808, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin118
   rotate: false
-  xy: 834, 28
+  xy: 834, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin119
   rotate: false
-  xy: 860, 54
+  xy: 860, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin12
   rotate: false
-  xy: 574, 80
+  xy: 574, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin120
   rotate: false
-  xy: 886, 80
+  xy: 886, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin121
   rotate: false
-  xy: 912, 106
+  xy: 912, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin122
   rotate: false
-  xy: 938, 132
+  xy: 938, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin123
   rotate: false
-  xy: 964, 158
+  xy: 964, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin124
   rotate: false
-  xy: 990, 184
+  xy: 990, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin125
   rotate: false
-  xy: 1016, 210
+  xy: 1016, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin126
   rotate: false
-  xy: 834, 2
+  xy: 834, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin127
   rotate: false
-  xy: 860, 28
+  xy: 860, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin128
   rotate: false
-  xy: 886, 54
+  xy: 886, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin129
   rotate: false
-  xy: 912, 80
+  xy: 912, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin13
   rotate: false
-  xy: 600, 106
+  xy: 600, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin130
   rotate: false
-  xy: 938, 106
+  xy: 938, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin131
   rotate: false
-  xy: 964, 132
+  xy: 964, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin132
   rotate: false
-  xy: 990, 158
+  xy: 990, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin133
   rotate: false
-  xy: 1016, 184
+  xy: 1016, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin134
   rotate: false
-  xy: 1042, 210
+  xy: 1042, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin135
   rotate: false
-  xy: 860, 2
+  xy: 860, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin136
   rotate: false
-  xy: 886, 28
+  xy: 886, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin137
   rotate: false
-  xy: 912, 54
+  xy: 912, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin138
   rotate: false
-  xy: 938, 80
+  xy: 938, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin139
   rotate: false
-  xy: 964, 106
+  xy: 964, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin14
   rotate: false
-  xy: 626, 132
+  xy: 626, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin140
   rotate: false
-  xy: 990, 132
+  xy: 990, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin141
   rotate: false
-  xy: 1016, 158
+  xy: 1016, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin142
   rotate: false
-  xy: 1042, 184
+  xy: 1042, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin143
   rotate: false
-  xy: 1068, 210
+  xy: 1068, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin144
   rotate: false
-  xy: 886, 2
+  xy: 886, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin145
   rotate: false
-  xy: 912, 28
+  xy: 912, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin146
   rotate: false
-  xy: 938, 54
+  xy: 938, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin147
   rotate: false
-  xy: 964, 80
+  xy: 964, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin148
   rotate: false
-  xy: 990, 106
+  xy: 990, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin149
   rotate: false
-  xy: 1016, 132
+  xy: 1016, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin15
   rotate: false
-  xy: 652, 158
+  xy: 652, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin150
   rotate: false
-  xy: 1042, 158
+  xy: 1042, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin151
   rotate: false
-  xy: 1068, 184
+  xy: 1068, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin152
   rotate: false
-  xy: 1094, 210
+  xy: 1094, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin153
   rotate: false
-  xy: 912, 2
+  xy: 912, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin154
   rotate: false
-  xy: 938, 28
+  xy: 938, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin155
   rotate: false
-  xy: 964, 54
+  xy: 964, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin156
   rotate: false
-  xy: 990, 80
+  xy: 990, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin157
   rotate: false
-  xy: 1016, 106
+  xy: 1016, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin158
   rotate: false
-  xy: 1042, 132
+  xy: 1042, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin159
   rotate: false
-  xy: 1068, 158
+  xy: 1068, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin16
   rotate: false
-  xy: 678, 184
+  xy: 678, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin160
   rotate: false
-  xy: 1094, 184
+  xy: 1094, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin161
   rotate: false
-  xy: 1120, 210
+  xy: 1120, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin162
   rotate: false
-  xy: 938, 2
+  xy: 938, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin163
   rotate: false
-  xy: 964, 28
+  xy: 964, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin164
   rotate: false
-  xy: 990, 54
+  xy: 990, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin165
   rotate: false
-  xy: 1016, 80
+  xy: 1016, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin166
   rotate: false
-  xy: 1042, 106
+  xy: 1042, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin167
   rotate: false
-  xy: 1068, 132
+  xy: 1068, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin168
   rotate: false
-  xy: 1094, 158
+  xy: 1094, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin169
   rotate: false
-  xy: 1120, 184
+  xy: 1120, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin17
   rotate: false
-  xy: 704, 210
+  xy: 704, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin170
   rotate: false
-  xy: 1146, 210
+  xy: 1146, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin171
   rotate: false
-  xy: 964, 2
+  xy: 964, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin172
   rotate: false
-  xy: 990, 28
+  xy: 990, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin173
   rotate: false
-  xy: 1016, 54
+  xy: 1016, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin174
   rotate: false
-  xy: 1042, 80
+  xy: 1042, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin175
   rotate: false
-  xy: 1068, 106
+  xy: 1068, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin176
   rotate: false
-  xy: 1094, 132
+  xy: 1094, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin177
   rotate: false
-  xy: 1120, 158
+  xy: 1120, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin178
   rotate: false
-  xy: 1146, 184
+  xy: 1146, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin179
   rotate: false
-  xy: 1172, 210
+  xy: 1172, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin18
   rotate: false
-  xy: 522, 2
+  xy: 522, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin180
   rotate: false
-  xy: 990, 2
+  xy: 990, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin181
   rotate: false
-  xy: 1016, 28
+  xy: 1016, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin182
   rotate: false
-  xy: 1042, 54
+  xy: 1042, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin183
   rotate: false
-  xy: 1068, 80
+  xy: 1068, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin184
   rotate: false
-  xy: 1094, 106
+  xy: 1094, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin185
   rotate: false
-  xy: 1120, 132
+  xy: 1120, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin186
   rotate: false
-  xy: 1146, 158
+  xy: 1146, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin187
   rotate: false
-  xy: 1172, 184
+  xy: 1172, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin188
   rotate: false
-  xy: 1198, 210
+  xy: 1198, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin189
   rotate: false
-  xy: 1016, 2
+  xy: 1016, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin19
   rotate: false
-  xy: 548, 28
+  xy: 548, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin190
   rotate: false
-  xy: 1042, 28
+  xy: 1042, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin191
   rotate: false
-  xy: 1068, 54
+  xy: 1068, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin192
   rotate: false
-  xy: 1094, 80
+  xy: 1094, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin193
   rotate: false
-  xy: 1120, 106
+  xy: 1120, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin194
   rotate: false
-  xy: 1146, 132
+  xy: 1146, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin195
   rotate: false
-  xy: 1172, 158
+  xy: 1172, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin196
   rotate: false
-  xy: 1198, 184
+  xy: 1198, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin197
   rotate: false
-  xy: 1224, 210
+  xy: 1224, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin2
   rotate: false
-  xy: 522, 54
+  xy: 522, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin20
   rotate: false
-  xy: 574, 54
+  xy: 574, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin21
   rotate: false
-  xy: 600, 80
+  xy: 600, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin22
   rotate: false
-  xy: 626, 106
+  xy: 626, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin23
   rotate: false
-  xy: 652, 132
+  xy: 652, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin24
   rotate: false
-  xy: 678, 158
+  xy: 678, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin25
   rotate: false
-  xy: 704, 184
+  xy: 704, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin26
   rotate: false
-  xy: 730, 210
+  xy: 730, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin27
   rotate: false
-  xy: 548, 2
+  xy: 548, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin28
   rotate: false
-  xy: 574, 28
+  xy: 574, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin29
   rotate: false
-  xy: 600, 54
+  xy: 600, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin3
   rotate: false
-  xy: 548, 80
+  xy: 548, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin30
   rotate: false
-  xy: 626, 80
+  xy: 626, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin31
   rotate: false
-  xy: 652, 106
+  xy: 652, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin32
   rotate: false
-  xy: 678, 132
+  xy: 678, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin33
   rotate: false
-  xy: 704, 158
+  xy: 704, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin34
   rotate: false
-  xy: 730, 184
+  xy: 730, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin35
   rotate: false
-  xy: 756, 210
+  xy: 756, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin36
   rotate: false
-  xy: 574, 2
+  xy: 574, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin37
   rotate: false
-  xy: 600, 28
+  xy: 600, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin38
   rotate: false
-  xy: 626, 54
+  xy: 626, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin39
   rotate: false
-  xy: 652, 80
+  xy: 652, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin4
   rotate: false
-  xy: 574, 106
+  xy: 574, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin40
   rotate: false
-  xy: 678, 106
+  xy: 678, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin41
   rotate: false
-  xy: 704, 132
+  xy: 704, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin42
   rotate: false
-  xy: 730, 158
+  xy: 730, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin43
   rotate: false
-  xy: 756, 184
+  xy: 756, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin44
   rotate: false
-  xy: 782, 210
+  xy: 782, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin45
   rotate: false
-  xy: 600, 2
+  xy: 600, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin46
   rotate: false
-  xy: 626, 28
+  xy: 626, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin47
   rotate: false
-  xy: 652, 54
+  xy: 652, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin48
   rotate: false
-  xy: 678, 80
+  xy: 678, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin49
   rotate: false
-  xy: 704, 106
+  xy: 704, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin5
   rotate: false
-  xy: 600, 132
+  xy: 600, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin50
   rotate: false
-  xy: 730, 132
+  xy: 730, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin51
   rotate: false
-  xy: 756, 158
+  xy: 756, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin52
   rotate: false
-  xy: 782, 184
+  xy: 782, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin53
   rotate: false
-  xy: 808, 210
+  xy: 808, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin54
   rotate: false
-  xy: 626, 2
+  xy: 626, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin55
   rotate: false
-  xy: 652, 28
+  xy: 652, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin56
   rotate: false
-  xy: 678, 54
+  xy: 678, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin57
   rotate: false
-  xy: 704, 80
+  xy: 704, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin58
   rotate: false
-  xy: 730, 106
+  xy: 730, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin59
   rotate: false
-  xy: 756, 132
+  xy: 756, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin6
   rotate: false
-  xy: 626, 158
+  xy: 626, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin60
   rotate: false
-  xy: 782, 158
+  xy: 782, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin61
   rotate: false
-  xy: 808, 184
+  xy: 808, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin62
   rotate: false
-  xy: 834, 210
+  xy: 834, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin63
   rotate: false
-  xy: 652, 2
+  xy: 652, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin64
   rotate: false
-  xy: 678, 28
+  xy: 678, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin65
   rotate: false
-  xy: 704, 54
+  xy: 704, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin66
   rotate: false
-  xy: 730, 80
+  xy: 730, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin67
   rotate: false
-  xy: 756, 106
+  xy: 756, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin68
   rotate: false
-  xy: 782, 132
+  xy: 782, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin69
   rotate: false
-  xy: 808, 158
+  xy: 808, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin7
   rotate: false
-  xy: 652, 184
+  xy: 652, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin70
   rotate: false
-  xy: 834, 184
+  xy: 834, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin71
   rotate: false
-  xy: 860, 210
+  xy: 860, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin72
   rotate: false
-  xy: 678, 2
+  xy: 678, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin73
   rotate: false
-  xy: 704, 28
+  xy: 704, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin74
   rotate: false
-  xy: 730, 54
+  xy: 730, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin75
   rotate: false
-  xy: 756, 80
+  xy: 756, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin76
   rotate: false
-  xy: 782, 106
+  xy: 782, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin77
   rotate: false
-  xy: 808, 132
+  xy: 808, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin78
   rotate: false
-  xy: 834, 158
+  xy: 834, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin79
   rotate: false
-  xy: 860, 184
+  xy: 860, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin8
   rotate: false
-  xy: 678, 210
+  xy: 678, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin80
   rotate: false
-  xy: 886, 210
+  xy: 886, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin81
   rotate: false
-  xy: 704, 2
+  xy: 704, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin82
   rotate: false
-  xy: 730, 28
+  xy: 730, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin83
   rotate: false
-  xy: 756, 54
+  xy: 756, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin84
   rotate: false
-  xy: 782, 80
+  xy: 782, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin85
   rotate: false
-  xy: 808, 106
+  xy: 808, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin86
   rotate: false
-  xy: 834, 132
+  xy: 834, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin87
   rotate: false
-  xy: 860, 158
+  xy: 860, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin88
   rotate: false
-  xy: 886, 184
+  xy: 886, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin89
   rotate: false
-  xy: 912, 210
+  xy: 912, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin9
   rotate: false
-  xy: 496, 2
+  xy: 496, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin90
   rotate: false
-  xy: 730, 2
+  xy: 730, 8
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin91
   rotate: false
-  xy: 756, 28
+  xy: 756, 34
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin92
   rotate: false
-  xy: 782, 54
+  xy: 782, 60
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin93
   rotate: false
-  xy: 808, 80
+  xy: 808, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin94
   rotate: false
-  xy: 834, 106
+  xy: 834, 112
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin95
   rotate: false
-  xy: 860, 132
+  xy: 860, 138
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin96
   rotate: false
-  xy: 886, 158
+  xy: 886, 164
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin97
   rotate: false
-  xy: 912, 184
+  xy: 912, 190
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin98
   rotate: false
-  xy: 938, 210
+  xy: 938, 216
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 chars/goblins/goblin99
   rotate: false
-  xy: 756, 2
+  xy: 756, 8
   size: 24, 24
   orig: 24, 24
+  offset: 0, 0
+  index: -1
+hud/bar
+  rotate: false
+  xy: 2, 2
+  size: 24, 4
+  orig: 24, 4
   offset: 0, 0
   index: -1

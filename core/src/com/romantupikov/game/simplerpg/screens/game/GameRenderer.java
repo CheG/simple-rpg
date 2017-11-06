@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
-import com.romantupikov.game.simplerpg.entity.UnitBase;
+import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
 
@@ -29,10 +29,10 @@ public class GameRenderer implements Disposable, Observer {
 
     private ShapeRenderer renderer;
 
-    private UnitBase selectedHero;
-    private UnitBase selectedEnemy;
-    private Array<UnitBase> enemyParty;
-    private Array<UnitBase> playerParty;
+    private Unit selectedHero;
+    private Unit selectedEnemy;
+    private Array<Unit> enemyParty;
+    private Array<Unit> playerParty;
 
     public GameRenderer(SimpleRpgGame game, GameController gameController, Viewport viewport) {
         this.game = game;
@@ -94,7 +94,7 @@ public class GameRenderer implements Disposable, Observer {
 
     private void drawDebug() {
         for (int i = 0; i < enemyParty.size; i++) {
-            UnitBase enemy = enemyParty.get(i);
+            Unit enemy = enemyParty.get(i);
             if (selectedEnemy != null)
                 if (selectedEnemy == enemy)
                     enemy.setDebugColor(MaterialColor.AMBER);
@@ -103,7 +103,7 @@ public class GameRenderer implements Disposable, Observer {
             enemy.drawDebug(renderer);
         }
         for (int i = 0; i < playerParty.size; i++) {
-            UnitBase hero = playerParty.get(i);
+            Unit hero = playerParty.get(i);
             if (selectedHero != null)
                 if (selectedHero == hero)
                     hero.setDebugColor(MaterialColor.LIGHT_GREEN);

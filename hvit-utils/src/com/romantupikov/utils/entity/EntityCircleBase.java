@@ -5,10 +5,11 @@ import com.badlogic.gdx.math.Circle;
 
 public abstract class EntityCircleBase extends EntityBase {
     protected Circle bounds;
+    protected float radius = 1f;
 
-    public EntityCircleBase(float radius) {
+    public EntityCircleBase() {
         super();
-        bounds = new Circle(position, radius);
+        bounds = new Circle(position.x, position.y, radius);
     }
 
     @Override
@@ -20,8 +21,8 @@ public abstract class EntityCircleBase extends EntityBase {
 
     @Override
     protected void updateBounds() {
-        bounds.setPosition(position);
-        bounds.setRadius(width);
+        bounds.setPosition(position.x, position.y);
+        bounds.setRadius(width / 2f);
     }
 
     public Circle getBounds() {

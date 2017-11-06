@@ -21,6 +21,9 @@ public class RegionsNames {
     public static final String GOBLIN_NINJA = "chars/goblins/goblin190";
     public static final String GOBLIN_ARCHER = "chars/goblins/goblin122";
 
+    // HUD
+    public static final String BAR = "hud/bar";
+
     // == ui.atlas ==
     // panels
     public static final String PANEL_BROWN = "panel_brown";

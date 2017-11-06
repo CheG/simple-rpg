@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
+import com.romantupikov.game.simplerpg.assets.RegionsNames;
 
 /**
  * Created by hvitserk on 01-Nov-17.
@@ -20,36 +21,9 @@ public class EntityFactory {
         gameplay = assetManager.get(AssetsDescriptors.GAMEPLAY);
     }
 
-    public UnitBase createHero(String textureRegionName, boolean flipX, String name, float level,
-                               float strength, float dexterity, float endurance, float spellpower,
-                               float defence) {
-
-        TextureRegion region = gameplay.findRegion(textureRegionName);
-        UnitBase hero = new UnitBase(region, name, level);
-        hero.strength = strength;
-        hero.dexterity = dexterity;
-        hero.endurance = endurance;
-        hero.spellpower = spellpower;
-        hero.defence = defence;
-        hero.maxHp = BASE_MAX_HP + endurance + level;
-        hero.hp = hero.maxHp;
-        hero.getRegion().flip(flipX, false);
-
-        return hero;
-    }
-
-    public UnitBase createGoblin(String textureRegionName, boolean flipX, String name, float level) {
-        TextureRegion region = gameplay.findRegion(textureRegionName);
-        UnitBase goblin = new UnitBase(region, name, level);
-        goblin.strength = 1f + level;
-        goblin.dexterity = 3f + level;
-        goblin.endurance = 1f + level;
-        goblin.spellpower = 0f + level;
-        goblin.defence = 1f + level;
-        goblin.maxHp = BASE_MAX_HP + goblin.endurance + goblin.level;
-        goblin.hp = goblin.maxHp;
-        goblin.getRegion().flip(flipX, false);
-
-        return goblin;
+    public Unit createUnit(String regionName, String name) {
+        TextureRegion region = gameplay.findRegion(regionName);
+        TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
+        return new Unit(region, barRegion, name, 1f);
     }
 }

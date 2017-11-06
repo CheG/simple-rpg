@@ -3,15 +3,17 @@ package com.romantupikov.game.simplerpg.screens.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
 import com.romantupikov.game.simplerpg.entity.EntityFactory;
-import com.romantupikov.game.simplerpg.entity.UnitBase;
+import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.entity.commands.AttackCommand;
+import com.romantupikov.game.simplerpg.entity.commands.Command;
+import com.romantupikov.game.simplerpg.entity.commands.HealCommand;
+import com.romantupikov.game.simplerpg.entity.commands.MoveCommand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,8 @@ import java.util.List;
  */
 
 public class GameController extends InputAdapter implements Observable {
-    private static final float TURN_DELAY = 0.8f;
+    private final float STATUS_UPDATE = 1f;
+    private final float AI_UPDATE = 1f;
 
     private final SimpleRpgGame game;
     private final AssetManager assetManager;
@@ -31,16 +34,14 @@ public class GameController extends InputAdapter implements Observable {
 
     private EntityFactory factory;
 
-    private UnitBase selectedHero;
-    private UnitBase selectedEnemy;
-    private Array<UnitBase> enemyParty = new Array<UnitBase>();
-    private Array<UnitBase> playerParty = new Array<UnitBase>();
-
-    private boolean playerTurn;
-    private float turnDelayTimer;
-    private int unitIndex;
+    private Unit selectedHero;
+    private Unit selectedEnemy;
+    private Array<Unit> enemyParty = new Array<Unit>();
+    private Array<Unit> playerParty = new Array<Unit>();
 
     private boolean gameOver = false;
+    private float statusUpdateTimer;
+    private float aiTimer;
 
     public GameController(SimpleRpgGame game, Viewport viewport) {
         this.game = game;
@@ -55,43 +56,35 @@ public class GameController extends InputAdapter implements Observable {
 
         factory = new EntityFactory(assetManager);
 
-        // == init player party ==
-        UnitBase dwarf = factory.createHero(RegionsNames.DWARF_HUNTER, false, "Archer", 1f,
-                3f, 8f, 1f, 1f, 0f);
-        dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f - 3f);
-        dwarf.addThreat(2f);
+        // TODO: 06-Nov-17 перекнуть в EntityFactory
+        // == UNDER HEAVY CONSTRUCTION ==
+        // == player party ==
+        Unit dwarf = factory.createUnit(RegionsNames.DWARF_RUNEMASTER, "Cheg");
+        dwarf.setPosition(1f, 1f);
+        dwarf.setSpeed(2f);
+        dwarf.setAttackRange(3f);
+        dwarf.setIntelligence(5f);
+        dwarf.setUnitClass(Unit.Class.HEALER);
         playerParty.add(dwarf);
+        dwarf = factory.createUnit(RegionsNames.DWARF_MACE, "Hvitserk");
+        dwarf.setPosition(1f, 3f);
+        dwarf.setSpeed(1.7f);
+        dwarf.setThreat(20f);
+        dwarf.setUnitClass(Unit.Class.WARRIOR);
         selectedHero = dwarf;
-
-        dwarf = factory.createHero(RegionsNames.DWARF_MACE, false, "Vasya", 1f,
-                6f, 4f, 4f, 0f, 0f);
-        dwarf.addThreat(4f);
-        dwarf.setPosition(5f, GameConfig.WORLD_HEIGHT / 2f - 1f);
+        playerParty.add(dwarf);
+        dwarf = factory.createUnit(RegionsNames.DWARF_HUNTER, "Urist Izegamal");
+        dwarf.setPosition(1f, 6f);
+        dwarf.setSpeed(2.2f);
+        dwarf.setAttackRange(9f);
+        dwarf.setUnitClass(Unit.Class.RANGER);
         playerParty.add(dwarf);
 
-        dwarf = factory.createHero(RegionsNames.DWARF_RUNEMASTER, false, "Hvitserk", 1f,
-                2f, 3f, 1f, 9f, 0f);
-        dwarf.setPosition(4f, GameConfig.WORLD_HEIGHT / 2f + 1f);
-        dwarf.addThreat(1f);
-        playerParty.add(dwarf);
-
-
-        // == init enemy party ==
-        UnitBase goblin = factory.createGoblin(RegionsNames.GOBLIN_ELITE_AXE, true, "Kek", 1);
-        goblin.setPosition(GameConfig.WORLD_WIDTH - 6f, GameConfig.WORLD_HEIGHT / 2f - 1f);
+        // == enemy party ==
+        Unit goblin = factory.createUnit(RegionsNames.GOBLIN_NINJA, "Lol");
+        goblin.setPosition(8f, 3f);
+        goblin.setUnitClass(Unit.Class.WARRIOR);
         enemyParty.add(goblin);
-
-        goblin = factory.createGoblin(RegionsNames.GOBLIN_ARCHER, true, "Cheburek", 1);
-        goblin.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f - 3f);
-        enemyParty.add(goblin);
-
-        goblin = factory.createGoblin(RegionsNames.GOBLIN_NINJA, true, "Lol", 1);
-        goblin.setPosition(GameConfig.WORLD_WIDTH - 5f, GameConfig.WORLD_HEIGHT / 2f + 1f);
-        enemyParty.add(goblin);
-
-        playerParty.sort();
-
-        playerTurn = true;
     }
 
     public void update(float delta) {
@@ -100,6 +93,8 @@ public class GameController extends InputAdapter implements Observable {
         }
 
         updateUnits(delta);
+        updateStatus(delta);
+        simpleAI(delta);
     }
 
     private void updateUnits(float delta) {
@@ -110,90 +105,42 @@ public class GameController extends InputAdapter implements Observable {
         for (int i = 0; i < enemyParty.size; i++) {
             enemyParty.get(i).update(delta);
         }
+    }
 
-        if (!playerTurn) {
-            turnDelayTimer += delta;
-            if (turnDelayTimer >= TURN_DELAY) {
-                if (!enemyParty.get(unitIndex).isDead()) {
-//                    aiAttackRandomHero(enemyParty.get(unitIndex));
-                    aiAttackWithMostThreat(enemyParty.get(unitIndex));
-                    turnDelayTimer = 0;
-                }
-                notifyObservers();
-                unitIndex++;
-                if (unitIndex >= enemyParty.size) {
-                    unitIndex = 0;
-                    playerTurn = true;
-                }
-            }
-            isGameOver();
+    private void updateStatus(float delta) {
+        statusUpdateTimer += delta;
+        if (statusUpdateTimer >= 1f) {
+            statusUpdateTimer = 0f;
+            playerParty.sort();
         }
     }
 
-    private void aiAttackRandomHero(UnitBase attacker) {
-        boolean found = false;
-        int targetIndex = 0;
-        UnitBase target = null;
-        if (isPartyDead(playerParty))
-            return;
-        while (!found) {
-            targetIndex = MathUtils.random(playerParty.size - 1);
-            if (!playerParty.get(targetIndex).isDead()) {
-                target = playerParty.get(targetIndex);
-                found = true;
+    private void simpleAI(float delta) {
+        aiTimer += delta;
+        if (aiTimer >= AI_UPDATE) {
+            aiTimer = 0f;
+            for (int i = 0; i < enemyParty.size; i++) {
+                Unit enemy = enemyParty.get(i);
+                enemy.setCommand(new AttackCommand(enemy, playerParty.first()));
             }
         }
-
-        attacker.meleeAttack(target);
-    }
-
-    private void aiAttackWithMostThreat(UnitBase attacker) {
-        if (isPartyDead(playerParty))
-            return;
-        attacker.meleeAttack(playerParty.first());
-    }
-
-    private boolean isPartyDead(Array<UnitBase> party) {
-        for (int i = 0; i < party.size; i++) {
-            if (!party.get(i).isDead())
-                return false;
-        }
-
-        return true;
-    }
-
-    public void endPlayerTurn(boolean end) {
-        this.playerTurn = !end;
-        playerParty.sort();
-        for (int i = 0; i < enemyParty.size; i++) {
-            enemyParty.get(i).setMoved(false);
-        }
-        for (int i = 0; i < playerParty.size; i++) {
-            playerParty.get(i).setMoved(false);
-        }
-    }
-
-    public boolean isGameOver() {
-        if (isPartyDead(playerParty))
-            gameOver = true;
-        return gameOver;
     }
 
     // == getters/setters ==
 
-    public UnitBase getSelectedHero() {
+    public Unit getSelectedHero() {
         return selectedHero;
     }
 
-    public UnitBase getSelectedEnemy() {
+    public Unit getSelectedEnemy() {
         return selectedEnemy;
     }
 
-    public Array<UnitBase> getEnemyParty() {
+    public Array<Unit> getEnemyParty() {
         return enemyParty;
     }
 
-    public Array<UnitBase> getPlayerParty() {
+    public Array<Unit> getPlayerParty() {
         return playerParty;
     }
 
@@ -202,36 +149,49 @@ public class GameController extends InputAdapter implements Observable {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
-        if (playerTurn) {
-            for (int i = 0; i < enemyParty.size; i++) {
-                UnitBase enemy = enemyParty.get(i);
-                if (enemy.getBounds().contains(worldTouch)) {
-                    if (enemy == selectedEnemy && !selectedHero.isMoved() && !selectedHero.isDead()) {
-                        if (!enemy.isDead()) {
-                            selectedHero.meleeAttack(enemy);
-                            Gdx.app.debug(":::", "Player Attack Phase\nPlayer\n" + selectedHero.toString());
-                            Gdx.app.debug("", "Target\n" + enemy.toString() + "\n========");
-                        }
-                    } else {
-                        Gdx.app.debug("", "Target\n" + enemy.toString());
-                        selectedEnemy = enemy;
-                    }
-                    notifyObservers();
-                    break;
-                }
-            }
-            for (int i = 0; i < playerParty.size; i++) {
-                UnitBase hero = playerParty.get(i);
-                if (hero.getBounds().contains(worldTouch)) {
-                    if (hero != selectedHero) {
-                        Gdx.app.debug("", "Selected Hero\n" + hero.toString());
-                        selectedHero = hero;
-                    }
-                    notifyObservers();
-                    break;
-                }
+
+        if (button == 2) {
+            Unit newEnemy = factory.createUnit(RegionsNames.GOBLIN_ELITE_AXE, "Goblin");
+            newEnemy.setPosition(worldTouch);
+            newEnemy.setUnitClass(Unit.Class.WARRIOR);
+            enemyParty.add(newEnemy);
+            notifyObservers();
+        }
+
+        for (int i = 0; i < enemyParty.size; i++) {
+            Unit enemy = enemyParty.get(i);
+            if (enemy.getBounds().contains(worldTouch)) {
+                selectedHero.setCommand(new AttackCommand(selectedHero, enemy));
+                notifyObservers();
+                return false;
             }
         }
+        for (int i = 0; i < playerParty.size; i++) {
+            Unit hero = playerParty.get(i);
+            if (hero.getBounds().contains(worldTouch)) {
+                if (selectedHero.getUnitClass() == Unit.Class.HEALER) {
+                    Command command = selectedHero.getCommand();
+                    if (command instanceof HealCommand)
+                        if (((HealCommand) command).getTarget() == hero) {
+                            selectedHero = hero;
+                            notifyObservers();
+                            return false;
+                        }
+                    selectedHero.setCommand(new HealCommand(selectedHero, hero));
+                }
+                if (hero != selectedHero) {
+                    Gdx.app.debug("", "Selected Hero\n" + hero.toString());
+                    selectedHero = hero;
+                }
+                notifyObservers();
+                return false;
+            }
+        }
+
+        if (selectedHero != null) {
+            selectedHero.setCommand(new MoveCommand(selectedHero, worldTouch));
+        }
+
         return false;
     }
 
