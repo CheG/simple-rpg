@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.configs;
+package com.romantupikov.game.simplerpg.config;
 
 /**
  * Created by hvitserk on 31-Oct-17.

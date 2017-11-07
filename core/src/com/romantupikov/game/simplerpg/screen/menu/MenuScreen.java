@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.screens.menu;
+package com.romantupikov.game.simplerpg.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
-import com.romantupikov.game.simplerpg.screens.game.GameScreen;
+import com.romantupikov.game.simplerpg.screen.game.GameScreen;
 
 /**
  * Created by hvitserk on 02-Nov-17.

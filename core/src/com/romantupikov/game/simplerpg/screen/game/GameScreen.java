@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.screens.game;
+package com.romantupikov.game.simplerpg.screen.game;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
+import com.romantupikov.game.simplerpg.config.GameConfig;
+import com.romantupikov.game.simplerpg.factory.EffectFactory;
+import com.romantupikov.game.simplerpg.factory.EntityFactory;
+import com.romantupikov.game.simplerpg.factory.SkillFactory;
 
 /**
  * Created by hvitserk on 31-Oct-17.
@@ -20,6 +23,10 @@ public class GameScreen extends ScreenAdapter {
     private GameController gameController;
     private GameRenderer gameRenderer;
     private GameHUD gameHUD;
+
+    private EntityFactory entityFactory;
+    private SkillFactory skillFactory;
+    private EffectFactory effectFactory;
 
     private Viewport viewport;
     private Viewport hudViewport;

@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.screens.game;
+package com.romantupikov.game.simplerpg.screen.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;

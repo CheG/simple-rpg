@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.screens.loading;
+package com.romantupikov.game.simplerpg.screen.loading;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
@@ -9,8 +9,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
-import com.romantupikov.game.simplerpg.screens.game.GameScreen;
+import com.romantupikov.game.simplerpg.config.GameConfig;
+import com.romantupikov.game.simplerpg.screen.game.GameScreen;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
 

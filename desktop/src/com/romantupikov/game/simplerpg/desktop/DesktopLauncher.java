@@ -3,7 +3,7 @@ package com.romantupikov.game.simplerpg.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
+import com.romantupikov.game.simplerpg.config.GameConfig;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {

@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.romantupikov.game.simplerpg.entity.commands.Command;
+import com.badlogic.gdx.utils.Array;
+import com.romantupikov.game.simplerpg.entity.effect.Effect;
+import com.romantupikov.game.simplerpg.entity.skill.MeleeSkill;
+import com.romantupikov.game.simplerpg.entity.skill.Skill;
 import com.romantupikov.utils.MaterialColor;
 import com.romantupikov.utils.entity.EntityCircleBase;
 
@@ -21,6 +24,8 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     }
 
     private Class unitClass;
+
+    private Unit target;
 
     private TextureRegion region;
     private TextureRegion barRegion;
@@ -40,14 +45,20 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private float speed = 1f;
     private float attackSpeed = 1.5f;
     private float attackRange = 1.0f;
+    private float castSpeed = 1.5f;
     private float threat;
 
-    private Command command;
+    private Array<Effect> effects;
+    private Array<Skill> skills;
+
+    private Skill activeSkill;
 
     public Unit(TextureRegion region, TextureRegion barRegion, String name, float level) {
         super();
         this.region = region;
         this.barRegion = barRegion;
+        effects = new Array<Effect>(10);
+        skills = new Array<Skill>(4);
         this.name = name;
         this.level = level;
         this.maxHP = level * 100f;
@@ -61,12 +72,17 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     }
 
     public void update(float delta) {
-        if (command != null && command.execute(delta)) {
-            Gdx.app.debug("", "Command return true");
-            command = null;
+        if (activeSkill != null && activeSkill.execute(delta)) {
+            activeSkill = null;
         }
 
-        // TODO: 06-Nov-17 сделать отдельный метод для обновления статусов
+        for (int i = 0; i < effects.size; i++) {
+            Effect effect = effects.get(i);
+            if (effect.update(delta)) {
+                effects.removeIndex(i);
+            }
+        }
+
         threat -= delta;
         if (threat <= 0f)
             threat = 0f;
@@ -95,6 +111,11 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
                 hp * (1f / maxHP), 1,
                 rotation);
         batch.setColor(Color.WHITE);
+
+        for (int i = 0; i < effects.size; i++) {
+            Effect effect = effects.get(i);
+            effect.render(batch);
+        }
     }
 
     public void setThreat(float threat) {
@@ -105,29 +126,41 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         return threat;
     }
 
-    public void attack(Unit target) {
-        float damage = strength * 2f + level;
-        threat += 2f;
-        target.takeDamage(damage, this);
+    public void addEffect(Effect effect) {
+        effects.add(effect);
     }
 
-    public void setCommand(Command command) {
-        this.command = command;
+    public void addEffects(Effect... effects) {
+        this.effects.addAll(effects);
     }
 
-    private void takeDamage(float damage, Unit attacker) {
-        float absorbedDmg = damage - (defence / 2f);
-        hp -= absorbedDmg;
-        if (hp <= 0f)
-            hp = 0f;
-//        if (command == null)
-//            setCommand(new AttackCommand(this, attacker));
+    // TODO: 07-Nov-17 Выбор скилла по названию, енаму или еще как, но не по индексу
+    public void activateSkill(int index) {
+        activeSkill = skills.get(index);
+    }
+
+    public Array<Effect> getEffects() {
+        return effects;
+    }
+
+    public void addSkill(Skill skill) {
+        skills.add(skill);
+    }
+
+    public Array<Skill> getSkills() {
+        return skills;
     }
 
     public void addHP(float amount) {
         this.hp += amount;
         if (hp >= maxHP)
             hp = maxHP;
+    }
+
+    public void subHP(float amount) {
+        hp -= amount;
+        if (hp <= 0f)
+            hp = 0;
     }
 
     public void addAggro(float aggro) {
@@ -152,6 +185,14 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
     public float getAttackSpeed() {
         return attackSpeed;
+    }
+
+    public float getCastSpeed() {
+        return castSpeed;
+    }
+
+    public void setCastSpeed(float castSpeed) {
+        this.castSpeed = castSpeed;
     }
 
     public void setAttackSpeed(float attackSpeed) {
@@ -206,8 +247,12 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         this.unitClass = unitClass;
     }
 
-    public Command getCommand() {
-        return command;
+    public Unit getTarget() {
+        return target;
+    }
+
+    public void setTarget(Unit target) {
+        this.target = target;
     }
 
     @Override

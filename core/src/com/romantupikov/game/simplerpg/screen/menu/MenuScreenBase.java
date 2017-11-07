@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.screens.menu;
+package com.romantupikov.game.simplerpg.screen.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
-import com.romantupikov.game.simplerpg.configs.GameConfig;
+import com.romantupikov.game.simplerpg.config.GameConfig;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
 
