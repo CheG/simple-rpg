@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.romantupikov.game.simplerpg.entity.commands.AttackCommand;
 import com.romantupikov.game.simplerpg.entity.commands.Command;
 import com.romantupikov.utils.MaterialColor;
 import com.romantupikov.utils.entity.EntityCircleBase;
@@ -75,7 +74,7 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
     public void render(final SpriteBatch batch) {
         batch.draw(region,
-                position.x - origX, position.y - origY,
+                position.x, position.y,
                 origX, origY,
                 width, height,
                 1f, 1f,
@@ -83,14 +82,14 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
         batch.setColor(MaterialColor.RED_900);
         batch.draw(barRegion,
-                position.x - origX, position.y + origY + 0.1f,
+                position.x, position.y + height + 0.1f,
                 0f, 0f,
                 width, height / 8f,
                 1f, 1f,
                 rotation);
         batch.setColor(MaterialColor.LIGHT_GREEN);
         batch.draw(barRegion,
-                position.x - origX, position.y + origY + 0.1f,
+                position.x, position.y + height + 0.1f,
                 0f, 0f,
                 width, height / 8f,
                 hp * (1f / maxHP), 1,
@@ -113,7 +112,6 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     }
 
     public void setCommand(Command command) {
-        Gdx.app.debug("", "Setting command");
         this.command = command;
     }
 
@@ -122,8 +120,8 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         hp -= absorbedDmg;
         if (hp <= 0f)
             hp = 0f;
-        if (command == null)
-            setCommand(new AttackCommand(this, attacker));
+//        if (command == null)
+//            setCommand(new AttackCommand(this, attacker));
     }
 
     public void addHP(float amount) {

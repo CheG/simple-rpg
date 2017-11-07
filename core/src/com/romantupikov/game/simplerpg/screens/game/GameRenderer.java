@@ -3,6 +3,7 @@ package com.romantupikov.game.simplerpg.screens.game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -34,6 +35,8 @@ public class GameRenderer implements Disposable, Observer {
     private Array<Unit> enemyParty;
     private Array<Unit> playerParty;
 
+    private Array<ParticleEffectPool.PooledEffect> effects;
+
     public GameRenderer(SimpleRpgGame game, GameController gameController, Viewport viewport) {
         this.game = game;
         this.assetManager = game.getAssetManager();
@@ -52,6 +55,7 @@ public class GameRenderer implements Disposable, Observer {
         selectedHero = controller.getSelectedHero();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
+        effects = controller.getEffects();
 
         renderer = new ShapeRenderer();
     }
@@ -69,6 +73,7 @@ public class GameRenderer implements Disposable, Observer {
         batch.begin();
 
         draw();
+        renderEffects();
 
         batch.end();
     }
@@ -79,6 +84,13 @@ public class GameRenderer implements Disposable, Observer {
         }
         for (int i = 0; i < playerParty.size; i++) {
             playerParty.get(i).render(batch);
+        }
+    }
+
+    private void renderEffects() {
+        for (int i = 0; i < effects.size; i++) {
+            ParticleEffectPool.PooledEffect effect = effects.get(i);
+            effect.draw(batch);
         }
     }
 
@@ -123,6 +135,7 @@ public class GameRenderer implements Disposable, Observer {
         selectedEnemy = controller.getSelectedEnemy();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
+        effects = controller.getEffects();
     }
 
     @Override

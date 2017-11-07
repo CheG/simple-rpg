@@ -5,7 +5,8 @@ package com.romantupikov.game.simplerpg.assets;
  */
 
 public class AssetsPaths {
-    private AssetsPaths() {}
+    private AssetsPaths() {
+    }
 
     // == atlases ==
     public static final String GAMEPLAY = "gameplay/gameplay.atlas";
@@ -15,4 +16,7 @@ public class AssetsPaths {
 
     // == skins ==
     public static final String UI_SKIN = "ui/ui.json";
+
+    // == effects ==
+    public static final String HEAL = "particles/heal.pfx";
 }

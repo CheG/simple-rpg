@@ -3,16 +3,18 @@ package com.romantupikov.game.simplerpg.entity.commands;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.screens.game.GameController;
 
 /**
  * Created by hvitserk on 06-Nov-17.
  */
 
-public class MoveCommand implements Command {
+public class MoveCommand extends CommandBase {
     private Vector2 moveTo = new Vector2();
     private Unit unit;
 
-    public MoveCommand(Unit unit, Vector2 moveTo) {
+    public MoveCommand(Unit unit, Vector2 moveTo, GameController controller) {
+        super(controller);
         Gdx.app.debug("MoveCommand", "MoveTo: " + moveTo.toString() + " unit pos: " + unit.getPosition().toString());
         this.moveTo = moveTo;
         this.unit = unit;

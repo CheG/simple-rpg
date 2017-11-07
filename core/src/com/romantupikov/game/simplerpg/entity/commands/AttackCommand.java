@@ -3,18 +3,20 @@ package com.romantupikov.game.simplerpg.entity.commands;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.screens.game.GameController;
 
 /**
  * Created by hvitserk on 06-Nov-17.
  */
 
-public class AttackCommand implements Command {
+public class AttackCommand extends CommandBase {
     private Unit unit;
     private Unit target;
 
     private float attackTimer;
 
-    public AttackCommand(Unit unit, Unit target) {
+    public AttackCommand(Unit unit, Unit target, GameController controller) {
+        super(controller);
         this.unit = unit;
         this.target = target;
     }

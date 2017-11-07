@@ -4,14 +4,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.configs.GameConfig;
-import com.romantupikov.game.simplerpg.screens.menu.MenuScreen;
-import com.romantupikov.utils.GdxUtils;
-import com.romantupikov.utils.MaterialColor;
 
 /**
  * Created by hvitserk on 31-Oct-17.
@@ -45,6 +41,7 @@ public class GameScreen extends ScreenAdapter {
         hudCamera = new OrthographicCamera();
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
         hudViewport = new FitViewport(GameConfig.WIDTH, GameConfig.HEIGHT, hudCamera);
+
         gameController = new GameController(game, viewport);
         gameRenderer = new GameRenderer(game, gameController, viewport);
 //        gameHUD = new GameHUD(game, gameController, hudViewport);

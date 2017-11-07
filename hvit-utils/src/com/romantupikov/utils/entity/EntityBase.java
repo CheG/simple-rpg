@@ -32,17 +32,18 @@ public abstract class EntityBase {
     }
 
     public void setPosition(Vector2 newPosition) {
-        position = newPosition;
+        position.x = newPosition.x;
+        position.y = newPosition.y;
         updateBounds();
     }
 
     public void setX(float x) {
-        position.x = x;
+        position.x = x - origX;
         updateBounds();
     }
 
     public void setY(float y) {
-        position.y = y;
+        position.y = y - origY;
         updateBounds();
     }
 

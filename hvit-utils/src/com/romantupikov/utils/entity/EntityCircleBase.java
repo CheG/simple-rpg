@@ -21,7 +21,7 @@ public abstract class EntityCircleBase extends EntityBase {
 
     @Override
     protected void updateBounds() {
-        bounds.setPosition(position.x, position.y);
+        bounds.setPosition(position.x + origX, position.y + origY);
         bounds.setRadius(width / 2f);
     }
 

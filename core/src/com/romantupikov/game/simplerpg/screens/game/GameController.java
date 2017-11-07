@@ -3,17 +3,19 @@ package com.romantupikov.game.simplerpg.screens.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
-import com.romantupikov.game.simplerpg.entity.EntityFactory;
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.entity.commands.AttackCommand;
 import com.romantupikov.game.simplerpg.entity.commands.Command;
 import com.romantupikov.game.simplerpg.entity.commands.HealCommand;
-import com.romantupikov.game.simplerpg.entity.commands.MoveCommand;
+import com.romantupikov.game.simplerpg.factories.CommandFactory;
+import com.romantupikov.game.simplerpg.factories.EffectFactory;
+import com.romantupikov.game.simplerpg.factories.EntityFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +33,11 @@ public class GameController extends InputAdapter implements Observable {
     private final Viewport viewport;
 
     private List<Observer> observers;
+    private Array<ParticleEffectPool.PooledEffect> effects = new Array<ParticleEffectPool.PooledEffect>();
 
-    private EntityFactory factory;
+    private EntityFactory entityFactory;
+    private CommandFactory commandFactory;
+    private EffectFactory effectFactory;
 
     private Unit selectedHero;
     private Unit selectedEnemy;
@@ -54,26 +59,28 @@ public class GameController extends InputAdapter implements Observable {
     private void init() {
         game.addInputProcessor(this);
 
-        factory = new EntityFactory(assetManager);
+        entityFactory = new EntityFactory(assetManager);
+        effectFactory = new EffectFactory(assetManager);
+        commandFactory = new CommandFactory(this);
 
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
-        Unit dwarf = factory.createUnit(RegionsNames.DWARF_RUNEMASTER, "Cheg");
+        Unit dwarf = entityFactory.createUnit(RegionsNames.DWARF_RUNEMASTER, "Cheg");
         dwarf.setPosition(1f, 1f);
         dwarf.setSpeed(2f);
         dwarf.setAttackRange(3f);
         dwarf.setIntelligence(5f);
         dwarf.setUnitClass(Unit.Class.HEALER);
         playerParty.add(dwarf);
-        dwarf = factory.createUnit(RegionsNames.DWARF_MACE, "Hvitserk");
+        dwarf = entityFactory.createUnit(RegionsNames.DWARF_MACE, "Hvitserk");
         dwarf.setPosition(1f, 3f);
         dwarf.setSpeed(1.7f);
         dwarf.setThreat(20f);
         dwarf.setUnitClass(Unit.Class.WARRIOR);
         selectedHero = dwarf;
         playerParty.add(dwarf);
-        dwarf = factory.createUnit(RegionsNames.DWARF_HUNTER, "Urist Izegamal");
+        dwarf = entityFactory.createUnit(RegionsNames.DWARF_HUNTER, "Urist Izegamal");
         dwarf.setPosition(1f, 6f);
         dwarf.setSpeed(2.2f);
         dwarf.setAttackRange(9f);
@@ -81,7 +88,7 @@ public class GameController extends InputAdapter implements Observable {
         playerParty.add(dwarf);
 
         // == enemy party ==
-        Unit goblin = factory.createUnit(RegionsNames.GOBLIN_NINJA, "Lol");
+        Unit goblin = entityFactory.createUnit(RegionsNames.GOBLIN_NINJA, "Lol");
         goblin.setPosition(8f, 3f);
         goblin.setUnitClass(Unit.Class.WARRIOR);
         enemyParty.add(goblin);
@@ -95,6 +102,7 @@ public class GameController extends InputAdapter implements Observable {
         updateUnits(delta);
         updateStatus(delta);
         simpleAI(delta);
+        effectsUpdate(delta);
     }
 
     private void updateUnits(float delta) {
@@ -109,7 +117,7 @@ public class GameController extends InputAdapter implements Observable {
 
     private void updateStatus(float delta) {
         statusUpdateTimer += delta;
-        if (statusUpdateTimer >= 1f) {
+        if (statusUpdateTimer >= STATUS_UPDATE) {
             statusUpdateTimer = 0f;
             playerParty.sort();
         }
@@ -126,7 +134,20 @@ public class GameController extends InputAdapter implements Observable {
                 if (command instanceof AttackCommand)
                     if (((AttackCommand) command).getTarget() == target)
                         continue;
-                unit.setCommand(new AttackCommand(unit, target));
+                unit.setCommand(commandFactory.createAttackCommand(unit, target));
+            }
+        }
+    }
+
+    private void effectsUpdate(float delta) {
+        for (int i = 0; i < effects.size; i++) {
+            ParticleEffectPool.PooledEffect effect = effects.get(i);
+            effect.update(delta);
+
+            if (effect.isComplete()) {
+                effects.removeIndex(i);
+                effect.free();
+                notifyObservers();
             }
         }
     }
@@ -155,8 +176,11 @@ public class GameController extends InputAdapter implements Observable {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
+//        ParticleEffectPool.PooledEffect effect = effectFactory.createHealEffect(worldTouch.x, worldTouch.y);
+//        effects.add(effect);
+
         if (button == 2) {
-            Unit newEnemy = factory.createUnit(RegionsNames.GOBLIN_ELITE_AXE, "Goblin");
+            Unit newEnemy = entityFactory.createUnit(RegionsNames.GOBLIN_ELITE_AXE, "Goblin");
             newEnemy.setPosition(worldTouch);
             newEnemy.setUnitClass(Unit.Class.WARRIOR);
             enemyParty.add(newEnemy);
@@ -166,7 +190,7 @@ public class GameController extends InputAdapter implements Observable {
         for (int i = 0; i < enemyParty.size; i++) {
             Unit enemy = enemyParty.get(i);
             if (enemy.getBounds().contains(worldTouch)) {
-                selectedHero.setCommand(new AttackCommand(selectedHero, enemy));
+                selectedHero.setCommand(commandFactory.createAttackCommand(selectedHero, enemy));
                 notifyObservers();
                 return false;
             }
@@ -182,7 +206,7 @@ public class GameController extends InputAdapter implements Observable {
                             notifyObservers();
                             return false;
                         }
-                    selectedHero.setCommand(new HealCommand(selectedHero, hero));
+                    selectedHero.setCommand(commandFactory.createHealCommand(selectedHero, hero));
                 }
                 if (hero != selectedHero) {
                     Gdx.app.debug("", "Selected Hero\n" + hero.toString());
@@ -194,7 +218,7 @@ public class GameController extends InputAdapter implements Observable {
         }
 
         if (selectedHero != null) {
-            selectedHero.setCommand(new MoveCommand(selectedHero, worldTouch));
+            selectedHero.setCommand(commandFactory.createMoveCommand(selectedHero, worldTouch));
         }
 
         return false;
@@ -215,5 +239,21 @@ public class GameController extends InputAdapter implements Observable {
         for (Observer observer : observers) {
             observer.update();
         }
+    }
+
+    public Array<ParticleEffectPool.PooledEffect> getEffects() {
+        return effects;
+    }
+
+    public void addEffect(ParticleEffectPool.PooledEffect effect) {
+        effects.add(effect);
+    }
+
+    public EntityFactory getEntityFactory() {
+        return entityFactory;
+    }
+
+    public EffectFactory getEffectFactory() {
+        return effectFactory;
     }
 }

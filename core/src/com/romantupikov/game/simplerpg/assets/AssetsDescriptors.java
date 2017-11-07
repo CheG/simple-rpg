@@ -2,6 +2,7 @@ package com.romantupikov.game.simplerpg.assets;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -10,7 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
  */
 
 public class AssetsDescriptors {
-    private AssetsDescriptors() {}
+    private AssetsDescriptors() {
+    }
 
     // == atlases ==
     public static final AssetDescriptor<TextureAtlas> GAMEPLAY =
@@ -23,4 +25,8 @@ public class AssetsDescriptors {
     // == skins ==
     public static final AssetDescriptor<Skin> UI_SKIN =
             new AssetDescriptor<Skin>(AssetsPaths.UI_SKIN, Skin.class);
+
+    // == effects ==
+    public static final AssetDescriptor<ParticleEffect> HEAL =
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.HEAL, ParticleEffect.class);
 }

@@ -5,7 +5,8 @@ package com.romantupikov.game.simplerpg.assets;
  */
 
 public class RegionsNames {
-    private RegionsNames() {}
+    private RegionsNames() {
+    }
 
     // == gameplay.atlas ==
     // dwarfs
