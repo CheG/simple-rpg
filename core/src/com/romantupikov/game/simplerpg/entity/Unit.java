@@ -3,10 +3,14 @@ package com.romantupikov.game.simplerpg.entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.romantupikov.game.simplerpg.entity.component.Attributes;
 import com.romantupikov.game.simplerpg.entity.effect.Effect;
 import com.romantupikov.game.simplerpg.entity.skill.Skill;
+import com.romantupikov.game.simplerpg.entity.state.IdleState;
+import com.romantupikov.game.simplerpg.entity.state.State;
+import com.romantupikov.game.simplerpg.screen.game.InputHandler;
 import com.romantupikov.utils.MaterialColor;
 import com.romantupikov.utils.entity.EntityCircleBase;
 
@@ -16,6 +20,7 @@ import com.romantupikov.utils.entity.EntityCircleBase;
 
 public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private Unit target;
+    private Vector2 moveTo;
 
     private Attributes attributes;
 
@@ -26,20 +31,32 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private Array<Skill> skills;
 
     private Skill activeSkill;
+    private State state;
 
     public Unit(TextureRegion region, TextureRegion barRegion, Attributes attributes) {
         super();
         this.attributes = attributes;
         this.region = region;
         this.barRegion = barRegion;
+        this.state = new IdleState();
         effects = new Array<Effect>(10);
         skills = new Array<Skill>(4);
     }
 
-    public void update(float delta) {
-        if (activeSkill != null && activeSkill.execute(delta)) {
-            activeSkill = null;
+    public void handleInput(InputHandler input) {
+        State state = this.state.handleInput(this, input);
+        if (state != null) {
+            this.state.exit(this, input);
+            setState(state);
+            state.enter(this, input);
         }
+    }
+
+    public void update(float delta) {
+        state.update(this, delta);
+//        if (activeSkill != null && activeSkill.execute(delta)) {
+//            activeSkill = null;
+//        }
 
         for (int i = 0; i < effects.size; i++) {
             Effect effect = effects.get(i);
@@ -75,10 +92,10 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
                 rotation);
         batch.setColor(Color.WHITE);
 
-        for (int i = 0; i < effects.size; i++) {
-            Effect effect = effects.get(i);
-            effect.render(batch);
-        }
+//        for (int i = 0; i < effects.size; i++) {
+//            Effect effect = effects.get(i);
+//            effect.render(batch);
+//        }
     }
 
     public void addEffect(Effect effect) {
@@ -116,6 +133,18 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
     public Attributes getAttributes() {
         return attributes;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public Vector2 getMoveTo() {
+        return moveTo;
+    }
+
+    public void setMoveTo(Vector2 moveTo) {
+        this.moveTo = moveTo;
     }
 
     @Override

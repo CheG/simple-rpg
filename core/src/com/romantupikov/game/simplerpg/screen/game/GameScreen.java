@@ -21,7 +21,7 @@ public class GameScreen extends ScreenAdapter {
     private final SimpleRpgGame game;
     private final AssetManager assetManager;
 
-    private GestureDetector input;
+    private InputHandler inputHandler;
 
     private GameController gameController;
     private GameRenderer gameRenderer;
@@ -52,12 +52,9 @@ public class GameScreen extends ScreenAdapter {
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
         hudViewport = new FitViewport(GameConfig.WIDTH, GameConfig.HEIGHT, hudCamera);
 
-        gameController = new GameController(game);
+        gameController = new GameController(game, viewport);
         gameRenderer = new GameRenderer(game, gameController, viewport);
 //        gameHUD = new GameHUD(game, gameController, hudViewport);
-
-        input = new GestureDetector(new InputHandler(gameController, viewport));
-        game.addInputProcessor(input);
     }
 
     @Override

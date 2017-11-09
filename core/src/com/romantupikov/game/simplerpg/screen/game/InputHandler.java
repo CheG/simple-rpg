@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
 
 /**
@@ -12,30 +11,46 @@ import com.romantupikov.game.simplerpg.entity.Unit;
  */
 
 public class InputHandler implements GestureDetector.GestureListener {
+    public enum Action {
+        NON,
+        MOVE,
+        FOLLOW,
+        ATTACK,
+        CAST
+    }
+
     private final GameController controller;
     private final Viewport viewport;
+
+    Action action;
+    private Vector2 movePosition;
+    private Unit target;
 
     public InputHandler(GameController controller, Viewport viewport) {
         this.controller = controller;
         this.viewport = viewport;
+        action = Action.NON;
+        movePosition = new Vector2();
     }
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(x, y));
+        Unit selectedUnit = controller.getSelectedUnit();
+        Unit selectedEnemy = controller.getSelectedEnemy();
 
-        if (button == 1) {
-            Unit newEnemy = controller.getEntityFactory().createDummyUnit(RegionsNames.GOBLIN_ELITE_AXE, "Elite Goblin");
-            newEnemy.setPosition(worldTouch);
-            controller.getEnemyParty().add(newEnemy);
-            controller.notifyObservers();
-        }
+//        if (button == 1) {
+//            Unit newEnemy = controller.getEntityFactory().createDummyUnit(RegionsNames.GOBLIN_ELITE_AXE, "Elite Goblin");
+//            newEnemy.setPosition(worldTouch);
+//            controller.getEnemyParty().add(newEnemy);
+//            controller.notifyObservers();
+//        }
 
         for (int i = 0; i < controller.getEnemyParty().size; i++) {
             Unit enemy = controller.getEnemyParty().get(i);
             if (enemy.getBounds().contains(worldTouch)) {
-                controller.getSelectedUnit().setTarget(enemy);
-                controller.getSelectedUnit().activateSkill(0);
+                selectedUnit.setTarget(enemy);
+//                selectedUnit.activateSkill(0);
                 controller.notifyObservers();
                 return false;
             }
@@ -43,19 +58,25 @@ public class InputHandler implements GestureDetector.GestureListener {
         for (int i = 0; i < controller.getPlayerParty().size; i++) {
             Unit hero = controller.getPlayerParty().get(i);
             if (hero.getBounds().contains(worldTouch)) {
-                controller.getSelectedUnit().setTarget(hero);
-                controller.getSelectedUnit().activateSkill(1);
-                if (hero != controller.getSelectedUnit()) {
+                selectedUnit.setTarget(hero);
+//                selectedUnit.activateSkill(1);
+                if (hero != selectedUnit) {
+                    if (button == 1) {
+                        action = Action.FOLLOW;
+                    } else {
+                        controller.setSelectedUnit(hero);
+                    }
                     Gdx.app.debug("", "Selected Hero\n" + hero.toString());
-                    controller.setSelectedUnit(hero);
                 }
                 controller.notifyObservers();
                 return false;
             }
         }
 
-        if (controller.getSelectedUnit() != null) {
-            // перемещение
+        if (controller.getSelectedUnit() != null && button == 0) {
+            movePosition = worldTouch.cpy();
+            selectedUnit.setMoveTo(movePosition);
+            action = Action.MOVE;
         }
         return false;
     }
@@ -67,6 +88,25 @@ public class InputHandler implements GestureDetector.GestureListener {
 
     @Override
     public boolean longPress(float x, float y) {
+//        Vector2 worldTouch = viewport.unproject(new Vector2(x, y));
+//        Unit selectedUnit = controller.getSelectedUnit();
+//        Unit selectedEnemy = controller.getSelectedEnemy();
+//
+//        for (int i = 0; i < controller.getPlayerParty().size; i++) {
+//            Unit hero = controller.getPlayerParty().get(i);
+//            if (hero.getBounds().contains(worldTouch)) {
+//                selectedUnit.setTarget(hero);
+////                selectedUnit.activateSkill(1);
+//                if (hero != selectedUnit) {
+//                    Gdx.app.debug("", "Selected Hero\n" + hero.toString());
+//                    controller.setSelectedUnit(hero);
+////                    action = Action.FOLLOW;
+//                }
+//                controller.notifyObservers();
+//                return false;
+//            }
+//        }
+
         return false;
     }
 
@@ -98,5 +138,21 @@ public class InputHandler implements GestureDetector.GestureListener {
     @Override
     public void pinchStop() {
 
+    }
+
+    public Vector2 getMovePosition() {
+        return movePosition;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public Unit getTarget() {
+        return target;
     }
 }
