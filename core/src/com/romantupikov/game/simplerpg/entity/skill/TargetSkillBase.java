@@ -23,7 +23,7 @@ abstract class TargetSkillBase extends SkillBase {
         if (self.getBounds().overlaps(target.getBounds()))
             return true;
         Vector2 dir = target.getPosition().cpy().sub(self.getPosition()).nor();
-        self.setPosition(self.getPosition().mulAdd(dir.scl(self.getSpeed()), delta));
+        self.setPosition(self.getPosition().mulAdd(dir.scl(self.getAttributes().getMoveSpeed()), delta));
         return false;
     }
 }

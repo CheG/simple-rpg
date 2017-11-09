@@ -18,5 +18,7 @@ public class AssetsPaths {
     public static final String UI_SKIN = "ui/ui.json";
 
     // == effects ==
-    public static final String HEAL = "particles/heal.pfx";
+    public static final String PARTICLES_HEAL = "particles/heal.pfx";
+    public static final String PARTICLES_BLOOD = "particles/blood.pfx";
+    public static final String PARTICLES_DUST = "particles/dust.pfx";
 }

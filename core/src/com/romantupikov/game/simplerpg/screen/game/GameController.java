@@ -34,9 +34,9 @@ public class GameController extends InputAdapter implements Observable {
     private SkillFactory skillFactory;
     private EffectFactory effectFactory;
 
-    private Unit selectedHero;
     private Unit selectedUnit;
     private Unit selectedEnemy;
+
     private Array<Unit> enemyParty = new Array<Unit>();
     private Array<Unit> playerParty = new Array<Unit>();
 
@@ -62,34 +62,17 @@ public class GameController extends InputAdapter implements Observable {
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
-        Unit dwarf = entityFactory.createUnit(RegionsNames.DWARF_RUNEMASTER, "Cheg");
+        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER);
         dwarf.setPosition(1f, 1f);
-        dwarf.setSpeed(2f);
-        dwarf.setAttackRange(3f);
-        dwarf.setIntelligence(5f);
-        dwarf.setUnitClass(Unit.Class.HEALER);
+        dwarf.getAttributes().setMoveSpeed(2f);
+        dwarf.getAttributes().setAttackRange(5f);
+        dwarf.getAttributes().setIntelligence(5f);
         dwarf.addSkill(skillFactory.createHealSkill(dwarf));
         playerParty.add(dwarf);
 
-        dwarf = entityFactory.createUnit(RegionsNames.DWARF_MACE, "Hvitserk");
-        dwarf.setPosition(1f, 3f);
-        dwarf.setSpeed(1.7f);
-        dwarf.setThreat(20f);
-        dwarf.setUnitClass(Unit.Class.WARRIOR);
-        selectedHero = dwarf;
-        playerParty.add(dwarf);
-
-        dwarf = entityFactory.createUnit(RegionsNames.DWARF_HUNTER, "Urist Izegamal");
-        dwarf.setPosition(1f, 6f);
-        dwarf.setSpeed(2.2f);
-        dwarf.setAttackRange(9f);
-        dwarf.setUnitClass(Unit.Class.RANGER);
-        playerParty.add(dwarf);
-
         // == enemy party ==
-        Unit goblin = entityFactory.createUnit(RegionsNames.GOBLIN_NINJA, "Lol");
+        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA);
         goblin.setPosition(8f, 3f);
-        goblin.setUnitClass(Unit.Class.WARRIOR);
         enemyParty.add(goblin);
     }
 
@@ -136,13 +119,8 @@ public class GameController extends InputAdapter implements Observable {
 
     // == getters/setters ==
 
-
     public Unit getSelectedUnit() {
         return selectedUnit;
-    }
-
-    public Unit getSelectedHero() {
-        return selectedHero;
     }
 
     public Unit getSelectedEnemy() {
@@ -164,10 +142,9 @@ public class GameController extends InputAdapter implements Observable {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
 
-        if (button == 2) {
-            Unit newEnemy = entityFactory.createUnit(RegionsNames.GOBLIN_ELITE_AXE, "Goblin");
+        if (button == 1) {
+            Unit newEnemy = entityFactory.createDummyUnit(RegionsNames.GOBLIN_ELITE_AXE);
             newEnemy.setPosition(worldTouch);
-            newEnemy.setUnitClass(Unit.Class.WARRIOR);
             enemyParty.add(newEnemy);
             notifyObservers();
         }
@@ -175,8 +152,8 @@ public class GameController extends InputAdapter implements Observable {
         for (int i = 0; i < enemyParty.size; i++) {
             Unit enemy = enemyParty.get(i);
             if (enemy.getBounds().contains(worldTouch)) {
-                selectedHero.setTarget(enemy);
-                selectedHero.activateSkill(0);
+                selectedUnit.setTarget(enemy);
+                selectedUnit.activateSkill(0);
                 notifyObservers();
                 return false;
             }
@@ -184,28 +161,19 @@ public class GameController extends InputAdapter implements Observable {
         for (int i = 0; i < playerParty.size; i++) {
             Unit hero = playerParty.get(i);
             if (hero.getBounds().contains(worldTouch)) {
-                if (selectedHero.getUnitClass() == Unit.Class.HEALER) {
-//                    Command command = selectedHero.getCommand();
-//                    if (command instanceof HealCommand)
-//                        if (((HealCommand) command).getTarget() == hero) {
-//                            selectedHero = hero;
-//                            notifyObservers();
-//                            return false;
-//                        }
-                    selectedHero.setTarget(hero);
-                    selectedHero.activateSkill(1);
-                }
-                if (hero != selectedHero) {
+                selectedUnit.setTarget(hero);
+                selectedUnit.activateSkill(1);
+                if (hero != selectedUnit) {
                     Gdx.app.debug("", "Selected Hero\n" + hero.toString());
-                    selectedHero = hero;
+                    selectedUnit = hero;
                 }
                 notifyObservers();
                 return false;
             }
         }
 
-        if (selectedHero != null) {
-            selectedHero.addEffect(effectFactory.createMoveEffect(selectedHero, worldTouch));
+        if (selectedUnit != null) {
+            // перемещение
         }
 
         return false;
@@ -224,7 +192,7 @@ public class GameController extends InputAdapter implements Observable {
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {
-            observer.update();
+            observer.getControllerUpdate();
         }
     }
 

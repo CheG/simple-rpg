@@ -21,10 +21,10 @@ public class MeleeEffect extends EffectBase {
             visualEffect.update(delta);
             if (visualEffect.isComplete()) {
                 visualEffect.free();
-                float damage = value - self.getDefence();
+                float damage = value - self.getAttributes().getDefence();
                 if (damage < 1f)
                     damage = 1f;
-                self.subHP(damage);
+                self.getAttributes().addHP(-damage);
                 return true;
             }
         }

@@ -32,7 +32,7 @@ public class MoveEffect extends EffectBase {
         }
 
         Vector2 dir = position.cpy().sub(self.getPosition()).nor();
-        self.setPosition(self.getPosition().mulAdd(dir.scl(self.getSpeed()), delta));
+        self.setPosition(self.getPosition().mulAdd(dir.scl(self.getAttributes().getMoveSpeed()), delta));
         return false;
     }
 }

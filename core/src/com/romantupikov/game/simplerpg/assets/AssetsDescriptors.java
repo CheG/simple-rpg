@@ -27,6 +27,12 @@ public class AssetsDescriptors {
             new AssetDescriptor<Skin>(AssetsPaths.UI_SKIN, Skin.class);
 
     // == effects ==
-    public static final AssetDescriptor<ParticleEffect> HEAL =
-            new AssetDescriptor<ParticleEffect>(AssetsPaths.HEAL, ParticleEffect.class);
+    public static final AssetDescriptor<ParticleEffect> PARTICLE_HEAL =
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLES_HEAL, ParticleEffect.class);
+
+    public static final AssetDescriptor<ParticleEffect> PARTICLE_BLOOD =
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLES_BLOOD, ParticleEffect.class);
+
+    public static final AssetDescriptor<ParticleEffect> PARTICLE_DUST =
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLES_DUST, ParticleEffect.class);
 }

@@ -1,17 +1,21 @@
 package com.romantupikov.game.simplerpg.screen.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -42,7 +46,7 @@ public class GameHUD implements Disposable, Observer {
     private BitmapFont font;
     private Button btnNextTurn;
 
-    private Unit selectedHero;
+    private Unit selectedUnit;
     private Unit selectedEnemy;
     private Array<Unit> enemyParty;
     private Array<Unit> playerParty;
@@ -62,7 +66,7 @@ public class GameHUD implements Disposable, Observer {
         controller.registerObserver(this);
 
         selectedEnemy = controller.getSelectedEnemy();
-        selectedHero = controller.getSelectedHero();
+        selectedUnit = controller.getSelectedUnit();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
 
@@ -77,56 +81,56 @@ public class GameHUD implements Disposable, Observer {
 
         rootTable.setFillParent(true);
 
-        topTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
+//        topTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
 //        botTable.setBackground(RegionsNames.PANEL_INSET_BROWN);
 
 //        rootTable.setDebug(true);
 //        topTable.setDebug(true);
 //        botTable.setDebug(true);
 
-        heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
-//        heroHealthBar.setValue(selectedHero.getHp() * (100f / selectedHero.getMaxHp()));
-        heroHealthBar.setAnimateDuration(0.5f);
-        heroHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
+//        heroHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
+//        heroHealthBar.setValue(selectedUnit.getHp() * (100f / selectedUnit.getMaxHp()));
+//        heroHealthBar.setAnimateDuration(0.5f);
+//        heroHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
+//
+//        enemyHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
+//        enemyHealthBar.setValue(100f);
+//        enemyHealthBar.setAnimateDuration(0.5f);
+//        enemyHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
+//        enemyHealthBar.setVisible(false);
 
-        enemyHealthBar = new ProgressBar(0f, 100f, 1f, false, uiSkin);
-        enemyHealthBar.setValue(100f);
-        enemyHealthBar.setAnimateDuration(0.5f);
-        enemyHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
-        enemyHealthBar.setVisible(false);
+//        font = assetManager.get(AssetsDescriptors.FONT_32);
+//        glyphLayout.setText(font, "HP");
 
-        font = assetManager.get(AssetsDescriptors.FONT_32);
-        glyphLayout.setText(font, "HP");
-
-//        btnNextTurn = new TextButton("TURN", uiSkin);
-//        btnNextTurn.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                controller.endPlayerTurn(true);
-//            }
-//        });
+        btnNextTurn = new TextButton("DUMMY", uiSkin);
+        btnNextTurn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("", "Dummy clicked");
+            }
+        });
 
         // top table
         topTable.defaults().fillX().expandX();
 
-        topTable.add(heroHealthBar)
-                .padRight(Value.percentWidth(0.5f))
-                .padLeft(Value.percentWidth(0.5f))
-                .minHeight(Value.percentHeight(0.1f))
-                .align(Align.left);
-
-        topTable.add(enemyHealthBar)
-                .padRight(Value.percentWidth(0.5f))
-                .padLeft(Value.percentWidth(0.5f))
-                .minHeight(Value.percentHeight(0.1f))
-                .align(Align.right);
+//        topTable.add(heroHealthBar)
+//                .padRight(Value.percentWidth(0.5f))
+//                .padLeft(Value.percentWidth(0.5f))
+//                .minHeight(Value.percentHeight(0.1f))
+//                .align(Align.left);
+//
+//        topTable.add(enemyHealthBar)
+//                .padRight(Value.percentWidth(0.5f))
+//                .padLeft(Value.percentWidth(0.5f))
+//                .minHeight(Value.percentHeight(0.1f))
+//                .align(Align.right);
 
         // bottom table
         botTable.defaults().expandX();
 
         botTable.add(btnNextTurn)
                 .pad(Value.percentHeight(0.1f))
-                .align(Align.right);
+                .align(Align.left);
 
         rootTable.add(topTable).top().expandX().fillX();
         rootTable.row();
@@ -150,17 +154,11 @@ public class GameHUD implements Disposable, Observer {
     }
 
     @Override
-    public void update() {
-        selectedHero = controller.getSelectedHero();
+    public void getControllerUpdate() {
+        selectedUnit = controller.getSelectedUnit();
         selectedEnemy = controller.getSelectedEnemy();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
-
-//        heroHealthBar.setValue(selectedHero.getHp() * (100f / selectedHero.getMaxHp()));
-//        if (selectedEnemy != null) {
-//            enemyHealthBar.setVisible(true);
-//            enemyHealthBar.setValue(selectedEnemy.getHp() * (100f / selectedEnemy.getMaxHp()));
-//        }
     }
 
     @Override

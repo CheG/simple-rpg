@@ -21,7 +21,7 @@ public class HealEffect extends EffectBase {
             visualEffect.update(delta);
             if (visualEffect.isComplete()) {
                 visualEffect.free();
-                self.addHP(value);
+                self.getAttributes().addHP(value);
                 return true;
             }
         }

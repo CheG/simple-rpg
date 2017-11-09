@@ -5,5 +5,5 @@ package com.romantupikov.game.simplerpg.screen.game;
  */
 
 public interface Observer {
-    void update();
+    void getControllerUpdate();
 }

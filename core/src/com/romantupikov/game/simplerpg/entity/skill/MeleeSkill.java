@@ -27,15 +27,15 @@ public class MeleeSkill extends TargetSkillBase {
         attackTimer += delta;
 
         float distance = target.getPosition().cpy().sub(self.getPosition()).len();
-        if (distance > self.getAttackRange()) {
+        if (distance > self.getAttributes().getAttackRange()) {
             move(delta);
             return false;
         }
 
-        if (attackTimer >= self.getAttackSpeed()) {
+        if (attackTimer >= self.getAttributes().getAttackDelay()) {
             attackTimer = 0f;
-            self.addAggro(3f);
-            float value = self.getStrength() + self.getLevel() * 1.5f;
+            self.getAttributes().addThreat(3f);
+            float value = self.getAttributes().getStrength() + self.getAttributes().getLevel() * 1.5f;
             target.addEffect(effectFactory.createMeleeEffect(target, value));
             if (subEffects.length != 0)
                 target.addEffects(subEffects);

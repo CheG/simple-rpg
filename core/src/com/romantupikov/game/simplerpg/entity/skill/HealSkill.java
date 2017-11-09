@@ -27,15 +27,15 @@ public class HealSkill extends TargetSkillBase {
         healTimer += delta;
 
         float distance = target.getPosition().cpy().sub(self.getPosition()).len();
-        if (distance > self.getAttackRange()) {
+        if (distance > self.getAttributes().getAttackRange()) {
             move(delta);
             return false;
         }
 
-        if (healTimer >= self.getCastSpeed()) {
+        if (healTimer >= self.getAttributes().getCastDelay()) {
             healTimer = 0f;
-            self.addAggro(4f);
-            float value = self.getIntelligence() + self.getLevel() * 1.5f;
+            self.getAttributes().addThreat(4f);
+            float value = self.getAttributes().getIntelligence() + self.getAttributes().getLevel() * 1.5f;
             target.addEffect(effectFactory.createHealEffect(target, value));
             if (subEffects.length != 0)
                 target.addEffects(subEffects);

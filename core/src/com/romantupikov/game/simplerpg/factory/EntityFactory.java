@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.entity.component.Attributes;
 
 /**
  * Created by hvitserk on 01-Nov-17.
@@ -24,10 +25,11 @@ public class EntityFactory {
         gameplay = assetManager.get(AssetsDescriptors.GAMEPLAY);
     }
 
-    public Unit createUnit(String regionName, String name) {
+    public Unit createDummyUnit(String regionName) {
         TextureRegion region = gameplay.findRegion(regionName);
         TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
-        Unit unit = new Unit(region, barRegion, name, 1f);
+        Attributes attributes = new Attributes();
+        Unit unit = new Unit(region, barRegion, attributes);
         unit.addSkill(skillFactory.createMeleeSkill(unit));
 
         return unit;

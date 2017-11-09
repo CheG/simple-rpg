@@ -3,7 +3,6 @@ package com.romantupikov.game.simplerpg.screen.game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -19,8 +18,6 @@ import com.romantupikov.utils.MaterialColor;
  */
 
 public class GameRenderer implements Disposable, Observer {
-    private final GlyphLayout glyphLayout = new GlyphLayout();
-
     private final SimpleRpgGame game;
     private final GameController controller;
     private final AssetManager assetManager;
@@ -50,7 +47,7 @@ public class GameRenderer implements Disposable, Observer {
         controller.registerObserver(this);
 
         selectedEnemy = controller.getSelectedEnemy();
-        selectedHero = controller.getSelectedHero();
+        selectedHero = controller.getSelectedUnit();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
 
@@ -119,8 +116,8 @@ public class GameRenderer implements Disposable, Observer {
     }
 
     @Override
-    public void update() {
-        selectedHero = controller.getSelectedHero();
+    public void getControllerUpdate() {
+        selectedHero = controller.getSelectedUnit();
         selectedEnemy = controller.getSelectedEnemy();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();

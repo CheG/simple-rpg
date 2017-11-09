@@ -48,7 +48,9 @@ public class LoadingScreen extends ScreenAdapter {
         assetManager.load(AssetsDescriptors.GAMEPLAY);
         assetManager.load(AssetsDescriptors.FONT_32);
         assetManager.load(AssetsDescriptors.UI_SKIN);
-        assetManager.load(AssetsDescriptors.HEAL);
+        assetManager.load(AssetsDescriptors.PARTICLE_HEAL);
+        assetManager.load(AssetsDescriptors.PARTICLE_BLOOD);
+        assetManager.load(AssetsDescriptors.PARTICLE_DUST);
     }
 
     @Override
