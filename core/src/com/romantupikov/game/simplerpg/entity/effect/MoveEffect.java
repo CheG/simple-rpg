@@ -17,18 +17,22 @@ public class MoveEffect extends EffectBase {
 
     @Override
     public boolean update(float delta) {
-        if (Math.abs(position.x - self.getX()) <= 0.05f && Math.abs(position.y - self.getY()) <= 0.05f) {
-            if (visualEffect != null) {
-                if (visualEffect.isComplete()) {
-                    visualEffect.free();
-                    return true;
-                }
-            }
-        }
-
         if (visualEffect != null) {
             visualEffect.setPosition(self.getX(), self.getY());
             visualEffect.update(delta);
+        }
+
+        if (visualEffect != null) {
+            visualEffect.allowCompletion();
+            if (visualEffect.isComplete() && complete) {
+                visualEffect.free();
+                return true;
+            }
+        } else if (complete)
+            return true;
+
+        if (Math.abs(position.x - self.getX()) <= 0.05f && Math.abs(position.y - self.getY()) <= 0.05f) {
+            complete = true;
         }
 
         Vector2 dir = position.cpy().sub(self.getPosition()).nor();

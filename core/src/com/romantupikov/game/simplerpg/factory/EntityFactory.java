@@ -25,10 +25,10 @@ public class EntityFactory {
         gameplay = assetManager.get(AssetsDescriptors.GAMEPLAY);
     }
 
-    public Unit createDummyUnit(String regionName) {
+    public Unit createDummyUnit(String regionName, String name) {
         TextureRegion region = gameplay.findRegion(regionName);
         TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
-        Attributes attributes = new Attributes();
+        Attributes attributes = new Attributes(name);
         Unit unit = new Unit(region, barRegion, attributes);
         unit.addSkill(skillFactory.createMeleeSkill(unit));
 

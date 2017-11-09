@@ -20,13 +20,12 @@ import java.util.List;
  * Created by hvitserk on 01-Nov-17.
  */
 
-public class GameController extends InputAdapter implements Observable {
+public class GameController implements Observable {
     private final float STATUS_UPDATE = 1f;
     private final float AI_UPDATE = 1f;
 
     private final SimpleRpgGame game;
     private final AssetManager assetManager;
-    private final Viewport viewport;
 
     private List<Observer> observers;
 
@@ -44,17 +43,14 @@ public class GameController extends InputAdapter implements Observable {
     private float statusUpdateTimer;
     private float aiTimer;
 
-    public GameController(SimpleRpgGame game, Viewport viewport) {
+    public GameController(SimpleRpgGame game) {
         this.game = game;
-        this.viewport = viewport;
         assetManager = game.getAssetManager();
         observers = new ArrayList<Observer>();
         init();
     }
 
     private void init() {
-        game.addInputProcessor(this);
-
         effectFactory = new EffectFactory(assetManager);
         skillFactory = new SkillFactory(effectFactory);
         entityFactory = new EntityFactory(assetManager, skillFactory);
@@ -62,17 +58,21 @@ public class GameController extends InputAdapter implements Observable {
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
-        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER);
+        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf");
         dwarf.setPosition(1f, 1f);
         dwarf.getAttributes().setMoveSpeed(2f);
+        dwarf.getAttributes().setAttackDelay(0.5f);
+        dwarf.getAttributes().setCastDelay(0.5f);
         dwarf.getAttributes().setAttackRange(5f);
         dwarf.getAttributes().setIntelligence(5f);
         dwarf.addSkill(skillFactory.createHealSkill(dwarf));
+        selectedUnit = dwarf;
         playerParty.add(dwarf);
 
         // == enemy party ==
-        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA);
+        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin");
         goblin.setPosition(8f, 3f);
+        goblin.getAttributes().setAttackDelay(5f);
         enemyParty.add(goblin);
     }
 
@@ -123,8 +123,16 @@ public class GameController extends InputAdapter implements Observable {
         return selectedUnit;
     }
 
+    public void setSelectedUnit(Unit selectedUnit) {
+        this.selectedUnit = selectedUnit;
+    }
+
     public Unit getSelectedEnemy() {
         return selectedEnemy;
+    }
+
+    public void setSelectedEnemy(Unit selectedEnemy) {
+        this.selectedEnemy = selectedEnemy;
     }
 
     public Array<Unit> getEnemyParty() {
@@ -136,48 +144,6 @@ public class GameController extends InputAdapter implements Observable {
     }
 
     // == override methods ==
-
-    // TODO: 07-Nov-17 этот метод распилить
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Vector2 worldTouch = viewport.unproject(new Vector2(screenX, screenY));
-
-        if (button == 1) {
-            Unit newEnemy = entityFactory.createDummyUnit(RegionsNames.GOBLIN_ELITE_AXE);
-            newEnemy.setPosition(worldTouch);
-            enemyParty.add(newEnemy);
-            notifyObservers();
-        }
-
-        for (int i = 0; i < enemyParty.size; i++) {
-            Unit enemy = enemyParty.get(i);
-            if (enemy.getBounds().contains(worldTouch)) {
-                selectedUnit.setTarget(enemy);
-                selectedUnit.activateSkill(0);
-                notifyObservers();
-                return false;
-            }
-        }
-        for (int i = 0; i < playerParty.size; i++) {
-            Unit hero = playerParty.get(i);
-            if (hero.getBounds().contains(worldTouch)) {
-                selectedUnit.setTarget(hero);
-                selectedUnit.activateSkill(1);
-                if (hero != selectedUnit) {
-                    Gdx.app.debug("", "Selected Hero\n" + hero.toString());
-                    selectedUnit = hero;
-                }
-                notifyObservers();
-                return false;
-            }
-        }
-
-        if (selectedUnit != null) {
-            // перемещение
-        }
-
-        return false;
-    }
 
     @Override
     public void registerObserver(Observer o) {

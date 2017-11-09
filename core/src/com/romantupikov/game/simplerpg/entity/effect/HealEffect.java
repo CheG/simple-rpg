@@ -1,5 +1,6 @@
 package com.romantupikov.game.simplerpg.entity.effect;
 
+import com.badlogic.gdx.Gdx;
 import com.romantupikov.game.simplerpg.entity.Unit;
 
 /**
@@ -19,11 +20,17 @@ public class HealEffect extends EffectBase {
         if (visualEffect != null) {
             visualEffect.setPosition(self.getX(), self.getY());
             visualEffect.update(delta);
-            if (visualEffect.isComplete()) {
+            if (visualEffect.isComplete() && complete) {
                 visualEffect.free();
-                self.getAttributes().addHP(value);
                 return true;
             }
+        } else if (complete)
+            return true;
+
+        if (!complete) {
+            self.getAttributes().addHP(value);
+            Gdx.app.debug("", "[" + self.getAttributes().getName() + "] heal effect complete.");
+            complete = true;
         }
         return false;
     }

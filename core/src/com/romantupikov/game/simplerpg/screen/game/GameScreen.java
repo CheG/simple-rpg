@@ -4,6 +4,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
@@ -19,6 +20,8 @@ import com.romantupikov.game.simplerpg.factory.SkillFactory;
 public class GameScreen extends ScreenAdapter {
     private final SimpleRpgGame game;
     private final AssetManager assetManager;
+
+    private GestureDetector input;
 
     private GameController gameController;
     private GameRenderer gameRenderer;
@@ -49,9 +52,12 @@ public class GameScreen extends ScreenAdapter {
         viewport = new FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera);
         hudViewport = new FitViewport(GameConfig.WIDTH, GameConfig.HEIGHT, hudCamera);
 
-        gameController = new GameController(game, viewport);
+        gameController = new GameController(game);
         gameRenderer = new GameRenderer(game, gameController, viewport);
 //        gameHUD = new GameHUD(game, gameController, hudViewport);
+
+        input = new GestureDetector(new InputHandler(gameController, viewport));
+        game.addInputProcessor(input);
     }
 
     @Override

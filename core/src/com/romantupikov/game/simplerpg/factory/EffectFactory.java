@@ -29,8 +29,8 @@ public class EffectFactory {
         ParticleEffect dustParticleEffect = assetManager.get(AssetsDescriptors.PARTICLE_DUST);
 
         healEffectPool = new ParticleEffectPool(healParticleEffect, 5, 25);
-        meleeEffectPool = new ParticleEffectPool(healParticleEffect, 5, 25);
-        dustEffectPool = new ParticleEffectPool(healParticleEffect, 5, 25);
+        meleeEffectPool = new ParticleEffectPool(bloodParticleEffect, 5, 25);
+        dustEffectPool = new ParticleEffectPool(dustParticleEffect, 5, 25);
     }
 
     public HealEffect createHealEffect(Unit unit, float value) {

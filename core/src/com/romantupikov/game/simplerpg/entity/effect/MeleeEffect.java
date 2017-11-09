@@ -1,5 +1,6 @@
 package com.romantupikov.game.simplerpg.entity.effect;
 
+import com.badlogic.gdx.Gdx;
 import com.romantupikov.game.simplerpg.entity.Unit;
 
 /**
@@ -19,14 +20,20 @@ public class MeleeEffect extends EffectBase {
         if (visualEffect != null) {
             visualEffect.setPosition(self.getX(), self.getY());
             visualEffect.update(delta);
-            if (visualEffect.isComplete()) {
+            if (visualEffect.isComplete() && complete) {
                 visualEffect.free();
-                float damage = value - self.getAttributes().getDefence();
-                if (damage < 1f)
-                    damage = 1f;
-                self.getAttributes().addHP(-damage);
                 return true;
             }
+        } else if (complete)
+            return true;
+
+        if (!complete) {
+            float damage = value - self.getAttributes().getDefence();
+            if (damage < 1f)
+                damage = 1f;
+            self.getAttributes().addHP(-damage);
+            Gdx.app.debug("", "[" + self.getAttributes().getName() + "] melee effect complete.");
+            complete = true;
         }
         return false;
     }

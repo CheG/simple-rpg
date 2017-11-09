@@ -11,6 +11,7 @@ import com.romantupikov.game.simplerpg.entity.Unit;
 abstract class EffectBase implements Effect {
     protected ParticleEffectPool.PooledEffect visualEffect;
     protected Unit self;
+    protected boolean complete = false;
 
     protected EffectBase(Unit unit) {
 

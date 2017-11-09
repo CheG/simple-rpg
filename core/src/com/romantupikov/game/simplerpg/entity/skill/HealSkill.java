@@ -1,5 +1,6 @@
 package com.romantupikov.game.simplerpg.entity.skill;
 
+import com.badlogic.gdx.Gdx;
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.entity.effect.Effect;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
@@ -37,6 +38,7 @@ public class HealSkill extends TargetSkillBase {
             self.getAttributes().addThreat(4f);
             float value = self.getAttributes().getIntelligence() + self.getAttributes().getLevel() * 1.5f;
             target.addEffect(effectFactory.createHealEffect(target, value));
+            Gdx.app.debug("", "[" + self.getAttributes().getName() + "] use heal skill.");
             if (subEffects.length != 0)
                 target.addEffects(subEffects);
         }
