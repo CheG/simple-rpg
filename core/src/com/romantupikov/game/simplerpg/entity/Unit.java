@@ -1,16 +1,19 @@
 package com.romantupikov.game.simplerpg.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
 import com.romantupikov.game.simplerpg.entity.component.Attributes;
 import com.romantupikov.game.simplerpg.entity.effect.Effect;
 import com.romantupikov.game.simplerpg.entity.skill.Skill;
 import com.romantupikov.game.simplerpg.entity.state.IdleState;
 import com.romantupikov.game.simplerpg.entity.state.State;
-import com.romantupikov.game.simplerpg.screen.game.InputHandler;
+import com.romantupikov.game.simplerpg.screen.game.GameController;
+import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 import com.romantupikov.utils.MaterialColor;
 import com.romantupikov.utils.entity.EntityCircleBase;
 
@@ -19,10 +22,18 @@ import com.romantupikov.utils.entity.EntityCircleBase;
  */
 
 public class Unit extends EntityCircleBase implements Comparable<Unit> {
+    public enum HeroClass {
+        WARRIOR,
+        MAGE,
+        ARCHER,
+        SUPPORT
+    }
+    private final GameController controller;
     private Unit target;
     private Vector2 moveTo;
 
     private Attributes attributes;
+    private HeroClass heroClass;
 
     private TextureRegion region;
     private TextureRegion barRegion;
@@ -31,28 +42,34 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private Array<Skill> skills;
 
     private Skill activeSkill;
-    private State state;
+    private Queue<State> states;
 
-    public Unit(TextureRegion region, TextureRegion barRegion, Attributes attributes) {
+    public Unit(GameController controller, TextureRegion region, TextureRegion barRegion, Attributes attributes, HeroClass heroClass) {
         super();
+        this.controller = controller;
         this.attributes = attributes;
+        this.heroClass = heroClass;
         this.region = region;
         this.barRegion = barRegion;
-        this.state = new IdleState();
+        this.states = new Queue<State>();
+        states.addFirst(new IdleState());
         effects = new Array<Effect>(10);
         skills = new Array<Skill>(4);
     }
 
     public void handleInput(InputHandler input) {
-        State state = this.state.handleInput(this, input);
+        State state = states.first().handleInput(this, input);
+
         if (state != null) {
-            this.state.exit(this, input);
-            setState(state);
-            state.enter(this, input);
+            Gdx.app.debug("", "push state " + state.getClass().getSimpleName());
+            states.first().exit(this, input);
+            states.addFirst(state);
+            states.first().enter(this, input);
         }
     }
 
     public void update(float delta) {
+        State state = states.first();
         state.update(this, delta);
 //        if (activeSkill != null && activeSkill.execute(delta)) {
 //            activeSkill = null;
@@ -92,10 +109,10 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
                 rotation);
         batch.setColor(Color.WHITE);
 
-//        for (int i = 0; i < effects.size; i++) {
-//            Effect effect = effects.get(i);
-//            effect.render(batch);
-//        }
+        for (int i = 0; i < effects.size; i++) {
+            Effect effect = effects.get(i);
+            effect.render(batch);
+        }
     }
 
     public void addEffect(Effect effect) {
@@ -135,16 +152,28 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         return attributes;
     }
 
-    public void setState(State state) {
-        this.state = state;
-    }
-
     public Vector2 getMoveTo() {
         return moveTo;
     }
 
     public void setMoveTo(Vector2 moveTo) {
         this.moveTo = moveTo;
+    }
+
+    public HeroClass getHeroClass() {
+        return heroClass;
+    }
+
+    public void setHeroClass(HeroClass heroClass) {
+        this.heroClass = heroClass;
+    }
+
+    public Queue<State> getStates() {
+        return states;
+    }
+
+    public GameController getController() {
+        return controller;
     }
 
     @Override

@@ -8,11 +8,9 @@ import com.romantupikov.game.simplerpg.entity.Unit;
  */
 
 public class MoveEffect extends EffectBase {
-    private Vector2 position;
-
-    public MoveEffect(Unit unit, Vector2 position) {
+    public MoveEffect(Unit unit) {
         super(unit);
-        this.position = position;
+
     }
 
     @Override
@@ -31,12 +29,6 @@ public class MoveEffect extends EffectBase {
         } else if (complete)
             return true;
 
-        if (Math.abs(position.x - self.getX()) <= 0.05f && Math.abs(position.y - self.getY()) <= 0.05f) {
-            complete = true;
-        }
-
-        Vector2 dir = position.cpy().sub(self.getPosition()).nor();
-        self.setPosition(self.getPosition().mulAdd(dir.scl(self.getAttributes().getMoveSpeed()), delta));
         return false;
     }
 }

@@ -1,7 +1,7 @@
 package com.romantupikov.game.simplerpg.entity.state;
 
 import com.romantupikov.game.simplerpg.entity.Unit;
-import com.romantupikov.game.simplerpg.screen.game.InputHandler;
+import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 
 /**
  * Created by hvitserk on 09-Nov-17.

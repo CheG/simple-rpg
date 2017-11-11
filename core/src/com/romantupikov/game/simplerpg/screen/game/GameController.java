@@ -1,18 +1,18 @@
 package com.romantupikov.game.simplerpg.screen.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
+import com.romantupikov.game.simplerpg.ai.EasyAI;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
 import com.romantupikov.game.simplerpg.factory.EntityFactory;
 import com.romantupikov.game.simplerpg.factory.SkillFactory;
+import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
+import com.romantupikov.game.simplerpg.screen.game.input.PlayerInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +29,20 @@ public class GameController implements Observable {
     private final AssetManager assetManager;
     private final Viewport viewport;
 
-    private InputHandler inputHandler;
-
     private List<Observer> observers;
 
     private EntityFactory entityFactory;
+
     private SkillFactory skillFactory;
     private EffectFactory effectFactory;
 
+    private InputHandler playerInput;
     private Unit selectedUnit;
     private Unit selectedEnemy;
+
+    private EasyAI aiInput;
+    private Unit aiSelectedUnit;
+    private Unit aiSelectedEnemy;
 
     private Array<Unit> enemyParty = new Array<Unit>();
     private Array<Unit> playerParty = new Array<Unit>();
@@ -56,51 +60,61 @@ public class GameController implements Observable {
     }
 
     private void init() {
-        inputHandler = new InputHandler(this, viewport);
-        game.addInputProcessor(new GestureDetector(inputHandler));
+        aiInput = new EasyAI(this);
+        playerInput = new PlayerInput(this, viewport);
+        game.addInputProcessor(new GestureDetector((PlayerInput) playerInput));
 
         effectFactory = new EffectFactory(assetManager);
         skillFactory = new SkillFactory(effectFactory);
-        entityFactory = new EntityFactory(assetManager, skillFactory);
+        entityFactory = new EntityFactory(this, assetManager, skillFactory);
 
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
-        Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf1");
+        Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf1", Unit.HeroClass.SUPPORT);
         dwarf1.setPosition(1f, 1f);
         dwarf1.getAttributes().setMoveSpeed(1f);
-        dwarf1.getAttributes().setAttackDelay(0.5f);
-        dwarf1.getAttributes().setCastDelay(0.5f);
+        dwarf1.getAttributes().setAttackDelay(3.5f);
+        dwarf1.getAttributes().setCastDelay(1.5f);
         dwarf1.getAttributes().setAttackRange(5f);
         dwarf1.getAttributes().setIntelligence(5f);
         dwarf1.addSkill(skillFactory.createHealSkill(dwarf1));
         this.selectedUnit = dwarf1;
         playerParty.add(dwarf1);
 
-        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf2");
+        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf2", Unit.HeroClass.WARRIOR);
         dwarf.setPosition(6f, 6f);
-        dwarf.getAttributes().setMoveSpeed(3f);
-        dwarf.getAttributes().setAttackDelay(0.5f);
-        dwarf.getAttributes().setCastDelay(0.5f);
+        dwarf.getAttributes().setMoveSpeed(2f);
+        dwarf.getAttributes().setAttackDelay(1.5f);
+        dwarf.getAttributes().setCastDelay(1.5f);
         dwarf.getAttributes().setAttackRange(5f);
-        dwarf.getAttributes().setIntelligence(5f);
+        dwarf.getAttributes().setIntelligence(2f);
+        dwarf.getAttributes().setStrength(2f);
         dwarf.addSkill(skillFactory.createHealSkill(dwarf));
         playerParty.add(dwarf);
 
-        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3");
+        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3", Unit.HeroClass.WARRIOR);
         dwarf2.setPosition(3f, 3f);
         dwarf2.getAttributes().setMoveSpeed(2f);
-        dwarf2.getAttributes().setAttackDelay(0.5f);
-        dwarf2.getAttributes().setCastDelay(0.5f);
-        dwarf2.getAttributes().setAttackRange(5f);
-        dwarf2.getAttributes().setIntelligence(5f);
+        dwarf2.getAttributes().setAttackDelay(2.5f);
+        dwarf2.getAttributes().setCastDelay(3.5f);
+        dwarf2.getAttributes().setAttackRange(1f);
+        dwarf2.getAttributes().setStrength(5f);
         dwarf2.addSkill(skillFactory.createHealSkill(dwarf2));
         playerParty.add(dwarf2);
 
         // == enemy party ==
-        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin");
+        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
         goblin.setPosition(8f, 3f);
-        goblin.getAttributes().setAttackDelay(5f);
+        goblin.getAttributes().setAttackDelay(3f);
+        this.aiSelectedUnit = goblin;
+        enemyParty.add(goblin);
+
+        goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_BASE, "Goblin1", Unit.HeroClass.SUPPORT);
+        goblin.setPosition(8f, 8f);
+        goblin.getAttributes().setIntelligence(8f);
+        goblin.getAttributes().setAttackRange(5f);
+        goblin.getAttributes().setAttackDelay(3f);
         enemyParty.add(goblin);
     }
 
@@ -109,13 +123,14 @@ public class GameController implements Observable {
             return;
         }
 
+        aiInput.update(delta);
         updateUnits(delta);
         updateStatus(delta);
-        simpleAI(delta);
     }
 
     private void updateUnits(float delta) {
-        selectedUnit.handleInput(inputHandler);
+        selectedUnit.handleInput(playerInput);
+        aiSelectedUnit.handleInput(aiInput);
 
         for (int i = 0; i < playerParty.size; i++) {
             Unit unit = playerParty.get(i);
@@ -133,19 +148,6 @@ public class GameController implements Observable {
         if (statusUpdateTimer >= STATUS_UPDATE) {
             statusUpdateTimer = 0f;
             playerParty.sort();
-        }
-    }
-
-    private void simpleAI(float delta) {
-        aiTimer += delta;
-        if (aiTimer >= AI_UPDATE) {
-            aiTimer = 0f;
-            for (int i = 0; i < enemyParty.size; i++) {
-                Unit unit = enemyParty.get(i);
-                Unit target = playerParty.first();
-                unit.setTarget(target);
-                unit.activateSkill(0);
-            }
         }
     }
 
@@ -173,6 +175,22 @@ public class GameController implements Observable {
 
     public Array<Unit> getPlayerParty() {
         return playerParty;
+    }
+
+    public Unit getAiSelectedUnit() {
+        return aiSelectedUnit;
+    }
+
+    public void setAiSelectedUnit(Unit aiSelectedUnit) {
+        this.aiSelectedUnit = aiSelectedUnit;
+    }
+
+    public Unit getAiSelectedEnemy() {
+        return aiSelectedEnemy;
+    }
+
+    public void setAiSelectedEnemy(Unit aiSelectedEnemy) {
+        this.aiSelectedEnemy = aiSelectedEnemy;
     }
 
     // == override methods ==

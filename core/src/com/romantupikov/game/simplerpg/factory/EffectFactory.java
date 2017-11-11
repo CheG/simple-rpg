@@ -7,6 +7,7 @@ import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.entity.effect.HealEffect;
 import com.romantupikov.game.simplerpg.entity.effect.MeleeEffect;
+import com.romantupikov.game.simplerpg.entity.effect.MoveEffect;
 
 /**
  * Created by hvitserk on 07-Nov-17.
@@ -53,5 +54,14 @@ public class EffectFactory {
         meleeEffect.setVisualEffect(effect);
 
         return meleeEffect;
+    }
+
+    public MoveEffect createMoveEffect(Unit unit) {
+        ParticleEffectPool.PooledEffect effect = dustEffectPool.obtain();
+        effect.setPosition(unit.getX(), unit.getY());
+        effect.start();
+
+        MoveEffect moveEffect = new MoveEffect(unit);
+        return moveEffect;
     }
 }

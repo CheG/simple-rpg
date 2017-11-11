@@ -4,7 +4,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
@@ -12,6 +11,7 @@ import com.romantupikov.game.simplerpg.config.GameConfig;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
 import com.romantupikov.game.simplerpg.factory.EntityFactory;
 import com.romantupikov.game.simplerpg.factory.SkillFactory;
+import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 
 /**
  * Created by hvitserk on 31-Oct-17.
