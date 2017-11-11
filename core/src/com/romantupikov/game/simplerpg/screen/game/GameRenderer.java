@@ -2,9 +2,10 @@ package com.romantupikov.game.simplerpg.screen.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -91,23 +92,19 @@ public class GameRenderer implements Disposable, Observer {
     }
 
     private void drawDebug() {
+        renderer.setColor(Color.LIME);
+
+        selectedHero.drawDebug(renderer);
+
+        renderer.setColor(MaterialColor.AMBER);
+
         for (int i = 0; i < enemyParty.size; i++) {
             Unit enemy = enemyParty.get(i);
-            if (selectedEnemy != null)
-                if (selectedEnemy == enemy)
-                    enemy.setDebugColor(MaterialColor.AMBER);
-                else
-                    enemy.setDebugColor(MaterialColor.RED);
-            enemy.drawDebug(renderer);
-        }
-        for (int i = 0; i < playerParty.size; i++) {
-            Unit hero = playerParty.get(i);
-            if (selectedHero != null)
-                if (selectedHero == hero)
-                    hero.setDebugColor(MaterialColor.LIGHT_GREEN);
-                else
-                    hero.setDebugColor(MaterialColor.PINK);
-            hero.drawDebug(renderer);
+            Circle enemyBounds = enemy.getBounds();
+            if (enemy.getTarget() != null) {
+                Circle targetBounds = enemy.getTarget().getBounds();
+                renderer.line(enemyBounds.x, enemyBounds.y, targetBounds.x, targetBounds.y);
+            }
         }
     }
 

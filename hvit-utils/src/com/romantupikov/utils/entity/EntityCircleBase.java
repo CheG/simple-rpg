@@ -14,7 +14,7 @@ public abstract class EntityCircleBase extends EntityBase {
 
     @Override
     public void drawDebug(ShapeRenderer renderer) {
-        renderer.setColor(debugColor);
+//        renderer.setColor(debugColor);
         renderer.circle(bounds.x, bounds.y, bounds.radius, 20);
         renderer.x(bounds.x, bounds.y, 0.1f);
     }

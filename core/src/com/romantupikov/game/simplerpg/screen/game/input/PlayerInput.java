@@ -3,6 +3,7 @@ package com.romantupikov.game.simplerpg.screen.game.input;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.screen.game.GameController;
 
@@ -64,7 +65,11 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
 
     @Override
     public boolean longPress(float x, float y) {
+        Vector2 worldTouch = viewport.unproject(new Vector2(x, y));
 
+        Unit unit = getController().getEntityFactory().createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
+        unit.setPosition(worldTouch);
+        getController().getEnemyParty().add(unit);
         return false;
     }
 
