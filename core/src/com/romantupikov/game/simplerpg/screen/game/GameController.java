@@ -89,7 +89,7 @@ public class GameController implements Observable {
         dwarf.getAttributes().setCastDelay(1.5f);
         dwarf.getAttributes().setAttackRange(5f);
         dwarf.getAttributes().setIntelligence(2f);
-        dwarf.getAttributes().setStrength(2f);
+        dwarf.getAttributes().setStrength(20f);
         dwarf.addSkill(skillFactory.createHealSkill(dwarf));
         playerParty.add(dwarf);
 
@@ -134,11 +134,17 @@ public class GameController implements Observable {
 
         for (int i = 0; i < playerParty.size; i++) {
             Unit unit = playerParty.get(i);
+            if (unit.getAttributes().isDead()) {
+                playerParty.removeIndex(i);
+            }
             unit.update(delta);
         }
 
         for (int i = 0; i < enemyParty.size; i++) {
             Unit enemy = enemyParty.get(i);
+            if (enemy.getAttributes().isDead()) {
+                enemyParty.removeIndex(i);
+            }
             enemy.update(delta);
         }
     }

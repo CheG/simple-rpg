@@ -40,7 +40,14 @@ public class AttackState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
+        super.update(unit, delta);
         attackTimer += delta;
+
+        if (unit.getTarget().getAttributes().isDead()) {
+            unit.setTarget(null);
+            unit.getStates().removeFirst();
+            return;
+        }
 
         if (unit.getPosition().cpy().sub(unit.getTarget().getPosition()).len() >= unit.getAttributes().getAttackRange()) {
             unit.getStates().addFirst(new FollowState());

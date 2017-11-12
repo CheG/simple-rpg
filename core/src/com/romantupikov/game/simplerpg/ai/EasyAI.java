@@ -26,8 +26,13 @@ public class EasyAI extends InputHandler {
         actionTimer += delta;
 
         if (actionTimer >= ACTION_DELAY) {
+            actionTimer = 0f;
             aiParty = getController().getEnemyParty();
             playerParty = getController().getPlayerParty();
+
+            if (aiParty.size == 0 || playerParty.size == 0) {
+                return;
+            }
 
             if (unitIndex >= aiParty.size) {
                 unitIndex = 0;
@@ -37,6 +42,7 @@ public class EasyAI extends InputHandler {
 
             setSelectedUnit(unit);
             getController().setAiSelectedUnit(unit);
+            getController().notifyObservers();
 
             switch (unit.getHeroClass()) {
                 case WARRIOR:

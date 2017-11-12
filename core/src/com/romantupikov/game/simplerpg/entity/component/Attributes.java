@@ -20,6 +20,8 @@ public class Attributes {
     private float castDelay;
     private float threat;
 
+    private boolean dead;
+
     public Attributes(String name, float level,
                       float maxHP, float strength, float dexterity, float vitality, float intelligence,
                       float defence, float moveSpeed, float attackDelay, float attackRange, float castDelay) {
@@ -87,8 +89,10 @@ public class Attributes {
         this.hp += amount;
         if (hp >= maxHP)
             hp = maxHP;
-        else if (hp <= 0f)
+        else if (hp <= 0f) {
             hp = 0f;
+            dead = true;
+        }
     }
 
     public float getStrength() {
@@ -175,5 +179,9 @@ public class Attributes {
         this.threat += threat;
         if (threat <= 0f)
             threat = 0f;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 }

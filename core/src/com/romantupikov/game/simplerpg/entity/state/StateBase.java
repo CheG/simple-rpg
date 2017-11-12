@@ -20,7 +20,6 @@ public abstract class StateBase implements State {
 
     @Override
     public void update(Unit unit, float delta) {
-
     }
 
     @Override

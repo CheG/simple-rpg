@@ -30,6 +30,8 @@ public class GameRenderer implements Disposable, Observer {
 
     private Unit selectedHero;
     private Unit selectedEnemy;
+    private Unit aiSelectedHero;
+    private Unit aiSelectedEnemy;
     private Array<Unit> enemyParty;
     private Array<Unit> playerParty;
 
@@ -100,6 +102,9 @@ public class GameRenderer implements Disposable, Observer {
 
         for (int i = 0; i < enemyParty.size; i++) {
             Unit enemy = enemyParty.get(i);
+            if (enemy == aiSelectedHero) {
+                enemy.drawDebug(renderer);
+            }
             Circle enemyBounds = enemy.getBounds();
             if (enemy.getTarget() != null) {
                 Circle targetBounds = enemy.getTarget().getBounds();
@@ -116,6 +121,8 @@ public class GameRenderer implements Disposable, Observer {
     public void getControllerUpdate() {
         selectedHero = controller.getSelectedUnit();
         selectedEnemy = controller.getSelectedEnemy();
+        aiSelectedHero = controller.getAiSelectedUnit();
+        aiSelectedEnemy = controller.getAiSelectedEnemy();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
     }
