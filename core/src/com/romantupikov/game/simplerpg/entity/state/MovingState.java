@@ -10,12 +10,6 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 
 public class MovingState extends StateBase {
     @Override
-    public void enter(Unit unit, InputHandler input) {
-        super.enter(unit, input);
-//        unit.addEffect();
-    }
-
-    @Override
     public State handleInput(Unit unit, InputHandler input) {
         if (input.getAction() == InputHandler.Action.FOLLOW) {
             unit.getStates().removeFirst();
@@ -38,6 +32,11 @@ public class MovingState extends StateBase {
     }
 
     @Override
+    public void enter(Unit unit, InputHandler input) {
+        super.enter(unit, input);
+    }
+
+    @Override
     public void update(Unit unit, float delta) {
         if (unit.getMoveTo().cpy().sub(unit.getPosition()).len() <= 0.1f) {
             unit.getStates().removeFirst();
@@ -49,5 +48,6 @@ public class MovingState extends StateBase {
 
     @Override
     public void exit(Unit unit, InputHandler input) {
+        super.exit(unit, input);
     }
 }

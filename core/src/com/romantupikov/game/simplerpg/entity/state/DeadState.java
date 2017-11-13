@@ -4,26 +4,30 @@ import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 
 /**
- * Created by hvitserk on 11-Nov-17.
+ * Created by hvitserk on 13-Nov-17.
  */
 
-public abstract class StateBase implements State {
+public class DeadState extends StateBase {
     @Override
     public State handleInput(Unit unit, InputHandler input) {
+
         return null;
     }
 
     @Override
     public void enter(Unit unit, InputHandler input) {
-        input.setAction(InputHandler.Action.NON);
+        super.enter(unit, input);
+        unit.setRotation(-80f);
     }
 
     @Override
     public void update(Unit unit, float delta) {
+
     }
 
     @Override
     public void exit(Unit unit, InputHandler input) {
-        input.setAction(InputHandler.Action.NON);
+        super.exit(unit, input);
+        unit.setRotation(0f);
     }
 }

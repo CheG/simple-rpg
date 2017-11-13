@@ -12,11 +12,6 @@ public class SupportState extends StateBase {
     private float castTimer;
 
     @Override
-    public void enter(Unit unit, InputHandler input) {
-        super.enter(unit, input);
-    }
-
-    @Override
     public State handleInput(Unit unit, InputHandler input) {
         if (input.getAction() == InputHandler.Action.FOLLOW) {
             unit.getStates().removeFirst();
@@ -39,17 +34,23 @@ public class SupportState extends StateBase {
     }
 
     @Override
-    public void update(Unit unit, float delta) {
-        castTimer += delta;
+    public void enter(Unit unit, InputHandler input) {
+        super.enter(unit, input);
+    }
 
-        if (unit.getTarget().getAttributes().isDead()) {
+    @Override
+    public void update(Unit unit, float delta) {
+        if (unit.getTarget() != null && unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();
             return;
         }
 
-        if (unit.getPosition().cpy().sub(unit.getTarget().getPosition()).len() >= unit.getAttributes().getAttackRange()) {
-            unit.getStates().addFirst(new FollowState());
+        castTimer += delta;
+
+        if (unit.getPosition().cpy().sub(unit.getTarget().getPosition()).len() > unit.getAttributes().getAttackRange()) {
+            State state = new FollowState();
+            unit.addState(state);
         }
 
         if (castTimer >= unit.getAttributes().getCastDelay()) {
@@ -64,5 +65,6 @@ public class SupportState extends StateBase {
 
     @Override
     public void exit(Unit unit, InputHandler input) {
+        super.exit(unit, input);
     }
 }

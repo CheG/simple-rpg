@@ -1,5 +1,6 @@
 package com.romantupikov.game.simplerpg.entity.state;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
@@ -9,11 +10,6 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
  */
 
 public class FollowState extends StateBase {
-    @Override
-    public void enter(Unit unit, InputHandler input) {
-        super.enter(unit, input);
-    }
-
     @Override
     public State handleInput(Unit unit, InputHandler input) {
         if (input.getAction() == InputHandler.Action.FOLLOW) {
@@ -33,12 +29,23 @@ public class FollowState extends StateBase {
     }
 
     @Override
+    public void enter(Unit unit, InputHandler input) {
+        super.enter(unit, input);
+    }
+
+    @Override
     public void update(Unit unit, float delta) {
-        if (unit.getPosition().cpy().sub(unit.getTarget().getPosition()).len() <= unit.getAttributes().getAttackRange() + 0.1f) {
+        if (unit.getTarget() != null && unit.getTarget().getAttributes().isDead()) {
+            unit.setTarget(null);
             unit.getStates().removeFirst();
+            return;
         }
 
         Vector2 targetPos = unit.getTarget().getPosition();
+
+        if (unit.getPosition().cpy().sub(targetPos).len() < unit.getAttributes().getAttackRange() - 0.1f) {
+            unit.getStates().removeFirst();
+        }
 
         Vector2 dir = targetPos.cpy().sub(unit.getPosition()).nor();
         unit.setPosition(unit.getPosition().mulAdd(dir.scl(unit.getAttributes().getMoveSpeed()), delta));
@@ -46,6 +53,6 @@ public class FollowState extends StateBase {
 
     @Override
     public void exit(Unit unit, InputHandler input) {
-
+        super.exit(unit, input);
     }
 }

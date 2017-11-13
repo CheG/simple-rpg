@@ -39,6 +39,11 @@ public class EasyAI extends InputHandler {
             }
 
             Unit unit = aiParty.get(unitIndex);
+            if (unit.getAttributes().isDead()) {
+                actionTimer = ACTION_DELAY;
+                unitIndex++;
+                return;
+            }
 
             setSelectedUnit(unit);
             getController().setAiSelectedUnit(unit);
@@ -46,29 +51,36 @@ public class EasyAI extends InputHandler {
 
             switch (unit.getHeroClass()) {
                 case WARRIOR:
-                    Unit enemy = playerParty.first();
-                    if (enemy != null && enemy != unit.getTarget()) {
-                        unit.setTarget(enemy);
-                        setAction(Action.ATTACK);
-                    }
+                    warriorLogic(unit);
                     break;
 
                 case SUPPORT:
-                    Unit minHPUnit = aiParty.first();
-                    for (int i = 1; i < aiParty.size; i++) {
-                        Unit ally = aiParty.get(i);
-                        if (ally.getAttributes().getHp() < minHPUnit.getAttributes().getHp())
-                            minHPUnit = ally;
-                    }
-                    if (minHPUnit != unit.getTarget()) {
-                        unit.setTarget(minHPUnit);
-                        setAction(Action.SUPPORT);
-                    }
+                    supportLogic(unit);
                     break;
             }
 
-
             unitIndex++;
+        }
+    }
+
+    private void warriorLogic(Unit unit) {
+        Unit enemy = playerParty.first();
+        if (enemy != null && enemy != unit.getTarget()) {
+            unit.setTarget(enemy);
+            setAction(Action.ATTACK);
+        }
+    }
+
+    private void supportLogic(Unit unit) {
+        Unit minHPUnit = aiParty.first();
+        for (int i = 1; i < aiParty.size; i++) {
+            Unit ally = aiParty.get(i);
+            if (ally.getAttributes().getHp() < minHPUnit.getAttributes().getHp())
+                minHPUnit = ally;
+        }
+        if (minHPUnit != unit.getTarget()) {
+            unit.setTarget(minHPUnit);
+            setAction(Action.SUPPORT);
         }
     }
 }

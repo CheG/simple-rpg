@@ -99,8 +99,8 @@ public class GameHUD implements Disposable, Observer {
 //        enemyHealthBar.setAnimateInterpolation(Interpolation.elasticOut);
 //        enemyHealthBar.setVisible(false);
 
-//        font = assetManager.get(AssetsDescriptors.FONT_32);
-//        glyphLayout.setText(font, "HP");
+//        ui.font = assetManager.get(AssetsDescriptors.FONT_32);
+//        glyphLayout.setText(ui.font, "HP");
 
         btnNextTurn = new TextButton("DUMMY", uiSkin);
         btnNextTurn.addListener(new ChangeListener() {

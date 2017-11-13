@@ -9,11 +9,6 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 
 public class IdleState extends StateBase {
     @Override
-    public void enter(Unit unit, InputHandler input) {
-        super.enter(unit, input);
-    }
-
-    @Override
     public State handleInput(Unit unit, InputHandler input) {
         if (input.getAction() == InputHandler.Action.FOLLOW) {
             return new FollowState();
@@ -29,6 +24,11 @@ public class IdleState extends StateBase {
             return new SupportState();
         }
         return null;
+    }
+
+    @Override
+    public void enter(Unit unit, InputHandler input) {
+        super.enter(unit, input);
     }
 
     @Override

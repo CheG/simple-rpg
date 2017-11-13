@@ -67,7 +67,7 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
     public boolean longPress(float x, float y) {
         Vector2 worldTouch = viewport.unproject(new Vector2(x, y));
 
-        Unit unit = getController().getEntityFactory().createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
+        Unit unit = getController().getEntityFactory().createDummyAIUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
         unit.setPosition(worldTouch);
         getController().getEnemyParty().add(unit);
         return false;

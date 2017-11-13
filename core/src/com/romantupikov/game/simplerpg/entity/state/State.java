@@ -8,8 +8,8 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
  */
 
 public interface State {
-    void enter(Unit unit, InputHandler input);
     State handleInput(Unit unit, InputHandler input);
+    void enter(Unit unit, InputHandler input);
     void update(Unit unit, float delta);
     void exit(Unit unit, InputHandler input);
 }

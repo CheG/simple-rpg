@@ -1,57 +1,57 @@
 {
   com.badlogic.gdx.graphics.g2d.BitmapFont: {
     default_font: {
-      file: ../font/kurale_32.fnt
+      "file": "font/kurale_32.fnt"
     }
   },
   com.badlogic.gdx.graphics.Color: {
     white: {
-      a: 1,
-      b: 1,
-      g: 1,
-      r: 1
+      "a": 1,
+      "b": 1,
+      "g": 1,
+      "r": 1
     },
     black: {
-      a: 1,
-      b: 0,
-      g: 0,
-      r: 0
+      "a": 1,
+      "b": 0,
+      "g": 0,
+      "r": 0
     },
     brown: {
-      hex: 795548ff
+      "hex": "795548ff"
     },
     brown_700: {
-      hex: 5d4037ff
+      "hex": "5d4037ff"
     },
     brown_900: {
-      hex: 3e2723ff
+      "hex": "3e2723ff"
     }
   },
   com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
     default: {
-      down: btn_square_beige_down,
-      up: btn_square_beige
+      "down": "btn_square_beige_down",
+      "up": "btn_square_beige"
     }
   },
   com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
     default: {
-      down: btn_square_beige_down,
-      up: btn_square_beige,
-      font: default_font,
-      fontColor: brown,
-      downFontColor: brown_900
-      overFontColor: brown_700
+      "down": "btn_square_beige_down",
+      "up": "btn_square_beige",
+      "font": "default_font",
+      "fontColor": "brown",
+      "downFontColor": "brown_900",
+      "overFontColor": "brown_700"
     }
   },
   com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
     default: {
-      font: default_font,
-      fontColor: white
+      "font": "default_font",
+      "fontColor": "white"
     }
   },
   com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
     default-horizontal: {
-      knobBefore: bar_horiz_mid_red
+      "knobBefore": "bar_horiz_mid_red"
     }
   }
 }

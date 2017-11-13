@@ -32,7 +32,7 @@ public class MeleeEffect extends EffectBase {
             if (damage < 1f)
                 damage = 1f;
             self.getAttributes().addHP(-damage);
-            Gdx.app.debug("", "[" + self.getAttributes().getName() + "] melee effect complete.");
+            Gdx.app.debug("", "melee effect on [" + self.getAttributes().getName() + "] complete.");
             complete = true;
         }
         return false;

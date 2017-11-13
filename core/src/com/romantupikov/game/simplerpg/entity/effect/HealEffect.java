@@ -29,7 +29,7 @@ public class HealEffect extends EffectBase {
 
         if (!complete) {
             self.getAttributes().addHP(value);
-            Gdx.app.debug("", "[" + self.getAttributes().getName() + "] heal effect complete.");
+            Gdx.app.debug("", "heal effect on [" + self.getAttributes().getName() + "] complete.");
             complete = true;
         }
         return false;

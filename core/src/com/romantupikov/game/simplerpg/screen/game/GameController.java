@@ -23,7 +23,6 @@ import java.util.List;
 
 public class GameController implements Observable {
     private final float STATUS_UPDATE = 1f;
-    private final float AI_UPDATE = 1f;
 
     private final SimpleRpgGame game;
     private final AssetManager assetManager;
@@ -49,7 +48,6 @@ public class GameController implements Observable {
 
     private boolean gameOver = false;
     private float statusUpdateTimer;
-    private float aiTimer;
 
     public GameController(SimpleRpgGame game, Viewport viewport) {
         this.game = game;
@@ -66,56 +64,57 @@ public class GameController implements Observable {
 
         effectFactory = new EffectFactory(assetManager);
         skillFactory = new SkillFactory(effectFactory);
-        entityFactory = new EntityFactory(this, assetManager, skillFactory);
+        entityFactory = new EntityFactory(this, assetManager, skillFactory, playerInput, aiInput);
 
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
-        Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf1", Unit.HeroClass.SUPPORT);
+        Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf1", Unit.HeroClass.SUPPORT, playerInput);
         dwarf1.setPosition(1f, 1f);
         dwarf1.getAttributes().setMoveSpeed(1f);
-        dwarf1.getAttributes().setAttackDelay(3.5f);
+        dwarf1.getAttributes().setAttackDelay(1.5f);
         dwarf1.getAttributes().setCastDelay(1.5f);
         dwarf1.getAttributes().setAttackRange(5f);
         dwarf1.getAttributes().setIntelligence(5f);
+        dwarf1.getAttributes().setStrength(6f);
         dwarf1.addSkill(skillFactory.createHealSkill(dwarf1));
         this.selectedUnit = dwarf1;
         playerParty.add(dwarf1);
 
-        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf2", Unit.HeroClass.WARRIOR);
+        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf2", Unit.HeroClass.WARRIOR, playerInput);
         dwarf.setPosition(6f, 6f);
         dwarf.getAttributes().setMoveSpeed(2f);
         dwarf.getAttributes().setAttackDelay(1.5f);
         dwarf.getAttributes().setCastDelay(1.5f);
         dwarf.getAttributes().setAttackRange(5f);
         dwarf.getAttributes().setIntelligence(2f);
-        dwarf.getAttributes().setStrength(20f);
+        dwarf.getAttributes().setStrength(7f);
         dwarf.addSkill(skillFactory.createHealSkill(dwarf));
         playerParty.add(dwarf);
-
-        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3", Unit.HeroClass.WARRIOR);
-        dwarf2.setPosition(3f, 3f);
-        dwarf2.getAttributes().setMoveSpeed(2f);
-        dwarf2.getAttributes().setAttackDelay(2.5f);
-        dwarf2.getAttributes().setCastDelay(3.5f);
-        dwarf2.getAttributes().setAttackRange(1f);
-        dwarf2.getAttributes().setStrength(5f);
-        dwarf2.addSkill(skillFactory.createHealSkill(dwarf2));
-        playerParty.add(dwarf2);
+//
+//        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3", Unit.HeroClass.WARRIOR);
+//        dwarf2.setPosition(3f, 3f);
+//        dwarf2.getAttributes().setMoveSpeed(2f);
+//        dwarf2.getAttributes().setAttackDelay(2.5f);
+//        dwarf2.getAttributes().setCastDelay(3.5f);
+//        dwarf2.getAttributes().setAttackRange(1f);
+//        dwarf2.getAttributes().setStrength(5f);
+//        dwarf2.addSkill(skillFactory.createHealSkill(dwarf2));
+//        playerParty.add(dwarf2);
 
         // == enemy party ==
-        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
+        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR, aiInput);
         goblin.setPosition(8f, 3f);
         goblin.getAttributes().setAttackDelay(3f);
         this.aiSelectedUnit = goblin;
         enemyParty.add(goblin);
 
-        goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_BASE, "Goblin1", Unit.HeroClass.SUPPORT);
-        goblin.setPosition(8f, 8f);
-        goblin.getAttributes().setIntelligence(8f);
-        goblin.getAttributes().setAttackRange(5f);
-        goblin.getAttributes().setAttackDelay(3f);
-        enemyParty.add(goblin);
+//        goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_BASE, "Goblin1", Unit.HeroClass.SUPPORT);
+//        goblin.setPosition(8f, 8f);
+//        goblin.getAttributes().setIntelligence(6f);
+//        goblin.getAttributes().setAttackRange(5f);
+//        goblin.getAttributes().setAttackDelay(3f);
+//        enemyParty.add(goblin);
     }
 
     public void update(float delta) {
@@ -129,22 +128,22 @@ public class GameController implements Observable {
     }
 
     private void updateUnits(float delta) {
-        selectedUnit.handleInput(playerInput);
-        aiSelectedUnit.handleInput(aiInput);
+        selectedUnit.handleInput();
+        aiSelectedUnit.handleInput();
 
         for (int i = 0; i < playerParty.size; i++) {
             Unit unit = playerParty.get(i);
-            if (unit.getAttributes().isDead()) {
-                playerParty.removeIndex(i);
-            }
+//            if (unit.getAttributes().isDead()) {
+//                playerParty.removeIndex(i);
+//            }
             unit.update(delta);
         }
 
         for (int i = 0; i < enemyParty.size; i++) {
             Unit enemy = enemyParty.get(i);
-            if (enemy.getAttributes().isDead()) {
-                enemyParty.removeIndex(i);
-            }
+//            if (enemy.getAttributes().isDead()) {
+//                enemyParty.removeIndex(i);
+//            }
             enemy.update(delta);
         }
     }
@@ -199,6 +198,14 @@ public class GameController implements Observable {
         this.aiSelectedEnemy = aiSelectedEnemy;
     }
 
+    public EntityFactory getEntityFactory() {
+        return entityFactory;
+    }
+
+    public EffectFactory getEffectFactory() {
+        return effectFactory;
+    }
+
     // == override methods ==
 
     @Override
@@ -216,13 +223,5 @@ public class GameController implements Observable {
         for (Observer observer : observers) {
             observer.getControllerUpdate();
         }
-    }
-
-    public EntityFactory getEntityFactory() {
-        return entityFactory;
-    }
-
-    public EffectFactory getEffectFactory() {
-        return effectFactory;
     }
 }
