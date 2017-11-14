@@ -77,7 +77,7 @@ public class GameController implements Observable {
         dwarf1.getAttributes().setAttackRange(5f);
         dwarf1.getAttributes().setIntelligence(5f);
         dwarf1.getAttributes().setStrength(6f);
-        dwarf1.addSkill(skillFactory.createHealSkill(dwarf1));
+        dwarf1.addSkill(skillFactory.massHealSkill(dwarf1));
         this.selectedUnit = dwarf1;
         playerParty.add(dwarf1);
 
@@ -89,7 +89,6 @@ public class GameController implements Observable {
         dwarf.getAttributes().setAttackRange(5f);
         dwarf.getAttributes().setIntelligence(2f);
         dwarf.getAttributes().setStrength(7f);
-        dwarf.addSkill(skillFactory.createHealSkill(dwarf));
         playerParty.add(dwarf);
 //
 //        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3", Unit.HeroClass.WARRIOR);

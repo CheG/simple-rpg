@@ -57,6 +57,7 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
         if (ally != null) {
             ally.setMoveTo(worldTouch);
             setAction(Action.MOVE);
+            return false;
         }
 
 

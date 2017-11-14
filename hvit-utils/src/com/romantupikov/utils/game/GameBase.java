@@ -50,6 +50,10 @@ public abstract class GameBase extends Game {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
+    public void addFirstInputProcessor(InputProcessor inputProcessor) {
+        inputMultiplexer.addProcessor(0, inputProcessor);
+    }
+
     public void removeInputProcessor(InputProcessor inputProcessor) {
         inputMultiplexer.removeProcessor(inputProcessor);
         Gdx.input.setInputProcessor(inputMultiplexer);

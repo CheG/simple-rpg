@@ -54,14 +54,14 @@ public class GameScreen extends ScreenAdapter {
 
         gameController = new GameController(game, viewport);
         gameRenderer = new GameRenderer(game, gameController, viewport);
-//        gameHUD = new GameHUD(game, gameController, hudViewport);
+        gameHUD = new GameHUD(game, gameController, hudViewport);
     }
 
     @Override
     public void render(float delta) {
         gameController.update(delta);
         gameRenderer.render(delta);
-//        gameHUD.render(delta);
+        gameHUD.render(delta);
 
 //        if(gameController.isGameOver()) {
 //            delayTimer += delta;
@@ -74,7 +74,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         gameRenderer.resize(width, height);
-//        gameHUD.resize(width, height);
+        gameHUD.resize(width, height);
     }
 
     @Override
@@ -85,6 +85,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         gameRenderer.dispose();
-//        gameHUD.dispose();
+        gameHUD.dispose();
     }
 }

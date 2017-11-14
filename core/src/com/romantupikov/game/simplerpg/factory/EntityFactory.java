@@ -39,7 +39,7 @@ public class EntityFactory {
         TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
         Attributes attributes = new Attributes(name);
         Unit unit = new Unit(controller, input, region, barRegion, attributes, heroClass);
-        unit.addSkill(skillFactory.createMeleeSkill(unit));
+
 
         return unit;
     }
@@ -49,7 +49,7 @@ public class EntityFactory {
         TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
         Attributes attributes = new Attributes(name);
         Unit unit = new Unit(controller, aiInput, region, barRegion, attributes, heroClass);
-        unit.addSkill(skillFactory.createMeleeSkill(unit));
+
 
         return unit;
     }

@@ -3,14 +3,11 @@ package com.romantupikov.game.simplerpg.screen.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,8 +19,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
-import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
+
+import sun.security.x509.DeltaCRLIndicatorExtension;
 
 /**
  * Created by hvitserk on 02-Nov-17.
@@ -41,13 +39,12 @@ public class GameHUD implements Disposable, Observer {
     private Viewport hudViewport;
 
     private Stage stage;
-    private ProgressBar heroHealthBar;
-    private ProgressBar enemyHealthBar;
-    private BitmapFont font;
     private Button btnNextTurn;
 
-    private Unit selectedUnit;
+    private Unit selectedHero;
     private Unit selectedEnemy;
+    private Unit aiSelectedHero;
+    private Unit aiSelectedEnemy;
     private Array<Unit> enemyParty;
     private Array<Unit> playerParty;
 
@@ -66,12 +63,12 @@ public class GameHUD implements Disposable, Observer {
         controller.registerObserver(this);
 
         selectedEnemy = controller.getSelectedEnemy();
-        selectedUnit = controller.getSelectedUnit();
+        selectedHero = controller.getSelectedUnit();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
 
         stage = new Stage(hudViewport, batch);
-        game.addInputProcessor(stage);
+        game.addFirstInputProcessor(stage);
 
         Skin uiSkin = assetManager.get(AssetsDescriptors.UI_SKIN);
 
@@ -106,7 +103,7 @@ public class GameHUD implements Disposable, Observer {
         btnNextTurn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.debug("", "Dummy clicked");
+                selectedHero.getSkills().first().execute();
             }
         });
 
@@ -139,6 +136,10 @@ public class GameHUD implements Disposable, Observer {
         stage.addActor(rootTable);
     }
 
+    public void update(float delta) {
+
+    }
+
     public void render(float delta) {
         renderUI(delta);
     }
@@ -155,10 +156,18 @@ public class GameHUD implements Disposable, Observer {
 
     @Override
     public void getControllerUpdate() {
-        selectedUnit = controller.getSelectedUnit();
+        selectedHero = controller.getSelectedUnit();
         selectedEnemy = controller.getSelectedEnemy();
+        aiSelectedHero = controller.getAiSelectedUnit();
+        aiSelectedEnemy = controller.getAiSelectedEnemy();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
+
+        if (selectedHero.getSkills().size == 0) {
+            btnNextTurn.setVisible(false);
+        } else {
+            btnNextTurn.setVisible(true);
+        }
     }
 
     @Override

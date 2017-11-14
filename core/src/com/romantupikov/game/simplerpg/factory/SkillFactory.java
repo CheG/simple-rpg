@@ -1,8 +1,8 @@
 package com.romantupikov.game.simplerpg.factory;
 
 import com.romantupikov.game.simplerpg.entity.Unit;
-import com.romantupikov.game.simplerpg.entity.skill.HealSkill;
-import com.romantupikov.game.simplerpg.entity.skill.MeleeSkill;
+import com.romantupikov.game.simplerpg.entity.skill.MassHeal;
+import com.romantupikov.game.simplerpg.entity.skill.Skill;
 
 /**
  * Created by hvitserk on 07-Nov-17.
@@ -15,13 +15,8 @@ public class SkillFactory {
         this.effectFactory = effectFactory;
     }
 
-    public HealSkill createHealSkill(Unit unit) {
-        HealSkill healSkill = new HealSkill(effectFactory, unit);
-        return healSkill;
-    }
-
-    public MeleeSkill createMeleeSkill(Unit unit) {
-        MeleeSkill meleeSkill = new MeleeSkill(effectFactory, unit);
-        return meleeSkill;
+    public Skill massHealSkill(Unit unit) {
+        MassHeal massHeal = new MassHeal(unit);
+        return massHeal;
     }
 }
