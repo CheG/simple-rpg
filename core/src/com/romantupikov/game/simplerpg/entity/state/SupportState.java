@@ -40,7 +40,7 @@ public class SupportState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
-        if (unit.getTarget() != null && unit.getTarget().getAttributes().isDead()) {
+        if (unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();
             return;
@@ -55,10 +55,12 @@ public class SupportState extends StateBase {
 
         if (castTimer >= unit.getAttributes().getCastDelay()) {
             castTimer = 0f;
-            Gdx.app.debug("", "CAST!");
             unit.getAttributes().addThreat(4f);
             Unit target = unit.getTarget();
             float value = unit.getAttributes().getIntelligence();
+
+            Gdx.app.debug("", "[" + unit.getAttributes().getName() + "] healing [" + target.getAttributes().getName() + "]");
+
             unit.addEffect(unit.getController().getEffectFactory().createHealEffect(target, value));
         }
     }

@@ -8,6 +8,8 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
  */
 
 public class DeadState extends StateBase {
+    private final float ROTATION_SPEED = 210f;
+    private final float ROTATION_ANGLE = 85f;
     @Override
     public State handleInput(Unit unit, InputHandler input) {
 
@@ -17,11 +19,20 @@ public class DeadState extends StateBase {
     @Override
     public void enter(Unit unit, InputHandler input) {
         super.enter(unit, input);
-        unit.setRotation(-80f);
     }
 
     @Override
     public void update(Unit unit, float delta) {
+        float rotation = unit.getRotation();
+        if (unit.isLookingLeft()) {
+            if (rotation < ROTATION_ANGLE) {
+                unit.setRotation(rotation + delta * ROTATION_SPEED);
+            }
+        } else if (unit.isLookingRight()){
+            if (rotation > -ROTATION_ANGLE) {
+                unit.setRotation(rotation - delta * ROTATION_SPEED);
+            }
+        }
 
     }
 

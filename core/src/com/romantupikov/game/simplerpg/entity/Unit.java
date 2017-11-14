@@ -40,7 +40,8 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private TextureRegion region;
     private TextureRegion barRegion;
 
-    private boolean flip;
+    private boolean lookingLeft;
+    private boolean lookingRight;
 
     private Array<Effect> effects;
     private Array<Skill> skills;
@@ -60,7 +61,6 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         states.addFirst(new IdleState());
         effects = new Array<Effect>(10);
         skills = new Array<Skill>(4);
-        flip = false;
     }
 
     public void handleInput() {
@@ -72,6 +72,8 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     }
 
     public void update(float delta) {
+        turnToTarget(delta);
+
         if (attributes.isDead() && !(states.first() instanceof DeadState)) {
             target = null;
             states.clear();
@@ -94,13 +96,11 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     }
 
     public void render(final SpriteBatch batch) {
-        turnToTarget();
-
         batch.draw(region,
                 position.x, position.y,
                 origX, origY,
                 width, height,
-                1f, 1f,
+                scaleX, scaleY,
                 rotation);
 
         if (!attributes.isDead()) {
@@ -127,14 +127,37 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         }
     }
 
-    private void turnToTarget() {
+    private void turnToTarget(float delta) {
         if (target != null) {
-            if (getPosition().x - target.getPosition().x < -0.1f) {
-                flip = region.isFlipX();
-            } else if (getPosition().x - target.getPosition().x > 0.1f) {
-                flip = !region.isFlipX();
+            if ((getPosition().x - target.getPosition().x < -0.1f) && !lookingRight) {
+                lookRight(delta);
+            } else if ((getPosition().x - target.getPosition().x > 0.1f) && !lookingLeft) {
+                lookLeft(delta);
             }
-            region.flip(flip, false);
+        }
+    }
+
+    private void lookLeft(float delta) {
+        if (scaleX <= -1f) {
+            Gdx.app.debug("", "look left");
+            scaleX = -1f;
+            lookingRight = false;
+            lookingLeft = true;
+        }
+        if (scaleX > -1f) {
+            scaleX -= delta * 5f;
+        }
+    }
+
+    private void lookRight(float delta) {
+        if (scaleX >= 1f) {
+            Gdx.app.debug("", "look right");
+            scaleX = 1f;
+            lookingLeft = false;
+            lookingRight = true;
+        }
+        if (scaleX < 1f) {
+            scaleX += delta * 5f;
         }
     }
 
@@ -212,6 +235,14 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
     public void setRegion(TextureRegion region) {
         this.region = region;
+    }
+
+    public boolean isLookingLeft() {
+        return lookingLeft;
+    }
+
+    public boolean isLookingRight() {
+        return lookingRight;
     }
 
     @Override

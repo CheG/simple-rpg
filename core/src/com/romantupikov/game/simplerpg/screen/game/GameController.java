@@ -69,7 +69,7 @@ public class GameController implements Observable {
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
-        Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf1", Unit.HeroClass.SUPPORT, playerInput);
+        Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf Runemaster", Unit.HeroClass.SUPPORT, playerInput);
         dwarf1.setPosition(1f, 1f);
         dwarf1.getAttributes().setMoveSpeed(1f);
         dwarf1.getAttributes().setAttackDelay(1.5f);
@@ -81,7 +81,7 @@ public class GameController implements Observable {
         this.selectedUnit = dwarf1;
         playerParty.add(dwarf1);
 
-        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf2", Unit.HeroClass.WARRIOR, playerInput);
+        Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf Warrior", Unit.HeroClass.WARRIOR, playerInput);
         dwarf.setPosition(6f, 6f);
         dwarf.getAttributes().setMoveSpeed(2f);
         dwarf.getAttributes().setAttackDelay(1.5f);
@@ -109,12 +109,12 @@ public class GameController implements Observable {
         this.aiSelectedUnit = goblin;
         enemyParty.add(goblin);
 
-//        goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_BASE, "Goblin1", Unit.HeroClass.SUPPORT);
-//        goblin.setPosition(8f, 8f);
-//        goblin.getAttributes().setIntelligence(6f);
-//        goblin.getAttributes().setAttackRange(5f);
-//        goblin.getAttributes().setAttackDelay(3f);
-//        enemyParty.add(goblin);
+        goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_BASE, "Goblin Healer", Unit.HeroClass.SUPPORT, aiInput);
+        goblin.setPosition(10f, 1f);
+        goblin.getAttributes().setIntelligence(6f);
+        goblin.getAttributes().setAttackRange(5f);
+        goblin.getAttributes().setAttackDelay(3f);
+        enemyParty.add(goblin);
     }
 
     public void update(float delta) {

@@ -40,7 +40,7 @@ public class AttackState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
-        if (unit.getTarget() != null && unit.getTarget().getAttributes().isDead()) {
+        if (unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();
             return;
@@ -55,10 +55,10 @@ public class AttackState extends StateBase {
 
         if (attackTimer >= unit.getAttributes().getAttackDelay()) {
             attackTimer = 0f;
-            Gdx.app.debug("", "HIT!");
             unit.getAttributes().addThreat(5f);
             Unit target = unit.getTarget();
             float damage = unit.getAttributes().getStrength();
+            Gdx.app.debug("", "[" + unit.getAttributes().getName() + "] hitting [" + target.getAttributes().getName() + "]");
             unit.addEffect(unit.getController().getEffectFactory().createMeleeEffect(target, damage));
         }
     }

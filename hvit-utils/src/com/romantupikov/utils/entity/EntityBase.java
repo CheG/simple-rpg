@@ -9,6 +9,8 @@ public abstract class EntityBase {
     protected Vector2 position;
     protected float width = 1f;
     protected float height = 1f;
+    protected float scaleX = 1f;
+    protected float scaleY = 1f;
     protected float rotation;
     protected float origX, origY;
 
@@ -102,5 +104,21 @@ public abstract class EntityBase {
 
     public void setOrigY(float origY) {
         this.origY = origY;
+    }
+
+    public float getScaleX() {
+        return scaleX;
+    }
+
+    public void setScaleX(float scaleX) {
+        this.scaleX = scaleX;
+    }
+
+    public float getScaleY() {
+        return scaleY;
+    }
+
+    public void setScaleY(float scaleY) {
+        this.scaleY = scaleY;
     }
 }

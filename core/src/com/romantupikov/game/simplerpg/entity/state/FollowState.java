@@ -35,7 +35,7 @@ public class FollowState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
-        if (unit.getTarget() != null && unit.getTarget().getAttributes().isDead()) {
+        if (unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();
             return;
