@@ -12,9 +12,15 @@ abstract class SkillBase implements Skill {
     protected Unit unit;
     protected Effect[] subEffects;
 
-    protected SkillBase(Unit unit,
+    SkillBase(Unit unit,
                         Effect... subEffects) {
         this.unit = unit;
         this.subEffects = subEffects;
+        name = "Dummy";
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

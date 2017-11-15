@@ -1,6 +1,5 @@
 package com.romantupikov.game.simplerpg.screen.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -21,7 +20,7 @@ import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.entity.Unit;
 
-import sun.security.x509.DeltaCRLIndicatorExtension;
+import javax.xml.soap.Text;
 
 /**
  * Created by hvitserk on 02-Nov-17.
@@ -39,7 +38,9 @@ public class GameHUD implements Disposable, Observer {
     private Viewport hudViewport;
 
     private Stage stage;
-    private Button btnNextTurn;
+    private TextButton btnSupportSkill;
+    private TextButton btnDefenceSkill;
+    private TextButton btnOffenceSkill;
 
     private Unit selectedHero;
     private Unit selectedEnemy;
@@ -99,11 +100,26 @@ public class GameHUD implements Disposable, Observer {
 //        ui.font = assetManager.get(AssetsDescriptors.FONT_32);
 //        glyphLayout.setText(ui.font, "HP");
 
-        btnNextTurn = new TextButton("DUMMY", uiSkin);
-        btnNextTurn.addListener(new ChangeListener() {
+        // TODO: 15-Nov-17 сделать класс кнопок. Или переделать под ImageButton, а картинку брать из Skill
+        btnSupportSkill = new TextButton("Sup Skill", uiSkin);
+        btnSupportSkill.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedHero.getSkills().first().execute();
+                selectedHero.getSupportSkill().execute();
+            }
+        });
+        btnDefenceSkill = new TextButton("Def Skill", uiSkin);
+        btnDefenceSkill.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                selectedHero.getDefenceSkill().execute();
+            }
+        });
+        btnOffenceSkill = new TextButton("Off Skill", uiSkin);
+        btnOffenceSkill.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                selectedHero.getOffenceSkill().execute();
             }
         });
 
@@ -125,7 +141,13 @@ public class GameHUD implements Disposable, Observer {
         // bottom table
         botTable.defaults().expandX();
 
-        botTable.add(btnNextTurn)
+        botTable.add(btnSupportSkill)
+                .pad(Value.percentHeight(0.1f))
+                .align(Align.left);
+        botTable.add(btnDefenceSkill)
+                .pad(Value.percentHeight(0.1f))
+                .align(Align.left);
+        botTable.add(btnOffenceSkill)
                 .pad(Value.percentHeight(0.1f))
                 .align(Align.left);
 
@@ -163,10 +185,27 @@ public class GameHUD implements Disposable, Observer {
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
 
-        if (selectedHero.getSkills().size == 0) {
-            btnNextTurn.setVisible(false);
+        // TODO: 15-Nov-17 придумать идею получше. Что если нужно будет добавить больше скиллов
+
+        if (selectedHero.getSupportSkill() == null) {
+            btnSupportSkill.setVisible(false);
         } else {
-            btnNextTurn.setVisible(true);
+            btnSupportSkill.setText(selectedHero.getSupportSkill().getName());
+            btnSupportSkill.setVisible(true);
+        }
+
+        if (selectedHero.getOffenceSkill() == null) {
+            btnOffenceSkill.setVisible(false);
+        } else {
+            btnOffenceSkill.setText(selectedHero.getOffenceSkill().getName());
+            btnOffenceSkill.setVisible(true);
+        }
+
+        if (selectedHero.getDefenceSkill() == null) {
+            btnDefenceSkill.setVisible(false);
+        } else {
+            btnDefenceSkill.setText(selectedHero.getDefenceSkill().getName());
+            btnDefenceSkill.setVisible(true);
         }
     }
 

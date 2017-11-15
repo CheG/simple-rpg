@@ -8,6 +8,8 @@ import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.ai.EasyAI;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.entity.skill.AggroSkill;
+import com.romantupikov.game.simplerpg.entity.skill.MassHeal;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
 import com.romantupikov.game.simplerpg.factory.EntityFactory;
 import com.romantupikov.game.simplerpg.factory.SkillFactory;
@@ -15,6 +17,7 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 import com.romantupikov.game.simplerpg.screen.game.input.PlayerInput;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,7 +25,7 @@ import java.util.List;
  */
 
 public class GameController implements Observable {
-    private final float STATUS_UPDATE = 1f;
+    private final float STATUS_UPDATE = 0.1f;
 
     private final SimpleRpgGame game;
     private final AssetManager assetManager;
@@ -45,6 +48,8 @@ public class GameController implements Observable {
 
     private Array<Unit> enemyParty = new Array<Unit>();
     private Array<Unit> playerParty = new Array<Unit>();
+    private Array<Unit> allUnits = new Array<Unit>();
+    private Comparator<Unit> positionComparator;
 
     private boolean gameOver = false;
     private float statusUpdateTimer;
@@ -77,7 +82,7 @@ public class GameController implements Observable {
         dwarf1.getAttributes().setAttackRange(5f);
         dwarf1.getAttributes().setIntelligence(5f);
         dwarf1.getAttributes().setStrength(6f);
-        dwarf1.addSkill(skillFactory.massHealSkill(dwarf1));
+        dwarf1.setSupportSkill(new MassHeal(dwarf1));
         this.selectedUnit = dwarf1;
         playerParty.add(dwarf1);
 
@@ -89,6 +94,7 @@ public class GameController implements Observable {
         dwarf.getAttributes().setAttackRange(5f);
         dwarf.getAttributes().setIntelligence(2f);
         dwarf.getAttributes().setStrength(7f);
+        dwarf.setSupportSkill(new AggroSkill(dwarf));
         playerParty.add(dwarf);
 //
 //        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3", Unit.HeroClass.WARRIOR);
@@ -114,6 +120,24 @@ public class GameController implements Observable {
         goblin.getAttributes().setAttackRange(5f);
         goblin.getAttributes().setAttackDelay(3f);
         enemyParty.add(goblin);
+
+        // TODO: 15-Nov-17 куда бы это запихнуть
+        positionComparator = new Comparator<Unit>() {
+            @Override
+            public int compare(Unit unit, Unit unit1) {
+                if (unit.getPosition().y < unit1.getPosition().y)
+                    return 1;
+                else if (unit.getPosition().y > unit1.getPosition().y)
+                    return -1;
+                else
+                    return 0;
+            }
+        };
+
+        allUnits.addAll(enemyParty);
+        allUnits.addAll(playerParty);
+
+        allUnits.sort(positionComparator);
     }
 
     public void update(float delta) {
@@ -130,20 +154,9 @@ public class GameController implements Observable {
         selectedUnit.handleInput();
         aiSelectedUnit.handleInput();
 
-        for (int i = 0; i < playerParty.size; i++) {
-            Unit unit = playerParty.get(i);
-//            if (unit.getAttributes().isDead()) {
-//                playerParty.removeIndex(i);
-//            }
+        for (int i = 0; i < allUnits.size; i++) {
+            Unit unit = allUnits.get(i);
             unit.update(delta);
-        }
-
-        for (int i = 0; i < enemyParty.size; i++) {
-            Unit enemy = enemyParty.get(i);
-//            if (enemy.getAttributes().isDead()) {
-//                enemyParty.removeIndex(i);
-//            }
-            enemy.update(delta);
         }
     }
 
@@ -152,6 +165,8 @@ public class GameController implements Observable {
         if (statusUpdateTimer >= STATUS_UPDATE) {
             statusUpdateTimer = 0f;
             playerParty.sort();
+            allUnits.sort(positionComparator);
+            notifyObservers();
         }
     }
 
@@ -215,6 +230,10 @@ public class GameController implements Observable {
     @Override
     public void removeObserver(Observer o) {
         observers.remove(o);
+    }
+
+    public Array<Unit> getAllUnits() {
+        return allUnits;
     }
 
     @Override

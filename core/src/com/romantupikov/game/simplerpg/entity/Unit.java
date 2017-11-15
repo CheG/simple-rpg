@@ -46,6 +46,11 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private Array<Effect> effects;
     private Array<Skill> skills;
 
+    // TODO: 15-Nov-17 придумать реализацию получше
+    private Skill supportSkill;
+    private Skill defenceSkill;
+    private Skill offenceSkill;
+
     private Skill activeSkill;
     private Queue<State> states;
 
@@ -61,6 +66,9 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         states.addFirst(new IdleState());
         effects = new Array<Effect>(10);
         skills = new Array<Skill>(4);
+        supportSkill = null;
+        defenceSkill = null;
+        offenceSkill = null;
     }
 
     public void handleInput() {
@@ -243,6 +251,30 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
     public boolean isLookingRight() {
         return lookingRight;
+    }
+
+    public Skill getSupportSkill() {
+        return supportSkill;
+    }
+
+    public void setSupportSkill(Skill supportSkill) {
+        this.supportSkill = supportSkill;
+    }
+
+    public Skill getDefenceSkill() {
+        return defenceSkill;
+    }
+
+    public void setDefenceSkill(Skill defenceSkill) {
+        this.defenceSkill = defenceSkill;
+    }
+
+    public Skill getOffenceSkill() {
+        return offenceSkill;
+    }
+
+    public void setOffenceSkill(Skill offenceSkill) {
+        this.offenceSkill = offenceSkill;
     }
 
     @Override

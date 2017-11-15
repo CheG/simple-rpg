@@ -10,7 +10,7 @@ import com.romantupikov.game.simplerpg.entity.effect.Effect;
 abstract class TargetSkillBase extends SkillBase {
     protected Unit target;
 
-    protected TargetSkillBase(Unit unit,
+    TargetSkillBase(Unit unit,
                               Effect... subEffects) {
         super(unit, subEffects);
         this.target = unit.getTarget();

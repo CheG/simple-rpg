@@ -6,4 +6,5 @@ package com.romantupikov.game.simplerpg.entity.skill;
 
 public interface Skill {
     boolean execute();
+    String getName();
 }

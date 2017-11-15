@@ -14,6 +14,8 @@ import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
 
+import java.util.Comparator;
+
 /**
  * Created by hvitserk on 01-Nov-17.
  */
@@ -34,6 +36,7 @@ public class GameRenderer implements Disposable, Observer {
     private Unit aiSelectedEnemy;
     private Array<Unit> enemyParty;
     private Array<Unit> playerParty;
+    private Array<Unit> allUnits;
 
     public GameRenderer(SimpleRpgGame game, GameController gameController, Viewport viewport) {
         this.game = game;
@@ -53,6 +56,7 @@ public class GameRenderer implements Disposable, Observer {
         selectedHero = controller.getSelectedUnit();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
+        allUnits = controller.getAllUnits();
 
         renderer = new ShapeRenderer();
     }
@@ -75,11 +79,9 @@ public class GameRenderer implements Disposable, Observer {
     }
 
     private void draw() {
-        for (int i = 0; i < enemyParty.size; i++) {
-            enemyParty.get(i).render(batch);
-        }
-        for (int i = 0; i < playerParty.size; i++) {
-            playerParty.get(i).render(batch);
+        for (int i = 0; i < allUnits.size; i++) {
+            Unit unit = allUnits.get(i);
+            unit.render(batch);
         }
     }
 
@@ -125,6 +127,7 @@ public class GameRenderer implements Disposable, Observer {
         aiSelectedEnemy = controller.getAiSelectedEnemy();
         enemyParty = controller.getEnemyParty();
         playerParty = controller.getPlayerParty();
+        allUnits = controller.getAllUnits();
     }
 
     @Override
