@@ -17,17 +17,17 @@ import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 public class EntityFactory {
     private final GameController controller;
     private final AssetManager assetManager;
-    private final SkillFactory skillFactory;
+    private final SpellFactory spellFactory;
     private InputHandler playerInput;
     private InputHandler aiInput;
 
     private TextureAtlas gameplay;
 
-    public EntityFactory(GameController controller, AssetManager assetManager, SkillFactory skillFactory,
+    public EntityFactory(GameController controller, AssetManager assetManager, SpellFactory spellFactory,
                          InputHandler playerInput, InputHandler aiInput) {
         this.controller = controller;
         this.assetManager = assetManager;
-        this.skillFactory = skillFactory;
+        this.spellFactory = spellFactory;
 
         this.aiInput = aiInput;
         this.playerInput = playerInput;

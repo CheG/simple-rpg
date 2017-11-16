@@ -2,18 +2,22 @@ package com.romantupikov.game.simplerpg.screen.loading;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
+import com.romantupikov.game.simplerpg.assets.AssetsPaths;
 import com.romantupikov.game.simplerpg.config.GameConfig;
-import com.romantupikov.game.simplerpg.screen.game.GameScreen;
 import com.romantupikov.game.simplerpg.screen.menu.MenuScreen;
 import com.romantupikov.utils.GdxUtils;
 import com.romantupikov.utils.MaterialColor;
+
+import java.util.PropertyPermission;
 
 /**
  * Created by hvitserk on 31-Oct-17.
@@ -49,9 +53,13 @@ public class LoadingScreen extends ScreenAdapter {
         assetManager.load(AssetsDescriptors.GAMEPLAY);
         assetManager.load(AssetsDescriptors.FONT_32);
         assetManager.load(AssetsDescriptors.UI_SKIN);
-        assetManager.load(AssetsDescriptors.PARTICLE_HEAL);
-        assetManager.load(AssetsDescriptors.PARTICLE_BLOOD);
-        assetManager.load(AssetsDescriptors.PARTICLE_DUST);
+
+        ParticleEffectLoader.ParticleEffectParameter pep = new ParticleEffectLoader.ParticleEffectParameter();
+        pep.atlasFile = AssetsPaths.GAMEPLAY;
+        assetManager.load(AssetsPaths.PARTICLE_HEAL, ParticleEffect.class, pep);
+        assetManager.load(AssetsPaths.PARTICLE_BLOOD, ParticleEffect.class, pep);
+        assetManager.load(AssetsPaths.PARTICLE_FIRE, ParticleEffect.class, pep);
+        assetManager.load(AssetsPaths.PARTICLE_DUST, ParticleEffect.class, pep);
     }
 
     @Override

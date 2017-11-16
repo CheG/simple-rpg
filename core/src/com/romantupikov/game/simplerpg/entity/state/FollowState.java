@@ -21,8 +21,7 @@ public class FollowState extends StateBase {
         if (input.getAction() == InputHandler.Action.ATTACK) {
             return new AttackState();
         }
-        if (input.getAction() == InputHandler.Action.SUPPORT &&
-                unit.getHeroClass() == Unit.HeroClass.SUPPORT) {
+        if (input.getAction() == InputHandler.Action.SUPPORT) {
             return new SupportState();
         }
         return null;
@@ -35,6 +34,11 @@ public class FollowState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
+        if (unit.getTarget() == null) {
+            unit.getStates().removeFirst();
+            return;
+        }
+
         if (unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();

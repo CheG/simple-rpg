@@ -8,11 +8,11 @@ import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.ai.EasyAI;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
-import com.romantupikov.game.simplerpg.entity.skill.AggroSkill;
-import com.romantupikov.game.simplerpg.entity.skill.MassHeal;
+import com.romantupikov.game.simplerpg.entity.spell.AggroSpell;
+import com.romantupikov.game.simplerpg.entity.spell.MassHealSpell;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
 import com.romantupikov.game.simplerpg.factory.EntityFactory;
-import com.romantupikov.game.simplerpg.factory.SkillFactory;
+import com.romantupikov.game.simplerpg.factory.SpellFactory;
 import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 import com.romantupikov.game.simplerpg.screen.game.input.PlayerInput;
 
@@ -35,7 +35,7 @@ public class GameController implements Observable {
 
     private EntityFactory entityFactory;
 
-    private SkillFactory skillFactory;
+    private SpellFactory spellFactory;
     private EffectFactory effectFactory;
 
     private InputHandler playerInput;
@@ -68,55 +68,57 @@ public class GameController implements Observable {
         game.addInputProcessor(new GestureDetector((PlayerInput) playerInput));
 
         effectFactory = new EffectFactory(assetManager);
-        skillFactory = new SkillFactory(effectFactory);
-        entityFactory = new EntityFactory(this, assetManager, skillFactory, playerInput, aiInput);
+        spellFactory = new SpellFactory(effectFactory);
+        entityFactory = new EntityFactory(this, assetManager, spellFactory, playerInput, aiInput);
 
         // TODO: 06-Nov-17 перекнуть в EntityFactory
         // == UNDER HEAVY CONSTRUCTION ==
         // == player party ==
         Unit dwarf1 = entityFactory.createDummyUnit(RegionsNames.DWARF_RUNEMASTER, "Dwarf Runemaster", Unit.HeroClass.SUPPORT, playerInput);
         dwarf1.setPosition(1f, 1f);
-        dwarf1.getAttributes().setMoveSpeed(1f);
+        dwarf1.getAttributes().setMoveSpeed(1.3f);
         dwarf1.getAttributes().setAttackDelay(1.5f);
         dwarf1.getAttributes().setCastDelay(1.5f);
         dwarf1.getAttributes().setAttackRange(5f);
-        dwarf1.getAttributes().setIntelligence(5f);
-        dwarf1.getAttributes().setStrength(6f);
-        dwarf1.setSupportSkill(new MassHeal(dwarf1));
+        dwarf1.getAttributes().setIntelligence(4f);
+        dwarf1.getAttributes().setStrength(1f);
+        dwarf1.setSupportSpell(new MassHealSpell(dwarf1));
         this.selectedUnit = dwarf1;
         playerParty.add(dwarf1);
 
         Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf Warrior", Unit.HeroClass.WARRIOR, playerInput);
         dwarf.setPosition(6f, 6f);
-        dwarf.getAttributes().setMoveSpeed(2f);
+        dwarf.getAttributes().setMoveSpeed(1.3f);
         dwarf.getAttributes().setAttackDelay(1.5f);
         dwarf.getAttributes().setCastDelay(1.5f);
-        dwarf.getAttributes().setAttackRange(5f);
-        dwarf.getAttributes().setIntelligence(2f);
-        dwarf.getAttributes().setStrength(7f);
-        dwarf.setSupportSkill(new AggroSkill(dwarf));
+        dwarf.getAttributes().setAttackRange(1f);
+        dwarf.getAttributes().setIntelligence(1f);
+        dwarf.getAttributes().setStrength(4f);
+        dwarf.setSupportSpell(new AggroSpell(dwarf));
         playerParty.add(dwarf);
-//
-//        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_MACE, "Dwarf3", Unit.HeroClass.WARRIOR);
-//        dwarf2.setPosition(3f, 3f);
-//        dwarf2.getAttributes().setMoveSpeed(2f);
-//        dwarf2.getAttributes().setAttackDelay(2.5f);
-//        dwarf2.getAttributes().setCastDelay(3.5f);
-//        dwarf2.getAttributes().setAttackRange(1f);
-//        dwarf2.getAttributes().setStrength(5f);
-//        dwarf2.addSkill(skillFactory.createHealSkill(dwarf2));
-//        playerParty.add(dwarf2);
+
+        Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_FIRE_ACOLYTE, "Dwarf Fire Acolyte", Unit.HeroClass.MAGE, playerInput);
+        dwarf2.setPosition(3f, 3f);
+        dwarf2.getAttributes().setMoveSpeed(1f);
+        dwarf2.getAttributes().setAttackDelay(1.8f);
+        dwarf2.getAttributes().setCastDelay(1.8f);
+        dwarf2.getAttributes().setAttackRange(6f);
+        dwarf2.getAttributes().setStrength(1f);
+        dwarf2.getAttributes().setIntelligence(5f);
+        playerParty.add(dwarf2);
 
         // == enemy party ==
-        Unit goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR, aiInput);
+        Unit goblin = entityFactory.createDummyAIUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
         goblin.setPosition(8f, 3f);
         goblin.getAttributes().setAttackDelay(3f);
+        goblin.getAttributes().setMaxHP(30f);
         this.aiSelectedUnit = goblin;
         enemyParty.add(goblin);
 
-        goblin = entityFactory.createDummyUnit(RegionsNames.GOBLIN_BASE, "Goblin Healer", Unit.HeroClass.SUPPORT, aiInput);
+        goblin = entityFactory.createDummyAIUnit(RegionsNames.GOBLIN_BASE, "Goblin Healer", Unit.HeroClass.SUPPORT);
         goblin.setPosition(10f, 1f);
-        goblin.getAttributes().setIntelligence(6f);
+        goblin.getAttributes().setMaxHP(30f);
+        goblin.getAttributes().setIntelligence(4f);
         goblin.getAttributes().setAttackRange(5f);
         goblin.getAttributes().setAttackDelay(3f);
         enemyParty.add(goblin);

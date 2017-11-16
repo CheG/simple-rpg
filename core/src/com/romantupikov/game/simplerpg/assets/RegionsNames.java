@@ -14,6 +14,7 @@ public class RegionsNames {
     public static final String DWARF_MACE = "chars/dwarves/dwarf117";
     public static final String DWARF_RUNEMASTER = "chars/dwarves/dwarf188";
     public static final String DWARF_HUNTER = "chars/dwarves/dwarf121";
+    public static final String DWARF_FIRE_ACOLYTE = "chars/dwarves/dwarf146";
 
 
     // goblins
@@ -24,6 +25,9 @@ public class RegionsNames {
 
     // HUD
     public static final String BAR = "hud/bar";
+
+    // misc
+    public static final String METEOR_BROWN = "misc/meteor_brown";
 
     // == ui.atlas ==
     // panels

@@ -28,11 +28,14 @@ public class AssetsDescriptors {
 
     // == effects ==
     public static final AssetDescriptor<ParticleEffect> PARTICLE_HEAL =
-            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLES_HEAL, ParticleEffect.class);
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLE_HEAL, ParticleEffect.class);
 
     public static final AssetDescriptor<ParticleEffect> PARTICLE_BLOOD =
-            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLES_BLOOD, ParticleEffect.class);
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLE_BLOOD, ParticleEffect.class);
 
     public static final AssetDescriptor<ParticleEffect> PARTICLE_DUST =
-            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLES_DUST, ParticleEffect.class);
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLE_DUST, ParticleEffect.class);
+
+    public static final AssetDescriptor<ParticleEffect> PARTICLE_FIRE =
+            new AssetDescriptor<ParticleEffect>(AssetsPaths.PARTICLE_FIRE, ParticleEffect.class);
 }

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -19,8 +18,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.entity.Unit;
-
-import javax.xml.soap.Text;
 
 /**
  * Created by hvitserk on 02-Nov-17.
@@ -38,9 +35,9 @@ public class GameHUD implements Disposable, Observer {
     private Viewport hudViewport;
 
     private Stage stage;
-    private TextButton btnSupportSkill;
-    private TextButton btnDefenceSkill;
-    private TextButton btnOffenceSkill;
+    private TextButton btnSupportSpell;
+    private TextButton btnDefenceSpell;
+    private TextButton btnOffenceSpell;
 
     private Unit selectedHero;
     private Unit selectedEnemy;
@@ -100,26 +97,26 @@ public class GameHUD implements Disposable, Observer {
 //        ui.font = assetManager.get(AssetsDescriptors.FONT_32);
 //        glyphLayout.setText(ui.font, "HP");
 
-        // TODO: 15-Nov-17 сделать класс кнопок. Или переделать под ImageButton, а картинку брать из Skill
-        btnSupportSkill = new TextButton("Sup Skill", uiSkin);
-        btnSupportSkill.addListener(new ChangeListener() {
+        // TODO: 15-Nov-17 сделать класс кнопок. Или переделать под ImageButton, а картинку брать из Spell
+        btnSupportSpell = new TextButton("Sup Spell", uiSkin);
+        btnSupportSpell.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedHero.getSupportSkill().execute();
+                selectedHero.getSupportSpell().execute();
             }
         });
-        btnDefenceSkill = new TextButton("Def Skill", uiSkin);
-        btnDefenceSkill.addListener(new ChangeListener() {
+        btnDefenceSpell = new TextButton("Def Spell", uiSkin);
+        btnDefenceSpell.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedHero.getDefenceSkill().execute();
+                selectedHero.getDefenceSpell().execute();
             }
         });
-        btnOffenceSkill = new TextButton("Off Skill", uiSkin);
-        btnOffenceSkill.addListener(new ChangeListener() {
+        btnOffenceSpell = new TextButton("Off Spell", uiSkin);
+        btnOffenceSpell.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedHero.getOffenceSkill().execute();
+                selectedHero.getOffenceSpell().execute();
             }
         });
 
@@ -141,13 +138,13 @@ public class GameHUD implements Disposable, Observer {
         // bottom table
         botTable.defaults().expandX();
 
-        botTable.add(btnSupportSkill)
+        botTable.add(btnSupportSpell)
                 .pad(Value.percentHeight(0.1f))
                 .align(Align.left);
-        botTable.add(btnDefenceSkill)
+        botTable.add(btnDefenceSpell)
                 .pad(Value.percentHeight(0.1f))
                 .align(Align.left);
-        botTable.add(btnOffenceSkill)
+        botTable.add(btnOffenceSpell)
                 .pad(Value.percentHeight(0.1f))
                 .align(Align.left);
 
@@ -187,25 +184,25 @@ public class GameHUD implements Disposable, Observer {
 
         // TODO: 15-Nov-17 придумать идею получше. Что если нужно будет добавить больше скиллов
 
-        if (selectedHero.getSupportSkill() == null) {
-            btnSupportSkill.setVisible(false);
+        if (selectedHero.getSupportSpell() == null) {
+            btnSupportSpell.setVisible(false);
         } else {
-            btnSupportSkill.setText(selectedHero.getSupportSkill().getName());
-            btnSupportSkill.setVisible(true);
+            btnSupportSpell.setText(selectedHero.getSupportSpell().getName());
+            btnSupportSpell.setVisible(true);
         }
 
-        if (selectedHero.getOffenceSkill() == null) {
-            btnOffenceSkill.setVisible(false);
+        if (selectedHero.getOffenceSpell() == null) {
+            btnOffenceSpell.setVisible(false);
         } else {
-            btnOffenceSkill.setText(selectedHero.getOffenceSkill().getName());
-            btnOffenceSkill.setVisible(true);
+            btnOffenceSpell.setText(selectedHero.getOffenceSpell().getName());
+            btnOffenceSpell.setVisible(true);
         }
 
-        if (selectedHero.getDefenceSkill() == null) {
-            btnDefenceSkill.setVisible(false);
+        if (selectedHero.getDefenceSpell() == null) {
+            btnDefenceSpell.setVisible(false);
         } else {
-            btnDefenceSkill.setText(selectedHero.getDefenceSkill().getName());
-            btnDefenceSkill.setVisible(true);
+            btnDefenceSpell.setText(selectedHero.getDefenceSpell().getName());
+            btnDefenceSpell.setVisible(true);
         }
     }
 

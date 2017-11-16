@@ -13,7 +13,7 @@ abstract class EffectBase implements Effect {
     protected Unit self;
     protected boolean complete = false;
 
-    protected EffectBase(Unit unit) {
+    EffectBase(Unit unit) {
 
         this.self = unit;
     }

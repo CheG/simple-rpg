@@ -21,8 +21,7 @@ public class AttackState extends StateBase {
             unit.getStates().removeFirst();
             return new MovingState();
         }
-        if (input.getAction() == InputHandler.Action.SUPPORT &&
-                unit.getHeroClass() == Unit.HeroClass.SUPPORT) {
+        if (input.getAction() == InputHandler.Action.SUPPORT) {
             unit.getStates().removeFirst();
             return new SupportState();
         }
@@ -40,6 +39,10 @@ public class AttackState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
+        if (unit.getTarget() == null) {
+            unit.getStates().removeFirst();
+            return;
+        }
         if (unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();
@@ -55,12 +58,36 @@ public class AttackState extends StateBase {
 
         if (attackTimer >= unit.getAttributes().getAttackDelay()) {
             attackTimer = 0f;
-            unit.getAttributes().addThreat(5f);
             Unit target = unit.getTarget();
-            float damage = unit.getAttributes().getStrength();
-            Gdx.app.debug("", "[" + unit.getAttributes().getName() + "] hitting [" + target.getAttributes().getName() + "]");
-            unit.addEffect(unit.getController().getEffectFactory().createMeleeEffect(target, damage));
+
+            switch (unit.getHeroClass()) {
+                case ARCHER:
+                case WARRIOR:
+                    warriorAttack(unit, target);
+                    break;
+                case MAGE:
+                    mageAttack(unit, target);
+                    break;
+                case SUPPORT:
+                    break;
+                default:
+                    warriorAttack(unit, target);
+                    break;
+            }
+            Gdx.app.debug("", "[" + unit.getAttributes().getName() + "] attacking [" + target.getAttributes().getName() + "]");
         }
+    }
+
+    private void warriorAttack(Unit unit, Unit target) {
+        unit.getAttributes().addThreat(5f);
+        float damage = unit.getAttributes().getStrength();
+        target.addEffect(unit.getController().getEffectFactory().createMeleeEffect(target, damage));
+    }
+
+    private void mageAttack(Unit unit, Unit target) {
+        unit.getAttributes().addThreat(6f);
+        float damage = unit.getAttributes().getIntelligence() + 1f;
+        target.addEffect(unit.getController().getEffectFactory().createFireEffect(target, damage));
     }
 
     @Override

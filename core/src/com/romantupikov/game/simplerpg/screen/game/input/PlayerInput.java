@@ -1,5 +1,6 @@
 package com.romantupikov.game.simplerpg.screen.game.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -13,6 +14,9 @@ import com.romantupikov.game.simplerpg.screen.game.GameController;
 
 public class PlayerInput extends InputHandler implements GestureDetector.GestureListener {
     private final Viewport viewport;
+
+    private Vector2 castPoint;
+    private boolean needCastPoint;
 
     public PlayerInput(GameController controller, Viewport viewport) {
         super(controller);
@@ -54,10 +58,13 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
 
         ally = getController().getSelectedUnit();
 
-        if (ally != null) {
+        if (ally != null && !needCastPoint) {
             ally.setMoveTo(worldTouch);
             setAction(Action.MOVE);
             return false;
+        } else if (needCastPoint) {
+            castPoint = worldTouch.cpy();
+            needCastPoint = false;
         }
 
 
@@ -96,6 +103,7 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
                     getSelectedUnit().setTarget(enemy);
                     getController().setSelectedEnemy(enemy);
                     setAction(Action.ATTACK);
+                    Gdx.app.debug("", "Attack Action on [" + enemy.getAttributes().getName() + "]");
                     getController().notifyObservers();
                     return false;
                 }
@@ -106,6 +114,7 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
                 if (ally.getBounds().contains(worldTouch)) {
                     getSelectedUnit().setTarget(ally);
                     setAction(Action.SUPPORT);
+                    Gdx.app.debug("", "Support Action on [" + ally.getAttributes().getName() + "]");
                     getController().notifyObservers();
                     return false;
                 }
@@ -127,5 +136,13 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
     @Override
     public void pinchStop() {
 
+    }
+
+    public boolean isNeedCastPoint() {
+        return needCastPoint;
+    }
+
+    public void setNeedCastPoint(boolean needCastPoint) {
+        this.needCastPoint = needCastPoint;
     }
 }

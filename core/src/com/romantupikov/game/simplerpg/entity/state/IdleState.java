@@ -19,8 +19,7 @@ public class IdleState extends StateBase {
         if (input.getAction() == InputHandler.Action.ATTACK) {
             return new AttackState();
         }
-        if (input.getAction() == InputHandler.Action.SUPPORT &&
-                unit.getHeroClass() == Unit.HeroClass.SUPPORT) {
+        if (input.getAction() == InputHandler.Action.SUPPORT) {
             return new SupportState();
         }
         return null;

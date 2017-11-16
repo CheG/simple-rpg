@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.entity.skill;
+package com.romantupikov.game.simplerpg.entity.spell;
 
 import com.badlogic.gdx.utils.Array;
 import com.romantupikov.game.simplerpg.entity.Unit;
@@ -8,8 +8,8 @@ import com.romantupikov.game.simplerpg.entity.effect.Effect;
  * Created by hvitserk on 14-Nov-17.
  */
 
-public class MassHeal extends SkillBase {
-    public MassHeal(Unit unit, Effect... subEffects) {
+public class MassHealSpell extends SpellBase {
+    public MassHealSpell(Unit unit, Effect... subEffects) {
         super(unit, subEffects);
         name = "Mass Heal";
     }

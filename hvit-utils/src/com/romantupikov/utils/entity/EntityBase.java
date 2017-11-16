@@ -1,6 +1,7 @@
 package com.romantupikov.utils.entity;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.romantupikov.utils.MaterialColor;
@@ -24,6 +25,8 @@ public abstract class EntityBase {
     }
 
     public abstract void drawDebug(ShapeRenderer renderer);
+    public abstract void update(float delta);
+    public abstract void render(SpriteBatch batch);
 
     protected abstract void updateBounds();
 

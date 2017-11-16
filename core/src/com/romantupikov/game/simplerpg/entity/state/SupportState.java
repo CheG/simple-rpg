@@ -25,8 +25,7 @@ public class SupportState extends StateBase {
             unit.getStates().removeFirst();
             return new AttackState();
         }
-        if (input.getAction() == InputHandler.Action.SUPPORT &&
-                unit.getHeroClass() == Unit.HeroClass.SUPPORT) {
+        if (input.getAction() == InputHandler.Action.SUPPORT) {
             unit.getStates().removeFirst();
             return new SupportState();
         }
@@ -40,6 +39,10 @@ public class SupportState extends StateBase {
 
     @Override
     public void update(Unit unit, float delta) {
+        if (unit.getTarget() == null) {
+            unit.getStates().removeFirst();
+            return;
+        }
         if (unit.getTarget().getAttributes().isDead()) {
             unit.setTarget(null);
             unit.getStates().removeFirst();
@@ -55,14 +58,30 @@ public class SupportState extends StateBase {
 
         if (castTimer >= unit.getAttributes().getCastDelay()) {
             castTimer = 0f;
-            unit.getAttributes().addThreat(4f);
+
             Unit target = unit.getTarget();
-            float value = unit.getAttributes().getIntelligence();
 
-            Gdx.app.debug("", "[" + unit.getAttributes().getName() + "] healing [" + target.getAttributes().getName() + "]");
-
-            unit.addEffect(unit.getController().getEffectFactory().createHealEffect(target, value));
+            switch (unit.getHeroClass()) {
+                case ARCHER:
+                    break;
+                case WARRIOR:
+                    break;
+                case MAGE:
+                    break;
+                case SUPPORT:
+                    supportSupport(unit, target);
+                    break;
+                default:
+                    break;
+            }
+            Gdx.app.debug("", "[" + unit.getAttributes().getName() + "] supporting [" + target.getAttributes().getName() + "]");
         }
+    }
+
+    private void supportSupport(Unit unit, Unit target) {
+        unit.getAttributes().addThreat(4f);
+        float value = unit.getAttributes().getIntelligence();
+        target.addEffect(unit.getController().getEffectFactory().createHealEffect(target, value));
     }
 
     @Override

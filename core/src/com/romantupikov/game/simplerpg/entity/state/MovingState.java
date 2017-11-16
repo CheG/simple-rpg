@@ -23,8 +23,7 @@ public class MovingState extends StateBase {
             unit.getStates().removeFirst();
             return new AttackState();
         }
-        if (input.getAction() == InputHandler.Action.SUPPORT &&
-                unit.getHeroClass() == Unit.HeroClass.SUPPORT) {
+        if (input.getAction() == InputHandler.Action.SUPPORT) {
             unit.getStates().removeFirst();
             return new SupportState();
         }

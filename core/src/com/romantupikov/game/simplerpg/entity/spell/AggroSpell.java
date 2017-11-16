@@ -1,4 +1,4 @@
-package com.romantupikov.game.simplerpg.entity.skill;
+package com.romantupikov.game.simplerpg.entity.spell;
 
 import com.romantupikov.game.simplerpg.entity.Unit;
 import com.romantupikov.game.simplerpg.entity.effect.Effect;
@@ -7,8 +7,8 @@ import com.romantupikov.game.simplerpg.entity.effect.Effect;
  * Created by hvitserk on 15-Nov-17.
  */
 
-public class AggroSkill extends SkillBase {
-    public AggroSkill(Unit unit, Effect... subEffects) {
+public class AggroSpell extends SpellBase {
+    public AggroSpell(Unit unit, Effect... subEffects) {
         super(unit, subEffects);
         name = "Aggro";
     }

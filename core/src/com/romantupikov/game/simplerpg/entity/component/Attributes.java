@@ -75,6 +75,7 @@ public class Attributes {
 
     public void setMaxHP(float maxHP) {
         this.maxHP = maxHP;
+        this.hp = maxHP;
     }
 
     public float getHp() {
@@ -83,6 +84,9 @@ public class Attributes {
 
     public void setHp(float hp) {
         this.hp = hp;
+        if (this.hp > maxHP) {
+            this.hp = maxHP;
+        }
     }
 
     public void addHP(float amount) {

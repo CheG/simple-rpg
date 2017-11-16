@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.romantupikov.game.simplerpg.assets.AssetsDescriptors;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.entity.effect.FireEffect;
 import com.romantupikov.game.simplerpg.entity.effect.HealEffect;
 import com.romantupikov.game.simplerpg.entity.effect.MeleeEffect;
 import com.romantupikov.game.simplerpg.entity.effect.MoveEffect;
@@ -19,6 +20,7 @@ public class EffectFactory {
     private ParticleEffectPool healEffectPool;
     private ParticleEffectPool meleeEffectPool;
     private ParticleEffectPool dustEffectPool;
+    private ParticleEffectPool fireEffectPool;
 
     // TODO: 07-Nov-17 Создать пулл для эффектов
 
@@ -28,19 +30,22 @@ public class EffectFactory {
         ParticleEffect healParticleEffect = assetManager.get(AssetsDescriptors.PARTICLE_HEAL);
         ParticleEffect bloodParticleEffect = assetManager.get(AssetsDescriptors.PARTICLE_BLOOD);
         ParticleEffect dustParticleEffect = assetManager.get(AssetsDescriptors.PARTICLE_DUST);
+        ParticleEffect fireParticleEffect = assetManager.get(AssetsDescriptors.PARTICLE_FIRE);
+
 
         healEffectPool = new ParticleEffectPool(healParticleEffect, 5, 25);
         meleeEffectPool = new ParticleEffectPool(bloodParticleEffect, 5, 25);
         dustEffectPool = new ParticleEffectPool(dustParticleEffect, 5, 25);
+        fireEffectPool = new ParticleEffectPool(fireParticleEffect, 5, 25);
     }
 
     public HealEffect createHealEffect(Unit unit, float value) {
         ParticleEffectPool.PooledEffect effect = healEffectPool.obtain();
+        HealEffect healEffect = new HealEffect(unit, value);
+
+        healEffect.setVisualEffect(effect);
         effect.setPosition(unit.getX(), unit.getY());
         effect.start();
-
-        HealEffect healEffect = new HealEffect(unit, value);
-        healEffect.setVisualEffect(effect);
 
         return healEffect;
     }
@@ -54,6 +59,17 @@ public class EffectFactory {
         meleeEffect.setVisualEffect(effect);
 
         return meleeEffect;
+    }
+
+    public FireEffect createFireEffect(Unit unit, float value) {
+        ParticleEffectPool.PooledEffect effect = fireEffectPool.obtain();
+        FireEffect fireEffect = new FireEffect(unit, value);
+
+        fireEffect.setVisualEffect(effect);
+        effect.setPosition(unit.getX(), unit.getY());
+        effect.start();
+
+        return fireEffect;
     }
 
     public MoveEffect createMoveEffect(Unit unit) {

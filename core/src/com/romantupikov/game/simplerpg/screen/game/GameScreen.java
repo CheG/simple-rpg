@@ -10,7 +10,7 @@ import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.config.GameConfig;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
 import com.romantupikov.game.simplerpg.factory.EntityFactory;
-import com.romantupikov.game.simplerpg.factory.SkillFactory;
+import com.romantupikov.game.simplerpg.factory.SpellFactory;
 import com.romantupikov.game.simplerpg.screen.game.input.InputHandler;
 
 /**
@@ -28,7 +28,7 @@ public class GameScreen extends ScreenAdapter {
     private GameHUD gameHUD;
 
     private EntityFactory entityFactory;
-    private SkillFactory skillFactory;
+    private SpellFactory spellFactory;
     private EffectFactory effectFactory;
 
     private Viewport viewport;

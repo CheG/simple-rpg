@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.romantupikov.game.simplerpg.entity.component.Attributes;
 import com.romantupikov.game.simplerpg.entity.effect.Effect;
-import com.romantupikov.game.simplerpg.entity.skill.Skill;
+import com.romantupikov.game.simplerpg.entity.spell.Spell;
 import com.romantupikov.game.simplerpg.entity.state.DeadState;
 import com.romantupikov.game.simplerpg.entity.state.IdleState;
 import com.romantupikov.game.simplerpg.entity.state.State;
@@ -44,14 +44,14 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     private boolean lookingRight;
 
     private Array<Effect> effects;
-    private Array<Skill> skills;
+    private Array<Spell> spells;
 
     // TODO: 15-Nov-17 придумать реализацию получше
-    private Skill supportSkill;
-    private Skill defenceSkill;
-    private Skill offenceSkill;
+    private Spell supportSpell;
+    private Spell defenceSpell;
+    private Spell offenceSpell;
 
-    private Skill activeSkill;
+    private Spell activeSpell;
     private Queue<State> states;
 
     public Unit(GameController controller, InputHandler input, TextureRegion region, TextureRegion barRegion, Attributes attributes, HeroClass heroClass) {
@@ -65,10 +65,12 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         this.states = new Queue<State>();
         states.addFirst(new IdleState());
         effects = new Array<Effect>(10);
-        skills = new Array<Skill>(4);
-        supportSkill = null;
-        defenceSkill = null;
-        offenceSkill = null;
+        this.lookingRight = true;
+        // TODO: 16-Nov-17 лишний код
+        spells = new Array<Spell>(4);
+        supportSpell = null;
+        defenceSpell = null;
+        offenceSpell = null;
     }
 
     public void handleInput() {
@@ -79,6 +81,7 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         }
     }
 
+    @Override
     public void update(float delta) {
         turnToTarget(delta);
 
@@ -103,6 +106,7 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         attributes.addThreat(-delta);
     }
 
+    @Override
     public void render(final SpriteBatch batch) {
         batch.draw(region,
                 position.x, position.y,
@@ -136,29 +140,24 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
     }
 
     private void turnToTarget(float delta) {
+        Vector2 lookAtPosition = null;
+
         if (target != null) {
-            if ((getPosition().x - target.getPosition().x < -0.1f) && !lookingRight) {
+            lookAtPosition = target.getPosition();
+        } else if (moveTo != null) {
+            lookAtPosition = moveTo;
+        }
+        if (lookAtPosition != null) {
+            if ((getPosition().x - lookAtPosition.x < -0.1f)) {
                 lookRight(delta);
-            } else if ((getPosition().x - target.getPosition().x > 0.1f) && !lookingLeft) {
+            } else if ((getPosition().x - lookAtPosition.x > 0.1f)) {
                 lookLeft(delta);
             }
         }
     }
 
-    private void lookLeft(float delta) {
-        if (scaleX <= -1f) {
-            Gdx.app.debug("", "look left");
-            scaleX = -1f;
-            lookingRight = false;
-            lookingLeft = true;
-        }
-        if (scaleX > -1f) {
-            scaleX -= delta * 5f;
-        }
-    }
-
     private void lookRight(float delta) {
-        if (scaleX >= 1f) {
+        if (scaleX >= 1f && lookingLeft) {
             Gdx.app.debug("", "look right");
             scaleX = 1f;
             lookingLeft = false;
@@ -166,6 +165,18 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         }
         if (scaleX < 1f) {
             scaleX += delta * 5f;
+        }
+    }
+
+    private void lookLeft(float delta) {
+        if (scaleX <= -1f && lookingRight) {
+            Gdx.app.debug("", "look left");
+            scaleX = -1f;
+            lookingRight = false;
+            lookingLeft = true;
+        }
+        if (scaleX > -1f) {
+            scaleX -= delta * 5f;
         }
     }
 
@@ -186,19 +197,19 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
 
     // TODO: 07-Nov-17 Выбор скилла по названию, енаму или еще как, но не по индексу
     public void activateSkill(int index) {
-        activeSkill = skills.get(index);
+        activeSpell = spells.get(index);
     }
 
     public Array<Effect> getEffects() {
         return effects;
     }
 
-    public void addSkill(Skill skill) {
-        skills.add(skill);
+    public void addSkill(Spell spell) {
+        spells.add(spell);
     }
 
-    public Array<Skill> getSkills() {
-        return skills;
+    public Array<Spell> getSpells() {
+        return spells;
     }
 
     public Unit getTarget() {
@@ -253,28 +264,28 @@ public class Unit extends EntityCircleBase implements Comparable<Unit> {
         return lookingRight;
     }
 
-    public Skill getSupportSkill() {
-        return supportSkill;
+    public Spell getSupportSpell() {
+        return supportSpell;
     }
 
-    public void setSupportSkill(Skill supportSkill) {
-        this.supportSkill = supportSkill;
+    public void setSupportSpell(Spell supportSpell) {
+        this.supportSpell = supportSpell;
     }
 
-    public Skill getDefenceSkill() {
-        return defenceSkill;
+    public Spell getDefenceSpell() {
+        return defenceSpell;
     }
 
-    public void setDefenceSkill(Skill defenceSkill) {
-        this.defenceSkill = defenceSkill;
+    public void setDefenceSpell(Spell defenceSpell) {
+        this.defenceSpell = defenceSpell;
     }
 
-    public Skill getOffenceSkill() {
-        return offenceSkill;
+    public Spell getOffenceSpell() {
+        return offenceSpell;
     }
 
-    public void setOffenceSkill(Skill offenceSkill) {
-        this.offenceSkill = offenceSkill;
+    public void setOffenceSpell(Spell offenceSpell) {
+        this.offenceSpell = offenceSpell;
     }
 
     @Override
