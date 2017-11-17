@@ -77,7 +77,7 @@ public class PlayerInput extends InputHandler implements GestureDetector.Gesture
 
         Unit unit = getController().getEntityFactory().createDummyAIUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
         unit.setPosition(worldTouch);
-        getController().getEnemyParty().add(unit);
+        getController().addEnemy(unit);
         return false;
     }
 

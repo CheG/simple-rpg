@@ -1,6 +1,6 @@
 package com.romantupikov.game.simplerpg.entity.effect;
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.Gdx;
 import com.romantupikov.game.simplerpg.entity.Unit;
 
 /**
@@ -10,7 +10,6 @@ import com.romantupikov.game.simplerpg.entity.Unit;
 public class MoveEffect extends EffectBase {
     public MoveEffect(Unit unit) {
         super(unit);
-
     }
 
     @Override
@@ -21,14 +20,21 @@ public class MoveEffect extends EffectBase {
         }
 
         if (visualEffect != null) {
-            visualEffect.allowCompletion();
-            if (visualEffect.isComplete() && complete) {
-                visualEffect.free();
-                return true;
+            if (complete) {
+                visualEffect.allowCompletion();
+                if (visualEffect.isComplete()) {
+                    visualEffect.free();
+                    Gdx.app.debug("", "move effect on [" + self.getAttributes().getName() + "] complete.");
+                    return true;
+                }
             }
         } else if (complete)
             return true;
 
         return false;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }

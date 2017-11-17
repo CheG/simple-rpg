@@ -1,13 +1,11 @@
 package com.romantupikov.utils.entity;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.romantupikov.utils.MaterialColor;
 
 public abstract class EntityBase {
     protected Vector2 position;
+    protected Circle bounds;
     protected float width = 1f;
     protected float height = 1f;
     protected float scaleX = 1f;
@@ -15,16 +13,21 @@ public abstract class EntityBase {
     protected float rotation;
     protected float origX, origY;
 
-    protected Color debugColor;
-
     protected EntityBase() {
         position = new Vector2();
+        bounds = new Circle(position.x, position.y, width / 2f);
         origX = width / 2f;
         origY = height / 2f;
-        debugColor = MaterialColor.PINK;
     }
 
-    protected abstract void updateBounds();
+    private void updateBounds() {
+        bounds.setPosition(position.x + origX, position.y + origY);
+        bounds.setRadius(width / 2f);
+    }
+
+    public Circle getBounds() {
+        return bounds;
+    }
 
     public void setPosition(float x, float y) {
         position.x = x;
@@ -59,10 +62,6 @@ public abstract class EntityBase {
     public void setRotation(float rotation) {
         this.rotation = rotation;
         updateBounds();
-    }
-
-    public void setDebugColor(Color debugColor) {
-        this.debugColor = debugColor;
     }
 
     public Vector2 getPosition() {

@@ -41,11 +41,11 @@ public class EffectFactory {
 
     public HealEffect createHealEffect(Unit unit, float value) {
         ParticleEffectPool.PooledEffect effect = healEffectPool.obtain();
-        HealEffect healEffect = new HealEffect(unit, value);
-
-        healEffect.setVisualEffect(effect);
         effect.setPosition(unit.getX(), unit.getY());
         effect.start();
+
+        HealEffect healEffect = new HealEffect(unit, value);
+        healEffect.setVisualEffect(effect);
 
         return healEffect;
     }
@@ -63,11 +63,11 @@ public class EffectFactory {
 
     public FireEffect createFireEffect(Unit unit, float value) {
         ParticleEffectPool.PooledEffect effect = fireEffectPool.obtain();
-        FireEffect fireEffect = new FireEffect(unit, value);
-
-        fireEffect.setVisualEffect(effect);
         effect.setPosition(unit.getX(), unit.getY());
         effect.start();
+
+        FireEffect fireEffect = new FireEffect(unit, value);
+        fireEffect.setVisualEffect(effect);
 
         return fireEffect;
     }
@@ -78,6 +78,8 @@ public class EffectFactory {
         effect.start();
 
         MoveEffect moveEffect = new MoveEffect(unit);
+        moveEffect.setVisualEffect(effect);
+
         return moveEffect;
     }
 }

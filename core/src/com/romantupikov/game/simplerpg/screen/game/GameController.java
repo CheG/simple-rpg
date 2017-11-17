@@ -10,7 +10,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.ai.EasyAI;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
+import com.romantupikov.game.simplerpg.entity.Entity;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.entity.component.AttributesComponent;
+import com.romantupikov.game.simplerpg.entity.component.Component;
 import com.romantupikov.game.simplerpg.entity.effect.Effect;
 import com.romantupikov.game.simplerpg.entity.spell.AggroSpell;
 import com.romantupikov.game.simplerpg.entity.spell.MassHealSpell;
@@ -91,7 +94,7 @@ public class GameController implements Observable {
         dwarf1.getAttributes().setStrength(1f);
         dwarf1.setSupportSpell(new MassHealSpell(dwarf1));
         this.selectedUnit = dwarf1;
-        playerParty.add(dwarf1);
+        addAlly(dwarf1);
 
         Unit dwarf = entityFactory.createDummyUnit(RegionsNames.DWARF_BASE, "Dwarf Warrior", Unit.HeroClass.WARRIOR, playerInput);
         dwarf.setPosition(6f, 6f);
@@ -102,7 +105,7 @@ public class GameController implements Observable {
         dwarf.getAttributes().setIntelligence(1f);
         dwarf.getAttributes().setStrength(4f);
         dwarf.setSupportSpell(new AggroSpell(dwarf));
-        playerParty.add(dwarf);
+        addAlly(dwarf);
 
         Unit dwarf2 = entityFactory.createDummyUnit(RegionsNames.DWARF_FIRE_ACOLYTE, "Dwarf Fire Acolyte", Unit.HeroClass.MAGE, playerInput);
         dwarf2.setPosition(3f, 3f);
@@ -112,7 +115,7 @@ public class GameController implements Observable {
         dwarf2.getAttributes().setAttackRange(6f);
         dwarf2.getAttributes().setStrength(1f);
         dwarf2.getAttributes().setIntelligence(5f);
-        playerParty.add(dwarf2);
+        addAlly(dwarf2);
 
         // == enemy party ==
         Unit goblin = entityFactory.createDummyAIUnit(RegionsNames.GOBLIN_NINJA, "Goblin", Unit.HeroClass.WARRIOR);
@@ -120,7 +123,7 @@ public class GameController implements Observable {
         goblin.getAttributes().setAttackDelay(3f);
         goblin.getAttributes().setMaxHP(30f);
         this.aiSelectedUnit = goblin;
-        enemyParty.add(goblin);
+        addEnemy(goblin);
 
         goblin = entityFactory.createDummyAIUnit(RegionsNames.GOBLIN_BASE, "Goblin Healer", Unit.HeroClass.SUPPORT);
         goblin.setPosition(10f, 1f);
@@ -128,7 +131,7 @@ public class GameController implements Observable {
         goblin.getAttributes().setIntelligence(4f);
         goblin.getAttributes().setAttackRange(5f);
         goblin.getAttributes().setAttackDelay(3f);
-        enemyParty.add(goblin);
+        addEnemy(goblin);
 
         // TODO: 15-Nov-17 куда бы это запихнуть
         positionComparator = new Comparator<Unit>() {
@@ -142,9 +145,6 @@ public class GameController implements Observable {
                     return 0;
             }
         };
-
-        allUnits.addAll(enemyParty);
-        allUnits.addAll(playerParty);
 
         allUnits.sort(positionComparator);
     }
@@ -301,6 +301,26 @@ public class GameController implements Observable {
 
     public EffectFactory getEffectFactory() {
         return effectFactory;
+    }
+
+    public void addEnemy(Unit unit) {
+        enemyParty.add(unit);
+        allUnits.add(unit);
+    }
+
+    public void removeEnemy(Unit unit) {
+        enemyParty.removeValue(unit, true);
+        allUnits.removeValue(unit, true);
+    }
+
+    public void addAlly(Unit unit) {
+        playerParty.add(unit);
+        allUnits.add(unit);
+    }
+
+    public void removeAlly(Unit unit) {
+        playerParty.removeValue(unit, true);
+        allUnits.removeValue(unit, true);
     }
 
     // == override methods ==
