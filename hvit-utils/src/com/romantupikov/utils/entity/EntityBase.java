@@ -24,10 +24,6 @@ public abstract class EntityBase {
         debugColor = MaterialColor.PINK;
     }
 
-    public abstract void drawDebug(ShapeRenderer renderer);
-    public abstract void update(float delta);
-    public abstract void render(SpriteBatch batch);
-
     protected abstract void updateBounds();
 
     public void setPosition(float x, float y) {

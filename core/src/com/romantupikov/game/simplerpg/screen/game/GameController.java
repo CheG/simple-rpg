@@ -1,15 +1,22 @@
 package com.romantupikov.game.simplerpg.screen.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.romantupikov.game.simplerpg.SimpleRpgGame;
 import com.romantupikov.game.simplerpg.ai.EasyAI;
 import com.romantupikov.game.simplerpg.assets.RegionsNames;
 import com.romantupikov.game.simplerpg.entity.Unit;
+import com.romantupikov.game.simplerpg.entity.effect.Effect;
 import com.romantupikov.game.simplerpg.entity.spell.AggroSpell;
 import com.romantupikov.game.simplerpg.entity.spell.MassHealSpell;
+import com.romantupikov.game.simplerpg.entity.state.DeadState;
+import com.romantupikov.game.simplerpg.entity.state.IdleState;
+import com.romantupikov.game.simplerpg.entity.state.State;
 import com.romantupikov.game.simplerpg.factory.EffectFactory;
 import com.romantupikov.game.simplerpg.factory.EntityFactory;
 import com.romantupikov.game.simplerpg.factory.SpellFactory;
@@ -153,12 +160,86 @@ public class GameController implements Observable {
     }
 
     private void updateUnits(float delta) {
-        selectedUnit.handleInput();
-        aiSelectedUnit.handleInput();
+        handleInput(selectedUnit);
+        handleInput(aiSelectedUnit);
 
         for (int i = 0; i < allUnits.size; i++) {
             Unit unit = allUnits.get(i);
-            unit.update(delta);
+            turnToTarget(unit, delta);
+            updateUnitState(unit, delta);
+            updateUnitEffects(unit, delta);
+            updateUnitStats(unit, delta);
+        }
+    }
+
+    public void handleInput(Unit unit) {
+        State state = unit.getStates().first().handleInput(unit, unit.getInputHandler());
+
+        if (state != null) {
+            unit.addState(state);
+        }
+    }
+
+    private void updateUnitState(Unit unit, float delta) {
+        Queue<State> states = unit.getStates();
+        if (unit.getAttributes().isDead() && !(states.first() instanceof DeadState)) {
+            unit.setTarget(null);
+            states.clear();
+            states.addFirst(new IdleState());
+            State state = new DeadState();
+            unit.addState(state);
+        }
+
+        State state = states.first();
+        state.update(unit, delta);
+    }
+
+    private void updateUnitEffects(Unit unit, float delta) {
+        Array<Effect> effects = unit.getEffects();
+        for (int i = 0; i < effects.size; i++) {
+            Effect effect = effects.get(i);
+            if (effect.update(delta)) {
+                effects.removeIndex(i);
+            }
+        }
+    }
+
+    private void updateUnitStats(Unit unit, float delta) {
+        unit.getAttributes().addThreat(-delta);
+    }
+
+    private void turnToTarget(Unit unit, float delta) {
+        Vector2 lookAtPosition = null;
+        Unit target = unit.getTarget();
+        Vector2 moveTo = unit.getMoveTo();
+
+        if (target != null) {
+            lookAtPosition = target.getPosition();
+        } else if (moveTo != null) {
+            lookAtPosition = moveTo;
+        }
+        if (lookAtPosition != null) {
+            if ((unit.getPosition().x - lookAtPosition.x < -0.1f)) {
+                if (unit.getScaleX() >= 1f && unit.isLookingLeft()) {
+                    Gdx.app.debug("", "look right");
+                    unit.setScaleX(1f);
+                    unit.setLookingLeft(false);
+                    unit.setLookingRight(true);
+                }
+                if (unit.getScaleX() < 1f) {
+                    unit.setScaleX(unit.getScaleX() + delta * 5f);
+                }
+            } else if ((unit.getPosition().x - lookAtPosition.x > 0.1f)) {
+                if (unit.getScaleX() <= -1f && unit.isLookingRight()) {
+                    Gdx.app.debug("", "look left");
+                    unit.setScaleX(-1f);
+                    unit.setLookingLeft(true);
+                    unit.setLookingRight(false);
+                }
+                if (unit.getScaleX() > -1f) {
+                    unit.setScaleX(unit.getScaleX() - delta * 5f);
+                }
+            }
         }
     }
 

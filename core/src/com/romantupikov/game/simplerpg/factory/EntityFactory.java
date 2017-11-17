@@ -38,7 +38,7 @@ public class EntityFactory {
         TextureRegion region = gameplay.findRegion(regionName);
         TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
         Attributes attributes = new Attributes(name);
-        Unit unit = new Unit(controller, input, region, barRegion, attributes, heroClass);
+        Unit unit = new Unit(controller, input, region, attributes, heroClass);
 
 
         return unit;
@@ -48,7 +48,7 @@ public class EntityFactory {
         TextureRegion region = gameplay.findRegion(regionName);
         TextureRegion barRegion = gameplay.findRegion(RegionsNames.BAR);
         Attributes attributes = new Attributes(name);
-        Unit unit = new Unit(controller, aiInput, region, barRegion, attributes, heroClass);
+        Unit unit = new Unit(controller, aiInput, region, attributes, heroClass);
 
 
         return unit;

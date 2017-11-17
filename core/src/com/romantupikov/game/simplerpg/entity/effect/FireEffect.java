@@ -8,7 +8,7 @@ import com.romantupikov.game.simplerpg.entity.Unit;
  */
 
 public class FireEffect extends EffectBase {
-    float value;
+    private float value;
 
     public FireEffect(Unit unit, float value) {
         super(unit);

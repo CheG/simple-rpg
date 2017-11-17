@@ -15,17 +15,6 @@ public abstract class EntityRectBase extends EntityBase {
     }
 
     @Override
-    public void drawDebug(ShapeRenderer renderer) {
-        renderer.setColor(debugColor);
-        renderer.rect(bounds.x, bounds.y,
-                origX, origY,
-                bounds.width, bounds.height,
-                1f, 1f,
-                rotation);
-//        renderer.x(bounds.x + origX, bounds.y + origY, 0.1f);
-    }
-
-    @Override
     protected void updateBounds() {
         bounds.setPosition(position);
         bounds.setSize(width, height);

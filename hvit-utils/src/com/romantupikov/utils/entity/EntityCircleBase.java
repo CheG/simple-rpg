@@ -1,6 +1,5 @@
 package com.romantupikov.utils.entity;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 
 public abstract class EntityCircleBase extends EntityBase {
@@ -10,13 +9,6 @@ public abstract class EntityCircleBase extends EntityBase {
     public EntityCircleBase() {
         super();
         bounds = new Circle(position.x, position.y, radius);
-    }
-
-    @Override
-    public void drawDebug(ShapeRenderer renderer) {
-//        renderer.setColor(debugColor);
-        renderer.circle(bounds.x, bounds.y, bounds.radius, 20);
-        renderer.x(bounds.x, bounds.y, 0.1f);
     }
 
     @Override
